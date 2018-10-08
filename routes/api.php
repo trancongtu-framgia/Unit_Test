@@ -14,10 +14,14 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('signup', 'AuthController@signup');
+    Route::post('signup', 'AuthController@signup')->name('login');
     Route::post('login', 'AuthController@login');
 });
 
-Route::resource('/workspaces', 'WorkspaceController');
-Route::resource('/teams', 'TeamController');
-Route::resource('/types', 'TypeController');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('logout', 'AuthController@logout');
+    Route::get('current-user', 'AuthController@currentUser');
+    Route::resource('/workspaces', 'WorkspaceController');
+    Route::resource('/teams', 'TeamController');
+    Route::resource('/types', 'TypeController');
+});
