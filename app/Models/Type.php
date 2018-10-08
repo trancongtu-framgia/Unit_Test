@@ -12,12 +12,4 @@ class Type extends Model
     {
         return $this->hasMany('App\Batch');
     }
-
-    public function scopeUpdateType($query, $data, $id)
-    {
-        $type = Type::findOrFail($id);
-        $type->update($data);
-
-        return response()->json(['message' => config('api.update')]);
-    }
 }

@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use Validator;
 use App\Workspace;
+use App\Repositories\WorkspaceRepository;
 use Illuminate\Http\Request;
+use App\Http\Requests\WorkspaceRequest;
 use Illuminate\Support\Facades\Redirect;
 
 class WorkspaceController extends Controller
 {
+    private $workspaceRepository;
+
+    public function __construct(WorkspaceRepository $workspaceRepository)
+    {
+        $this->workspaceRepository = $workspaceRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,29 +38,17 @@ class WorkspaceController extends Controller
         //
     }
 
-    public function getRule()
-    {
-        return [
-            'name' => 'string|required|unique:workspaces'
-        ];
-    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WorkspaceRequest $request)
     {
-        $validator = Validator::make($request->all(), $this->getRule());
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            return $errors->toJson();
-        }
-
-        Workspace::create($request->all());
+        return $this->workspaceRepository->create(
+            $request->only('name')
+        );
     }
 
     /**
@@ -62,7 +59,7 @@ class WorkspaceController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->workspaceRepository->find($id);
     }
 
     /**
@@ -73,7 +70,7 @@ class WorkspaceController extends Controller
      */
     public function edit($id)
     {
-        return response()->json(Workspace::findOrFail($id));
+        //
     }
 
     /**
@@ -83,17 +80,9 @@ class WorkspaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(WorkspaceRequest $request, $id)
     {
-        $validator = Validator::make($request->only('name'), $this->getRule());
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            
-            return $errors->toJson();
-        }
-
-        Workspace::updateWorkspace($id, $request->only('name'));
+        return $this->workspaceRepository->update($request->only('name'), $id);
     }
 
     /**
@@ -104,6 +93,6 @@ class WorkspaceController extends Controller
      */
     public function destroy($id)
     {
-        Workspace::destroy($id);
+        return Workspace::destroy($id);
     }
 }

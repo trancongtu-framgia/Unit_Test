@@ -2,9 +2,30 @@
 
 namespace App;
 
+use App\Batch;
 use Illuminate\Database\Eloquent\Model;
 
 class Batch extends Model
 {
     protected $guarded = ['id'];
+
+    public function workspace()
+    {
+        return $this->belongsTo('App\Workspace');
+    }
+
+    public function team()
+    {
+        return $this->belongsTo('App\Team');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo('App\Type');
+    }
+
+    public function subjects()
+    {
+        return $this->belongsToMany('App\Subject');
+    }
 }

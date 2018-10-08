@@ -48,4 +48,14 @@ class User extends Authenticatable
 
         return $newUser;
     }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
+
+    public function notTrainee()
+    {
+        return $this->role->name !== config('api.trainee');
+    }
 }
