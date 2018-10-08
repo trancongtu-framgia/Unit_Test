@@ -19,3 +19,5 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::resource('/workspaces', 'WorkspaceController');
+Route::resource('/teams', 'TeamController');
+Route::resource('/types', 'TypeController');
