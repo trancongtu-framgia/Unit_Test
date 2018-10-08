@@ -32,5 +32,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\TeamRepository::class,
             \App\Repositories\BatchRepository::class
         );
+
+        $this->app->singleton(
+            \App\Repositories\Subject\SubjectRepositoryInterface::class,
+            \App\Repositories\Subject\SubjectEloquentRepository::class
+        );
     }
 }

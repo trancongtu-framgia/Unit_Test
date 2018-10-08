@@ -25,4 +25,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/teams', 'TeamController');
     Route::resource('/types', 'TypeController');
     Route::resource('/batches', 'BatchController');
+    Route::resource('/subjects', 'SubjectController');
 });
