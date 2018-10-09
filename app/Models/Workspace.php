@@ -12,10 +12,4 @@ class Workspace extends Model
     {
         return $this->hasMany('App\Batch');
     }
-
-    public function scopeUpdateWorkspace($query, $id, $data)
-    {
-        $workspace = Workspace::findOrFail($id);
-        $workspace->update($data);
-    }
 }

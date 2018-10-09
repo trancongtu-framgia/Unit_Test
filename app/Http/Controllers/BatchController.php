@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Type;
+use App\Batch;
 use Illuminate\Http\Request;
-use App\Http\Requests\TypeRequest;
-use App\Repositories\TypeRepository;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\BatchRequest;
+use App\Repositories\BatchRepository;
 
-class TypeController extends Controller
+class BatchController extends Controller
 {
-    private $typeRepository;
+    private $batchRepository;
 
-    public function __construct(TypeRepository $typeRepository)
+    public function __construct(BatchRepository $batchRepository)
     {
-        $this->typeRepository = $typeRepository;
+        $this->batchRepository = $batchRepository;
     }
 
     /**
@@ -24,7 +23,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return response()->json(Type::all());
+        return response()->json(Batch::all());
     }
 
     /**
@@ -43,12 +42,16 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TypeRequest $request)
+    public function store(BatchRequest $request)
     {
-        return $this->typeRepository->create(
+        return $this->batchRepository->create(
             $request->only(
-                'name',
-                'shorthand'
+                'start_day',
+                'stop_day',
+                'workspace_id',
+                'team_id',
+                'type_id',
+                'subject_ids'
             )
         );
     }
@@ -61,7 +64,7 @@ class TypeController extends Controller
      */
     public function show($id)
     {
-        return $this->typeRepository->find($id);
+        return $this->batchRepository->find($id);
     }
 
     /**
@@ -82,9 +85,19 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BatchRequest $request, $id)
     {
-        return $this->typeRepository->update($request->all(), $id);
+        return $this->batchRepository->update(
+            $request->only(
+                'start_day',
+                'stop_day',
+                'workspace_id',
+                'team_id',
+                'type_id',
+                'subject_ids'
+            ),
+            $id
+        );
     }
 
     /**
@@ -95,6 +108,6 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        return Type::destroy($id);
+        return Batch::destroy($id);
     }
 }

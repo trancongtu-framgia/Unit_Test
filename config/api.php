@@ -6,5 +6,7 @@ return [
     'logout' => [
         'success' => 'successfully logged out'
     ],
-    'unauthorized' => 'Unauthorized'
+    'unauthorized' => 'Unauthorized',
+    'trainee' => 'trainee',
+    'notfound' => 'Not found'
 ];

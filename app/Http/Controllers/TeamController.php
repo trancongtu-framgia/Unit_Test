@@ -6,9 +6,17 @@ use App\Team;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Requests\TeamRequest;
+use App\Repositories\TeamRepository;
 
 class TeamController extends Controller
 {
+    private $teamRepository;
+
+    public function __construct(TeamRepository $teamRepository)
+    {
+        $this->teamRepository = $teamRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,13 +45,11 @@ class TeamController extends Controller
      */
     public function store(TeamRequest $request)
     {
-        Team::create(
+        return $this->teamRepository->create(
             $request->only(
                 'name'
             )
         );
-
-        return response()->json(['message' => config('api.create')]);
     }
 
     /**
@@ -54,7 +60,7 @@ class TeamController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Team::findOrFail($id));
+        return $this->teamRepository->find($id);
     }
 
     /**
@@ -77,11 +83,11 @@ class TeamController extends Controller
      */
     public function update(TeamRequest $request, $id)
     {
-        return Team::updateTeam(
-            $id,
+        return $this->teamRepository->update(
             $request->only(
                 'name'
-            )
+            ),
+            $id
         );
     }
 

@@ -12,12 +12,4 @@ class Team extends Model
     {
         return $this->hasMany('App\Batch');
     }
-
-    public function scopeUpdateTeam($query, $id, $data)
-    {
-        $team = Team::findOrFail($id);
-        $team->update($data);
-
-        return response()->json(['message' => config('api.update')]);
-    }
 }
