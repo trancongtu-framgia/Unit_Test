@@ -39,8 +39,8 @@ abstract class EloquentRepository implements RepositoryInterface
     public function update($data, $id)
     {
         try {
-            $workspace = $this->model->findOrFail($id);
-            $workspace->update($data);
+            $result = $this->model->findOrFail($id);
+            $result->update($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
             return response()->json(['message' => config('api.notfound')]);
         } catch (\Exception $exception) {
@@ -56,6 +56,28 @@ abstract class EloquentRepository implements RepositoryInterface
             $this->model->create($data);
 
             return response()->json(['message' => config('api.create')]);
+        } catch (Exception $exception) {
+            return response()->json($exception);
+        }
+    }
+
+    public function getAll()
+    {
+        try {
+
+            return $this->model->all();
+        } catch (Exception $exception) {
+            return response()->json($exception);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $result = $this->model->find($id);
+            $result->delete();
+
+            return response()->json(['message' => config('api.deleted')]);
         } catch (Exception $exception) {
             return response()->json($exception);
         }

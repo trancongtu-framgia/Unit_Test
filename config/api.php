@@ -8,5 +8,6 @@ return [
     ],
     'unauthorized' => 'Unauthorized',
     'trainee' => 'trainee',
-    'notfound' => 'Not found'
+    'notfound' => 'Not found',
+    'deleted' => 'Successfully deleted'
 ];
