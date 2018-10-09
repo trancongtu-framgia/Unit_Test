@@ -37,5 +37,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\Subject\SubjectRepositoryInterface::class,
             \App\Repositories\Subject\SubjectEloquentRepository::class
         );
+
+        $this->app->singleton(
+            \App\Repositories\Reviews\ReviewRepositoryInterface::class,
+            \App\Repositories\Reviews\ReviewEloquentRepository::class
+        );
     }
 }

@@ -41,6 +41,8 @@ abstract class EloquentRepository implements RepositoryInterface
         try {
             $result = $this->model->findOrFail($id);
             $result->update($data);
+            
+            return $result;
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
             return response()->json(['message' => config('api.notfound')]);
         } catch (\Exception $exception) {
