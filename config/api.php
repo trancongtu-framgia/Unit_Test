@@ -9,5 +9,9 @@ return [
     'unauthorized' => 'Unauthorized',
     'trainee' => 'trainee',
     'notfound' => 'Not found',
-    'deleted' => 'Successfully deleted'
+    'deleted' => 'Successfully deleted',
+    'paginate' => 10,
+    'trainer' => 'trainer',
+    'admin' => 'admin',
+    'denied' => 'Permission Denied'
 ];
