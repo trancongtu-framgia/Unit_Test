@@ -17,7 +17,7 @@ class ReviewController extends Controller
         $this->review = $review;
     }
 
-    public function store (Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'content' => 'required|string',
@@ -32,7 +32,7 @@ class ReviewController extends Controller
         ]);
     }
 
-    public function update (Request $request, $id)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'content' => 'required|string',
@@ -44,7 +44,7 @@ class ReviewController extends Controller
         return new ReviewResource($review);
     }
 
-    public function destroy ($id)
+    public function destroy($id)
     {
         $review = $this->review->find($id);
         $this->authorize('delete', $review);

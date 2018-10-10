@@ -49,6 +49,11 @@ class User extends Authenticatable
         return $newUser;
     }
 
+    public function reports()
+    {
+        return $this->hasMany('App\Report');
+    }
+
     public function role()
     {
         return $this->belongsTo('App\Role');
@@ -57,5 +62,17 @@ class User extends Authenticatable
     public function notTrainee()
     {
         return $this->role->name !== config('api.trainee');
+    }
+    
+    public function canCreateReport()
+    {
+        $role = $this->role;
+
+        return $role->name !== config('api.trainer') && $role->name !== config('api.admin');
+    }
+
+    public function subjects()
+    {
+        return $this->belongsToMany('App\Subject', 'reports');
     }
 }

@@ -4,14 +4,13 @@ namespace App\Repositories;
 
 interface RepositoryInterface
 {
-
     public function getAll();
 
     public function find($id);
 
     public function create(array $data);
 
-    public function update($id, array $data);
+    public function update(array $data, $id);
 
     public function delete($id);
 }

@@ -36,7 +36,7 @@ abstract class EloquentRepository implements RepositoryInterface
         }
     }
     
-    public function update($data, $id)
+    public function update(array $data, $id)
     {
         try {
             $result = $this->model->findOrFail($id);
@@ -52,7 +52,7 @@ abstract class EloquentRepository implements RepositoryInterface
         return response()->json(['message' => config('api.update')]);
     }
 
-    public function create($data)
+    public function create(array $data)
     {
         try {
             $this->model->create($data);
@@ -66,7 +66,6 @@ abstract class EloquentRepository implements RepositoryInterface
     public function getAll()
     {
         try {
-
             return $this->model->all();
         } catch (Exception $exception) {
             return response()->json($exception);

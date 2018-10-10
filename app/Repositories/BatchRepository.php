@@ -12,7 +12,7 @@ class BatchRepository extends EloquentRepository
         return \App\Batch::class;
     }
 
-    public function create($data)
+    public function create(array $data)
     {
         DB::beginTransaction();
         try {
@@ -36,7 +36,7 @@ class BatchRepository extends EloquentRepository
         return response()->json(['message' => config('api.create')]);
     }
 
-    public function update($data, $id)
+    public function update(array $data, $id)
     {
         DB::beginTransaction();
         try {

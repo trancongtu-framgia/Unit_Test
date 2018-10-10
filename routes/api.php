@@ -27,5 +27,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/batches', 'BatchController');
     Route::resource('/subjects', 'SubjectController');
     Route::resource('/reviews', 'ReviewController');
+    Route::resource('/reports', 'ReportController');
 });
-
