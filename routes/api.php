@@ -28,4 +28,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/subjects', 'SubjectController');
     Route::resource('/reviews', 'ReviewController');
     Route::resource('/reports', 'ReportController');
+    Route::resource('/trainees', 'TraineeController');
+    Route::resource('/schedules', 'ScheduleController');
 });

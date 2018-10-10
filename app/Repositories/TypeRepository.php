@@ -6,6 +6,6 @@ class TypeRepository extends EloquentRepository
 {
     public function model()
     {
-        return App\Type::class;
+        return \App\Type::class;
     }
 }

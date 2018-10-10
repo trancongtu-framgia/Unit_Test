@@ -13,5 +13,8 @@ return [
     'paginate' => 10,
     'trainer' => 'trainer',
     'admin' => 'admin',
-    'denied' => 'Permission Denied'
+    'denied' => 'You don\'t have permission to do this action',
+    'default' => [
+        'password' => '12345678'
+    ]
 ];

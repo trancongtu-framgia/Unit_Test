@@ -75,4 +75,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Subject', 'reports');
     }
+    
+    public function batch()
+    {
+        return $this->belongsTo('App\Batch');
+    }
+
+    public function schedules()
+    {
+        return $this->hasManyThrough('App\Day', 'App\Month');
+    }
 }
