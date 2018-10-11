@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Subject' => 'App\Policies\ReportPolicy',
         'App\Report' => 'App\Policies\ReportPolicy',
         'App\Day' => 'App\Policies\SchedulePolicy'
+        \App\User::class => \App\Policies\UserPolicy::class,
     ];
 
     /**
@@ -30,7 +31,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Passport::routes();
-
-        //
     }
 }

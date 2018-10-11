@@ -84,5 +84,15 @@ class User extends Authenticatable
     public function schedules()
     {
         return $this->hasManyThrough('App\Day', 'App\Month');
+
+    public function isAdmin ()
+    {
+        $role = $this->role()->where('name', config('api.isAdmin'))->exists();
+
+        if ($role) {
+            return true;
+        }
+
+        return false;
     }
 }

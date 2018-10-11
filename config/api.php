@@ -16,5 +16,6 @@ return [
     'denied' => 'You don\'t have permission to do this action',
     'default' => [
         'password' => '12345678'
-    ]
+    ],
+    'isAdmin' => 'Admin'
 ];
