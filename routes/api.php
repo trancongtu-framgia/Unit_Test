@@ -21,6 +21,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('logout', 'AuthController@logout');
     Route::get('current-user', 'AuthController@currentUser');
+    Route::patch('update-role-user/{id}', 'UserController@updateRole');
     Route::resource('/workspaces', 'WorkspaceController');
     Route::resource('/teams', 'TeamController');
     Route::resource('/types', 'TypeController');
@@ -30,4 +31,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/reports', 'ReportController');
     Route::resource('/trainees', 'TraineeController');
     Route::resource('/schedules', 'ScheduleController');
+    Route::resource('/roles', 'RoleController');
 });
