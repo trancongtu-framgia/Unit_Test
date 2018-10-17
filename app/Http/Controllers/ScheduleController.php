@@ -26,8 +26,9 @@ class ScheduleController extends Controller
     public function index(Request $request)
     {
         $month = $request->has('month') ? $request->month : Carbon::now()->month;
+        $user = Auth::user();
 
-        return response()->json($this->scheduleRepository->thisMonth($month));
+        return ScheduleResource::collection($this->scheduleRepository->thisMonth($user->id, $month));
     }
 
     /**

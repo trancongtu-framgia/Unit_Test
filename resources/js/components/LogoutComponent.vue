@@ -4,11 +4,10 @@
 
 <script>
 export default {
-  created() {
-    this.$store.dispatch('destroyToken')
-        .then(response => {
-            this.$router.push({ name: 'todo' })
-        })
-  }
-}
+    created() {
+        this.$store.dispatch('destroyToken').then(response => {
+            this.$router.push({ name: 'index' });
+        });
+    }
+};
 </script>
