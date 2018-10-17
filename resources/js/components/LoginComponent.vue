@@ -39,7 +39,7 @@
                         <span class="m-login__account-msg">
                             Don't have an account yet ?
                         </span>&nbsp;&nbsp;
-                        <a href="javascript:;" id="m_login_signup" class="m-link m-link--light m-login__account-link">Sign Up</a>
+                        <router-link :to="{ name: 'register-account-trainee'}" id="m_login_signup" class="m-link m-link--light m-login__account-link">Sign Up</router-link>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@ export default {
                 .then(response => {
                     this.$router.push({ name: 'index' });
                 });
+            }
         }
-    }
 };
 </script>

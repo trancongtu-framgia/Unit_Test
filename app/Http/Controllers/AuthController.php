@@ -17,6 +17,8 @@ class AuthController extends Controller
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
             'school' => 'required|string|max:191',
+            'batch_id' => 'required',
+            'role_id' => 'required'
         ]);
         $newUser = User::createUser($request);
 
