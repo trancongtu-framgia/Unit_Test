@@ -14,7 +14,7 @@
                         </div>
                         <form class="m-login__form m-form" @submit.prevent="login">
                             <div class="form-group m-form__group">
-                                <input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off" v-model="email">
+                                <input class="form-control m-input" type="text" placeholder="Email" name="email" v-model="email">
                             </div>
                             <div class="form-group m-form__group">
                                 <input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password" v-model="password">
@@ -48,26 +48,27 @@
 </template>
 
 <script type="text/javascript">
-    export default {
-        name: 'login',
-        data () {
-            return {
-                email: '',
-                password: '',
-                remember_me: false
-            }
-        },
-        methods: {
-            login () {
-                this.$store.dispatch('login', {
+export default {
+    name: 'login',
+    data() {
+        return {
+            email: '',
+            password: '',
+            remember_me: false
+        };
+    },
+    methods: {
+        login() {
+            this.$store
+                .dispatch('login', {
                     email: this.email,
                     password: this.password,
                     remember_me: this.remember_me
                 })
                 .then(response => {
-                    this.$router.push({ name: 'todo' })
-                })
-            }
+                    this.$router.push({ name: 'index' });
+                });
         }
     }
+};
 </script>

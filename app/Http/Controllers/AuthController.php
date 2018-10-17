@@ -23,7 +23,12 @@ class AuthController extends Controller
         return new UserResource($newUser);
     }
 
-    public function login (Request $request)
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+    public function login(Request $request)
     {
         $request->validate([
             'email' => 'required|string|email|min:3',
@@ -33,7 +38,6 @@ class AuthController extends Controller
 
         $credentials = request(['email', 'password']);
         if (!Auth::attempt($credentials)) {
-
             return response()->json([
                 'message' => config('api.unauthorized')
             ]);
@@ -55,7 +59,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout (Request $request)
+    public function logout(Request $request)
     {
         $request->user()->token()->revoke();
 

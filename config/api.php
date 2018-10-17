@@ -6,7 +6,7 @@ return [
     'logout' => [
         'success' => 'successfully logged out'
     ],
-    'unauthorized' => 'Unauthorized',
+    'unauthorized' => 'These credentials do not match our records.',
     'trainee' => 'trainee',
     'notfound' => 'Not found',
     'deleted' => 'Successfully deleted',
@@ -17,5 +17,13 @@ return [
     'default' => [
         'password' => '12345678'
     ],
-    'isAdmin' => 'Admin'
+    'isAdmin' => 'Admin',
+    'status' => [
+        0 => 'Skip',
+        1 => 'Morning',
+        2 => 'Afternoon',
+        3 => 'Fulltime'
+    ],
+    'vendors' => '/assets/vendors/base/',
+    'base' => '/assets/demo/default/base/',
 ];

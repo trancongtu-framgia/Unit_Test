@@ -12,7 +12,7 @@ class DayRepository extends EloquentRepository
         return \App\Day::class;
     }
 
-    public function thisMonth($month)
+    public function thisMonth($id, $month)
     {
         return $this->model->select(
                 DB::raw(
@@ -25,6 +25,7 @@ class DayRepository extends EloquentRepository
                     months.year'
                 )
             )->join('months', 'days.month_id', 'months.id')
+            ->where('user_id', $id)
             ->where('months.month', '=', $month)
             ->orderBy(DB::raw('months.year, days.day'))
             ->get();
