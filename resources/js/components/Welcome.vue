@@ -101,6 +101,12 @@ export default {
 
     created() {
         this.fetchSchedule();
+        axios.get('/schedules', {
+            headers: this.$store.state.headers
+        })
+        .then(res => {
+            this.events = res.data;
+        });
     },
 
     methods: {

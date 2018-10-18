@@ -14,9 +14,13 @@ import router from './routers';
 import 'fullcalendar/dist/fullcalendar.css';
 import { store } from './store/store';
 import axios from 'axios';
+
 Vue.use(VueRouter);
 Vue.use(FullCalendar);
 
+if (localStorage.getItem('access_token')) {
+    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' +  localStorage.getItem('access_token')
+}
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

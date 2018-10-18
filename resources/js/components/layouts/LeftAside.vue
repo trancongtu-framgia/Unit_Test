@@ -50,72 +50,64 @@
                             </li>
                         </ul>
                     </div>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a class="m-menu__link" data-toggle="modal" data-target="#m_modal_1">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">Work Space</span>
-                        </a>
-                    </li>
+                </li>
+
+                <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                    <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                        <i class="m-menu__link-icon flaticon-menu-button"></i>
+                        <span class="m-menu__link-text">Manager</span>
+                        <i class="m-menu__ver-arrow la la-angle-right"></i>
+                    </a>
+                    <div class="m-menu__submenu">
+                        <span class="m-menu__arrow"></span>
+                        <ul class="m-menu__subnav">
+                            <li class="m-menu__item " aria-haspopup="true">
+                                <a class="m-menu__link" data-toggle="modal" data-target="#m_modal_1">
+                                    <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="m-menu__link-text">Work Space</span>
+                                </a>
+                            </li>
+                            <li class="m-menu__item " aria-haspopup="true">
+                                <a class="m-menu__link" data-toggle="modal" data-target="#m_modal_2">
+                                    <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="m-menu__link-text">Team</span>
+                                </a>
+                            </li>
+
+                            <li class="m-menu__item " aria-haspopup="true">
+                                <a class="m-menu__link" data-toggle="modal" data-target="#m_modal_3">
+                                    <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="m-menu__link-text">Types</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
-
-        <!-- END: Aside Menu -->
     </div>
-    <!-- all modal -->
-    <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form @submit.prevent="addWorkSpace">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create work space</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="recipient-name" class="form-control-label">Name</label>
-                            <input type="text" class="form-control" id="recipient-name" v-model="name">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" @click="addWorkSpace" data-dismiss="modal">Create</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- end modal -->
+    <modal></modal>
+    <modalTeam></modalTeam>
+    <modalType></modalType>
 </div>
 </template>
 
 <script type="text/javascript">
+    import modal from './ModalComponent.vue'
+    import modalTeam from './ModalTeamsComponent.vue'
+    import modalType from './ModalTypeComponent.vue'
     export default {
         name: 'left-aside',
-        data () {
-            return {
-                name: '',
-            }
-        },
-
-        methods: {
-            addWorkSpace () {
-                this.$store.dispatch('workspace/addWorkSpace', {
-                    name: this.name
-                })
-                .then(res => {
-                    this.hideModel = 'modal'
-                    confirm('Add success!!')
-
-                })
-                .catch(error => {
-                    
-                })
-            },
-        },
+        components: {
+            modal,
+            modalTeam,
+            modalType
+        }
     }
 </script>
