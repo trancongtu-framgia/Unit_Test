@@ -6,7 +6,7 @@ use App\Day;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use \App\Repositories\DayRepository;
+use \App\Repositories\ScheduleRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ScheduleResource;
 
@@ -14,7 +14,7 @@ class ScheduleController extends Controller
 {
     private $scheduleRepository;
 
-    public function __construct(DayRepository $scheduleRepository)
+    public function __construct(ScheduleRepository $scheduleRepository)
     {
         $this->scheduleRepository = $scheduleRepository;
     }
@@ -25,10 +25,9 @@ class ScheduleController extends Controller
      */
     public function index(Request $request)
     {
-        $month = $request->has('month') ? $request->month : Carbon::now()->month;
         $user = Auth::user();
 
-        return ScheduleResource::collection($this->scheduleRepository->thisMonth($user->id, $month));
+        return ScheduleResource::collection($this->scheduleRepository->showSchedule($user->id));
     }
 
     /**
@@ -62,7 +61,7 @@ class ScheduleController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return response()->json(ScheduleResource::collection($user->schedules));
+        return ScheduleResource::collection($this->scheduleRepository->showSchedule($user->id));
     }
 
     /**

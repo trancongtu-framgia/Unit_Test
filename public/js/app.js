@@ -85901,6 +85901,7 @@ var render = function() {
                             { staticClass: "m-portlet__body" },
                             [
                               _c("full-calendar", {
+                                ref: "calendar",
                                 attrs: {
                                   events: _vm.events,
                                   config: _vm.config,

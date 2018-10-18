@@ -81,12 +81,19 @@ class User extends Authenticatable
         return $this->belongsTo('App\Batch');
     }
 
+    public function dayMonths()
+    {
+        return $this->belongsToMany('App\DayMonth', 'schedules', 'user_id', 'day_month_id')
+                    ->withPivot('status')
+                    ->withTimestamps();
+    }
+
     public function schedules()
     {
-        return $this->hasManyThrough('App\Day', 'App\Month');
+        return $this->hasMany('App\Schedules');
     }
     
-    public function isAdmin ()
+    public function isAdmin()
     {
         $role = $this->role()->where('name', config('api.isAdmin'))->exists();
 

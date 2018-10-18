@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                                 <div class="m-portlet__body">
-                                    <full-calendar :events="events" :config="config" :header="header"></full-calendar>
+                                    <full-calendar ref="calendar" :events="events" :config="config" :header="header"></full-calendar>
                                 </div>
                             </div>
 

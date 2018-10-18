@@ -108,6 +108,6 @@ class BatchController extends Controller
      */
     public function destroy($id)
     {
-        return Batch::destroy($id);
+        return $this->batchRepository->destroy($id);
     }
 }

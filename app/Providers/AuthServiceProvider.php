@@ -18,7 +18,7 @@ class AuthServiceProvider extends ServiceProvider
         \App\Review::class => \App\Policies\ReviewPolicy::class,
         'App\Subject' => 'App\Policies\ReportPolicy',
         'App\Report' => 'App\Policies\ReportPolicy',
-        'App\Day' => 'App\Policies\SchedulePolicy',
+        'App\Schedule' => 'App\Policies\SchedulePolicy',
         \App\User::class => \App\Policies\UserPolicy::class,
     ];
 

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Day;
 use App\Month;
+use App\DayMonth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -31,46 +32,9 @@ class UserRepository extends EloquentRepository
         DB::beginTransaction();
         try {
             $user = $this->model->create($data);
-
-            $batch = $user->batch;
-            $start = Carbon::parse($batch->start_day);
-            $stop = Carbon::parse($batch->stop_day);
-            $diff_month = $start->diffInMonths($stop);
-
-            $start_day = $start->day;
-            $month = $start->month;
-            $year = $start->year;
-            $stop_day = $stop->day;
-            $stop_month = $stop->month;
-            $stop_year = $stop->year;
-
-            for ($i = 0; $i <= $diff_month; $i++) {
-                if ($month >= 12) {
-                    $month = 1;
-                    $year++;
-                }
-
-                $created_month = Month::create([
-                    'user_id' => $user->id,
-                    'month' => $month,
-                    'year' => $year
-                ]);
-
-                $num_of_days = $month !== $stop_month
-                                || $year !== $stop_year ? cal_days_in_month(CAL_GREGORIAN, $month, $year) : $stop_day;
-
-                for ($j = $start_day; $j <= $num_of_days; $j++) {
-                    $dayofweek = Carbon::create($year, $month, $j)->dayOfWeek;
-                    Day::create([
-                        'day' => $j,
-                        'status' => 0,
-                        'month_id' => $created_month->id,
-                        'dayofweek' => $dayofweek
-                    ]);
-                }
-                $start_day = 1;
-                $month++;
-            }
+            $month_ids = Month::where('batch_id', $user->batch_id)->get()->pluck('id');
+            $ids = DayMonth::whereIn('month_id', $month_ids)->get()->pluck('id');
+            $user->dayMonths()->attach($ids, ['status' => config('api.default.status')]);
 
             DB::commit();
 
