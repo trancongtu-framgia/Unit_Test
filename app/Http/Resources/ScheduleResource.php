@@ -22,10 +22,6 @@ class ScheduleResource extends JsonResource
         $className = null;
 
         switch ($this->status) {
-            case 0: {
-                $status = config('api.status.' . $this->status);
-                break;
-            }
             case 1: {
                 $status = config('api.status.' . $this->status);
                 $className = 'm-fc-event--solid-success';
@@ -41,6 +37,10 @@ class ScheduleResource extends JsonResource
                 $className = 'm-fc-event--solid-warning';
                 break;
             }
+            default: {
+                $status = config('api.status.' . $this->status);
+                break;
+            }
         }
 
         return [
@@ -48,10 +48,9 @@ class ScheduleResource extends JsonResource
             'title' => $status,
             'start' => $date->toDateString(),
             'className' => $className,
-            'dayofweek' => $this->dayofweek,
             'month' => $this->month,
             'year' => $this->year,
-            'user_id' => $this->user_id
+            'user_id' => $this->user_id,
         ];
     }
 }

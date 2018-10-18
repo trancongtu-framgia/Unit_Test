@@ -3,6 +3,7 @@
 return [
     'create' => 'Add successful!',
     'update' => 'Update successful!',
+    'delete' => 'Delete successful!',
     'logout' => [
         'success' => 'successfully logged out'
     ],
@@ -15,7 +16,8 @@ return [
     'admin' => 'admin',
     'denied' => 'You don\'t have permission to do this action',
     'default' => [
-        'password' => '12345678'
+        'password' => '12345678',
+        'status' => 0
     ],
     'isAdmin' => 'Admin',
     'status' => [

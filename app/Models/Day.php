@@ -8,8 +8,13 @@ class Day extends Model
 {
     protected $guarded = ['id'];
 
-    public function month()
+    public function months()
     {
-        return $this->belongsTo('App\Month');
+        return $this->belongsToMany('App\Month')->withTimestamps();
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User')->withPivot('status');
     }
 }

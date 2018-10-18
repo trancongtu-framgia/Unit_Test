@@ -28,4 +28,14 @@ class Batch extends Model
     {
         return $this->belongsToMany('App\Subject');
     }
+
+    public function months()
+    {
+        return $this->hasMany('App\Month');
+    }
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 }
