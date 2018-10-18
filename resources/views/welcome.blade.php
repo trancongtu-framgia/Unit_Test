@@ -22,5 +22,4 @@
 		<script src="{{ asset(config('api.vendors') . 'vendors.bundle.js') }}" type="text/javascript"></script>
 		<script src="{{ asset(config('api.base') . 'scripts.bundle.js') }}" type="text/javascript"></script>
 		<script src="{{ asset('js/app.js') }}"></script>		
-    </body>
 </html>

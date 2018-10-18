@@ -30,8 +30,8 @@ export const store = new Vuex.Store({
         },
 
         getUser(state, user) {
-            state.user = user;
-        }
+            state.user = user
+        },
     },
 
     getters: {
@@ -90,9 +90,34 @@ export const store = new Vuex.Store({
             axios.defaults.headers.common['Authorization'] =
                 'Bearer ' + localStorage.getItem('access_token');
 
-            axios.get('/current-user').then(response => {
-                context.commit('getUser', response);
-            });
-        }
+            axios.get('/current-user')
+                .then(response => {
+                    context.commit('getUser', response);
+                })
+        },
+
+        signup(context, data) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
+
+            if (context.getters.loggedIn) {
+                return new Promise((resolve, reject) => {
+                    axios.post('/signup', {
+                        name: data.name,
+                        email: data.email,
+                        password: data.password,
+                        password_confirmation: data.password_confirm,
+                        school: data.school,
+                        batch_id: data.batch_id,
+                        role_id: data.role_id
+                    })
+                        .then(response => {
+                            resolve(response)
+                        })
+                        .catch(error => {
+                            reject(error)
+                        })
+                })
+            }
+        },
     }
 });

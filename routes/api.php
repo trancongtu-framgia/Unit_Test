@@ -14,11 +14,11 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('signup', 'AuthController@signup')->name('signup');
     Route::post('login', 'AuthController@login')->name('login');
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('signup', 'AuthController@signup');
     Route::get('logout', 'AuthController@logout');
     Route::get('current-user', 'AuthController@currentUser');
     Route::patch('update-role-user/{id}', 'UserController@updateRole');
