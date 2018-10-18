@@ -1,11 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import workspace from './modules/workspace/index'
 
 Vue.use(Vuex);
 axios.defaults.baseURL = '/api';
 
 export const store = new Vuex.Store({
+    modules: {
+        workspace: workspace,
+    },
+
     state: {
         token: localStorage.getItem('access_token') || null,
         user: {},
