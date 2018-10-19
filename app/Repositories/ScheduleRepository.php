@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ScheduleRepository extends EloquentRepository
@@ -24,5 +25,26 @@ class ScheduleRepository extends EloquentRepository
                 'dayMonth.id'
             )
             ->where('user_id', $id)->get();
+    }
+
+    public function findByDate($date, $id)
+    {
+        $day = date('j', strtotime($date));
+        $month = date('n', strtotime($date));
+        $year = date('Y', strtotime($date));
+
+        return $this->model->where('user_id', $id)
+                ->whereIn(
+                    'day_month_id',
+                    DB::table('day_month')
+                            ->join('days', 'day_id', 'days.id')
+                            ->join('months', 'month_id', 'months.id')
+                            ->select('day_month.id')
+                            ->where([
+                                'days.day' => $day,
+                                'months.month' => $month,
+                                'months.year' => $year
+                            ])
+                        )->first();
     }
 }

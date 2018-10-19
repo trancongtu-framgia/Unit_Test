@@ -31,5 +31,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/reports', 'ReportController');
     Route::resource('/trainees', 'TraineeController');
     Route::resource('/schedules', 'ScheduleController');
+    Route::put('/schedules', 'ScheduleController@update');
     Route::resource('/roles', 'RoleController');
 });

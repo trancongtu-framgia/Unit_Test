@@ -82,21 +82,24 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $this->validate($request, [
-            'status' => 'required|integer'
+            'status' => 'required|integer',
+            'date' => 'required|date'
         ]);
-        
-        $schedule = $this->scheduleRepository->find($id);
 
-        if (Auth::user()->cannot('update', $schedule)) {
+        $user = Auth::user();
+        
+        $schedule = $this->scheduleRepository->findByDate($request->date, $user->id);
+
+        if ($user->cannot('update', $schedule)) {
             return response()->json(['message' => config('api.denied')]);
         }
 
         return $this->scheduleRepository->update(
             $request->only('status'),
-            $id
+            $schedule->id
         );
     }
 
