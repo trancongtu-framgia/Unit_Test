@@ -12,6 +12,7 @@
 		
 		<link href="{{ asset(config('api.vendors') . 'vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="{{ asset(config('api.base') . 'style.bundle.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ asset('css/master.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     </head>

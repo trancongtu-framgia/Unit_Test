@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-        
+       
                 <!-- END: Subheader -->  
                 
                 <div class="m-content">
@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                                 <div class="m-portlet__body">
-                                    <full-calendar ref="calendar" :events="events" :config="config" :header="header"></full-calendar>
+                                    <full-calendar ref="calendar" @event-selected="showEdit" :events="events" :config="config" :header="header"></full-calendar>
                                 </div>
                             </div>
 
@@ -66,13 +66,17 @@
                 </div>
             </div>
         </div>
-            
         <vue-footer></vue-footer>
     </div>
-
     <div id="m_scroll_top" class="m-scroll-top">
         <i class="la la-arrow-up"></i>
     </div>
+    <select ref="editCalendar" v-show="editting" name="status" class="form-select col-md-9" v-model="status" @change="changeStatus">
+        <option value="0" selected>Skip</option>
+        <option value="1">Morning</option>
+        <option value="2">Afternoon</option>
+        <option value="3">Fulltime</option>
+    </select>
 </div>
 </template>
 
@@ -88,19 +92,42 @@ export default {
                 left: 'prev,next',
                 center: 'title',
                 right: ''
-            }
+            },
+            editting: false,
+            status: '',
+            date: ''
         };
     },
 
     created() {
-        console.log(this.$store.state.headers);
-        fetch('/api/schedules', {
-            headers: this.$store.state.headers
-        })
-            .then(res => res.json())
-            .then(res => {
-                this.events = res.data;
+        this.fetchSchedule();
+    },
+
+    methods: {
+        fetchSchedule() {
+            fetch('/api/schedules', {
+                headers: this.$store.state.headers
+            })
+                .then(res => res.json())
+                .then(res => {
+                    this.events = res.data;
+                });
+        },
+        showEdit: function(date, jsEvent, view) {
+            this.editting = true;
+            let element = this.$refs.editCalendar;
+            this.date = date.start._i;
+            jsEvent.target.parentElement.replaceWith(element);
+        },
+        changeStatus() {
+            fetch('/api/schedules', {
+                method: 'put',
+                body: JSON.stringify({ date: this.date, status: this.status }),
+                headers: this.$store.state.headers
+            }).then(res => {
+                this.fetchSchedule();
             });
+        }
     }
 };
 </script>

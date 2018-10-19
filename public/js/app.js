@@ -85825,6 +85825,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -85837,20 +85841,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 left: 'prev,next',
                 center: 'title',
                 right: ''
-            }
+            },
+            editting: false,
+            status: '',
+            date: ''
         };
     },
     created: function created() {
-        var _this = this;
+        this.fetchSchedule();
+    },
 
-        console.log(this.$store.state.headers);
-        fetch('/api/schedules', {
-            headers: this.$store.state.headers
-        }).then(function (res) {
-            return res.json();
-        }).then(function (res) {
-            _this.events = res.data;
-        });
+
+    methods: {
+        fetchSchedule: function fetchSchedule() {
+            var _this = this;
+
+            fetch('/api/schedules', {
+                headers: this.$store.state.headers
+            }).then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                _this.events = res.data;
+            });
+        },
+
+        showEdit: function showEdit(date, jsEvent, view) {
+            this.editting = true;
+            var element = this.$refs.editCalendar;
+            this.date = date.start._i;
+            jsEvent.target.parentElement.replaceWith(element);
+        },
+        changeStatus: function changeStatus() {
+            var _this2 = this;
+
+            fetch('/api/schedules', {
+                method: 'put',
+                body: JSON.stringify({ date: this.date, status: this.status }),
+                headers: this.$store.state.headers
+            }).then(function (res) {
+                _this2.fetchSchedule();
+            });
+        }
     }
 });
 
@@ -85906,7 +85937,8 @@ var render = function() {
                                   events: _vm.events,
                                   config: _vm.config,
                                   header: _vm.header
-                                }
+                                },
+                                on: { "event-selected": _vm.showEdit }
                               })
                             ],
                             1
@@ -85926,7 +85958,57 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _vm._m(2)
+    _vm._m(2),
+    _vm._v(" "),
+    _c(
+      "select",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.editting,
+            expression: "editting"
+          },
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.status,
+            expression: "status"
+          }
+        ],
+        ref: "editCalendar",
+        staticClass: "form-select col-md-9",
+        attrs: { name: "status" },
+        on: {
+          change: [
+            function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.status = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            },
+            _vm.changeStatus
+          ]
+        }
+      },
+      [
+        _c("option", { attrs: { value: "0", selected: "" } }, [_vm._v("Skip")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "1" } }, [_vm._v("Morning")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "2" } }, [_vm._v("Afternoon")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "3" } }, [_vm._v("Fulltime")])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
