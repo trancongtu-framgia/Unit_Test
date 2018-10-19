@@ -52,6 +52,10 @@ router.beforeEach((to, from, next) => {
     }
 });
 
+if (localStorage.getItem('access_token')) {
+    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' +  localStorage.getItem('access_token')
+}
+
 Vue.component('master', require('./components/Welcome.vue'));
 Vue.component('vue-app', require('./components/App.vue'));
 Vue.component('vue-footer', require('./components/layouts/Footer.vue'));

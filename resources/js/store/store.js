@@ -4,6 +4,7 @@ import axios from 'axios';
 import workspace from './modules/workspace/index';
 import team from './modules/teams/index';
 import type from './modules/types/index';
+import reports from './modules/reports/index';
 
 Vue.use(Vuex);
 axios.defaults.baseURL = '/api';
@@ -12,7 +13,8 @@ export const store = new Vuex.Store({
     modules: {
         workspace: workspace,
         team: team,
-        type: type
+        type: type,
+        reports: reports
     },
 
     state: {

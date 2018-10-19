@@ -29,4 +29,6 @@ return [
     ],
     'vendors' => '/assets/vendors/base/',
     'base' => '/assets/demo/default/base/',
+    'baseCss' => '/css/',
+    'baseJs' => '/js/'
 ];

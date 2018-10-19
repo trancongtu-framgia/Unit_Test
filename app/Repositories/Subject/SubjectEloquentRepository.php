@@ -15,6 +15,6 @@ class SubjectEloquentRepository extends EloquentRepository implements SubjectRep
 
     public function getNameSubject ()
     {
-        return $this->model->select('name')->get();
+        return $this->model->select(['name', 'day', 'created_at', 'id'])->get();
     }
 }
