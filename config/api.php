@@ -17,7 +17,8 @@ return [
     'denied' => 'You don\'t have permission to do this action',
     'default' => [
         'password' => '12345678',
-        'status' => 0
+        'status' => 0,
+        'language' => 'en'
     ],
     'isAdmin' => 'Admin',
     'status' => [
