@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="m-grid m-grid--hor m-grid--root m-page">
-        <vue-header></vue-header>
+        <vue-header :loggedUser="user" @getUser="user = $event"></vue-header>
 
         <left-aside></left-aside>
 
@@ -55,9 +55,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="m-portlet__body">
-                                    <full-calendar ref="calendar" @event-selected="showEdit" :events="events" :config="config" :header="header"></full-calendar>
-                                </div>
+                                <template v-if="this.user.role === 'trainee'">
+                                    <div class="m-portlet__body">
+                                        <full-calendar ref="calendar" @event-selected="showEdit" :events="events" :config="config" :header="header"></full-calendar>
+                                    </div>
+                                    <select ref="editCalendar" v-show="editting" name="status" class="form-select col-md-9" v-model="status" @change="changeStatus">
+                                        <option value="0">{{ $t('Skip') }}</option>
+                                        <option value="1">{{ $t('Morning') }}</option>
+                                        <option value="2">{{ $t('Afternoon') }}</option>
+                                        <option value="3">{{ $t('Fulltime') }}</option>
+                                    </select>                                    
+                                </template>
+                                <template v-else>
+                                    <div class="m-portlet__body">
+                                        <full-calendar ref="calendar" :events="events" :config="config" :header="header"></full-calendar>
+                                    </div>     
+                                </template>
                             </div>
 
                             <!--end::Portlet-->
@@ -71,12 +84,6 @@
     <div id="m_scroll_top" class="m-scroll-top">
         <i class="la la-arrow-up"></i>
     </div>
-    <select ref="editCalendar" v-show="editting" name="status" class="form-select col-md-9" v-model="status" @change="changeStatus">
-        <option value="0" selected>Skip</option>
-        <option value="1">Morning</option>
-        <option value="2">Afternoon</option>
-        <option value="3">Fulltime</option>
-    </select>
 </div>
 </template>
 
@@ -84,6 +91,9 @@
 export default {
     data() {
         return {
+            user: {
+                role: ''
+            },
             events: [''],
             config: {
                 defaultView: 'month'
@@ -113,6 +123,9 @@ export default {
                     let self = this;
                     res.data.forEach(function(event) {
                         event.title = self.$t(event.title);
+                        if (event.count) {
+                            event.title = event.title + ' : ' + event.count;
+                        }
                     });
                     this.events = res.data;
                 });
@@ -121,7 +134,31 @@ export default {
             this.editting = true;
             let element = this.$refs.editCalendar;
             this.date = date.start._i;
-            jsEvent.target.parentElement.replaceWith(element);
+            let doc = jsEvent.target;
+            let note = null;
+            if (doc.className === 'fc-title') {
+                note = doc;
+            } else {
+                for (var i = 0; i < doc.childNodes.length; i++) {
+                    if (doc.childNodes[i].className == 'fc-title') {
+                        note = doc.childNodes[i];
+                        break;
+                    }
+                }
+            }
+            for (var i = 0; i < element.childNodes.length; i++) {
+                let ele = element.childNodes[i];
+                if (element.childNodes[i].innerHTML === note.innerHTML) {
+                    this.status = ele.value;
+                    break;
+                }
+            }
+            let parent = jsEvent.target;
+            while (parent) {
+                if (parent.className === 'fc-event-container') break;
+                parent = parent.parentElement;
+            }
+            parent.childNodes[0].replaceWith(element);
         },
         changeStatus() {
             fetch('/api/schedules', {

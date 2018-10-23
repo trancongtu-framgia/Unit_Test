@@ -27,6 +27,27 @@ class ScheduleRepository extends EloquentRepository
             ->where('user_id', $id)->get();
     }
 
+    public function traineeSchedule()
+    {
+        return $this->model
+            ->select(DB::raw('schedules.id, day_month_id, day, month, year, status, count(*) as count'))
+            ->join(
+                DB::raw('(select day_month.id, day, month, year
+                        from day_month
+                        inner join days on day_id = days.id
+                        inner join months on month_id = months.id
+                ) as dayMonth'),
+                'day_month_id',
+                'dayMonth.id'
+            )
+            ->where('status', '>', '0')
+            ->groupBy('status', 'year', 'month', 'day')
+            ->orderBy('year')
+            ->orderBy('month')
+            ->orderBy('day')
+            ->get();
+    }
+
     public function findByDate($date, $id)
     {
         $day = date('j', strtotime($date));

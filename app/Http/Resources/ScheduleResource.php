@@ -43,7 +43,7 @@ class ScheduleResource extends JsonResource
             }
         }
 
-        return [
+        $data = [
             'id' => $this->id,
             'title' => $status,
             'start' => $date->toDateString(),
@@ -52,5 +52,11 @@ class ScheduleResource extends JsonResource
             'year' => $this->year,
             'user_id' => $this->user_id,
         ];
+
+        if ($this->count) {
+            $data = array_merge($data, ['count' => $this->count]);
+        }
+
+        return $data;
     }
 }
