@@ -56,7 +56,7 @@
                             <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
                                 <a href="javascript:;" class="m-menu__link m-menu__toggle">
                                     <i class="m-menu__link-icon flaticon-add"></i>
-                                    <span class="m-menu__link-text">Actions</span>
+                                    <span class="m-menu__link-text">{{ $t('Actions') }}</span>
                                     <i class="m-menu__hor-arrow la la-angle-down"></i>
                                     <i class="m-menu__ver-arrow la la-angle-right"></i>
                                 </a>
@@ -66,7 +66,7 @@
                                         <li class="m-menu__item " aria-haspopup="true">
                                             <a href="../../header/actions.html" class="m-menu__link ">
                                                 <i class="m-menu__link-icon flaticon-file"></i>
-                                                <span class="m-menu__link-text">Create New Post</span>
+                                                <span class="m-menu__link-text">{{ $t('Create New Post') }}</span>
                                             </a>
                                         </li>
                                         <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
@@ -74,7 +74,7 @@
                                                 <i class="m-menu__link-icon flaticon-diagram"></i>
                                                 <span class="m-menu__link-title">
                                                     <span class="m-menu__link-wrap">
-                                                        <span class="m-menu__link-text">Generate Reports</span>
+                                                        <span class="m-menu__link-text">{{ $t('Generate Reports') }}</span>
                                                         <span class="m-menu__link-badge">
                                                             <span class="m-badge m-badge--success">2</span>
                                                         </span>
@@ -85,7 +85,7 @@
                                         <li class="m-menu__item  m-menu__item--submenu" m-menu-submenu-toggle="hover" m-menu-link-redirect="1" aria-haspopup="true">
                                             <a href="javascript:;" class="m-menu__link m-menu__toggle">
                                                 <i class="m-menu__link-icon flaticon-business"></i>
-                                                <span class="m-menu__link-text">Manage Orders</span>
+                                                <span class="m-menu__link-text">{{ $t('Manage Orders') }}</span>
                                                 <i class="m-menu__hor-arrow la la-angle-right"></i>
                                                 <i class="m-menu__ver-arrow la la-angle-right"></i>
                                             </a>
@@ -94,70 +94,32 @@
                                                 <ul class="m-menu__subnav">
                                                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                                                         <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Latest Orders</span>
+                                                            <span class="m-menu__link-text">{{ $t('Latest Orders') }}</span>
                                                         </a>
                                                     </li>
                                                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                                                         <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Pending Orders</span>
+                                                            <span class="m-menu__link-text">{{ $t('Pending Orders') }}</span>
                                                         </a>
                                                     </li>
                                                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                                                         <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Processed Orders</span>
+                                                            <span class="m-menu__link-text">{{ $t('Processed Orders') }}</span>
                                                         </a>
                                                     </li>
                                                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                                                         <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Delivery Reports</span>
+                                                            <span class="m-menu__link-text">{{ $t('Delivery Reports') }}</span>
                                                         </a>
                                                     </li>
                                                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                                                         <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Payments</span>
+                                                            <span class="m-menu__link-text">{{ $t('Payments') }}</span>
                                                         </a>
                                                     </li>
                                                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                                                         <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Customers</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="m-menu__item  m-menu__item--submenu" m-menu-submenu-toggle="hover" m-menu-link-redirect="1" aria-haspopup="true">
-                                            <a href="#" class="m-menu__link m-menu__toggle">
-                                                <i class="m-menu__link-icon flaticon-chat-1"></i>
-                                                <span class="m-menu__link-text">Customer Feedbacks</span>
-                                                <i class="m-menu__hor-arrow la la-angle-right"></i>
-                                                <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                            </a>
-                                            <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
-                                                <span class="m-menu__arrow "></span>
-                                                <ul class="m-menu__subnav">
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Customer Feedbacks</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Supplier Feedbacks</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Reviewed Feedbacks</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Resolved Feedbacks</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">Feedback Reports</span>
+                                                            <span class="m-menu__link-text">{{ $t('Customers') }}</span>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -166,7 +128,7 @@
                                         <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                                             <a href="../../header/actions.html" class="m-menu__link ">
                                                 <i class="m-menu__link-icon flaticon-users"></i>
-                                                <span class="m-menu__link-text">Register Member</span>
+                                                <span class="m-menu__link-text">{{ $t('Register Member') }}</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -217,6 +179,16 @@
                     <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
                         <div class="m-stack__item m-topbar__nav-wrapper">
                             <ul class="m-topbar__nav m-nav m-nav--inline">
+                                <li class="m-nav__item">
+                                    <div class="m-nav__link">
+                                        <div class="lang">
+                                            <select name="language" class="form-select" @change="changeLanguage" v-model="language">
+                                                <option value="en">English</option>
+                                                <option value="vi">Tiếng Việt</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
                                 <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
                                     <a href="#" class="m-nav__link m-dropdown__toggle">
                                         <span class="m-topbar__userpic">
@@ -234,8 +206,8 @@
 
                                                     </div>
                                                     <div class="m-card-user__details">
-                                                        <span class="m-card-user__name m--font-weight-500">Mark Andre</span>
-                                                        <a href="" class="m-card-user__email m--font-weight-300 m-link">mark.andre@gmail.com</a>
+                                                        <span class="m-card-user__name m--font-weight-500">{{ user.name }}</span>
+                                                        <a href="" class="m-card-user__email m--font-weight-300 m-link">{{ user.email }}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -250,7 +222,7 @@
                                                                 <i class="m-nav__link-icon flaticon-profile-1"></i>
                                                                 <span class="m-nav__link-title">
                                                                     <span class="m-nav__link-wrap">
-                                                                        <span class="m-nav__link-text">My Profile</span>
+                                                                        <span class="m-nav__link-text">{{ $t('My Profile') }}</span>
                                                                         <span class="m-nav__link-badge">
                                                                             <span class="m-badge m-badge--success">2</span>
                                                                         </span>
@@ -261,13 +233,13 @@
                                                         <li class="m-nav__item">
                                                             <a href="../../header/profile.html" class="m-nav__link">
                                                                 <i class="m-nav__link-icon flaticon-share"></i>
-                                                                <span class="m-nav__link-text">Activity</span>
+                                                                <span class="m-nav__link-text">{{ $t('Activity') }}</span>
                                                             </a>
                                                         </li>
                                                         <li class="m-nav__item">
                                                             <a href="../../header/profile.html" class="m-nav__link">
                                                                 <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                <span class="m-nav__link-text">Messages</span>
+                                                                <span class="m-nav__link-text">{{ $t('Messages') }}</span>
                                                             </a>
                                                         </li>
                                                         <li class="m-nav__separator m-nav__separator--fit">
@@ -275,19 +247,19 @@
                                                         <li class="m-nav__item">
                                                             <a href="../../header/profile.html" class="m-nav__link">
                                                                 <i class="m-nav__link-icon flaticon-info"></i>
-                                                                <span class="m-nav__link-text">FAQ</span>
+                                                                <span class="m-nav__link-text">{{ $t('FAQ') }}</span>
                                                             </a>
                                                         </li>
                                                         <li class="m-nav__item">
                                                             <a href="../../header/profile.html" class="m-nav__link">
                                                                 <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                                                <span class="m-nav__link-text">Support</span>
+                                                                <span class="m-nav__link-text">{{ $t('Support') }}</span>
                                                             </a>
                                                         </li>
                                                         <li class="m-nav__separator m-nav__separator--fit">
                                                         </li>
                                                         <li class="m-nav__item">
-                                                            <a href="/logout" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
+                                                            <a href="/logout" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">{{ $t('Logout') }}</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -305,3 +277,31 @@
         </div>
     </header>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            user: '',
+            language: this.$i18n.locale
+        };
+    },
+    created() {
+        this.getUser();
+        this.getLanguage();
+    },
+    methods: {
+        getUser() {
+            axios.get('current-user').then(res => {
+                this.user = res.data;
+            });
+        },
+        getLanguage() {},
+        changeLanguage() {
+            localStorage.setItem('language', this.language);
+            this.$i18n.locale = this.language;
+            location.reload();
+        }
+    }
+};
+</script>

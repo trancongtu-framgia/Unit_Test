@@ -14,12 +14,16 @@ import router from './routers';
 import 'fullcalendar/dist/fullcalendar.css';
 import { store } from './store/store';
 import axios from 'axios';
+import VueInternationalization from 'vue-i18n';
+import Locale from './vue-i18n-locales.generated.js';
 
 Vue.use(VueRouter);
 Vue.use(FullCalendar);
+Vue.use(VueInternationalization);
 
 if (localStorage.getItem('access_token')) {
-    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' +  localStorage.getItem('access_token')
+    window.axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('access_token');
 }
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -54,8 +58,15 @@ Vue.component('vue-footer', require('./components/layouts/Footer.vue'));
 Vue.component('vue-header', require('./components/layouts/Header.vue'));
 Vue.component('left-aside', require('./components/layouts/LeftAside.vue'));
 
+const i18n = new VueInternationalization({
+    locale: localStorage.getItem('language'),
+    messages: Locale,
+    silentTranslationWarn: true
+});
+
 const app = new Vue({
     el: '#app',
+    i18n,
     router: router,
     store: store
 });
