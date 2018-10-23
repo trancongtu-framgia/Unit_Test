@@ -26,7 +26,10 @@ class ScheduleController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-
+        if ($user->notTrainee()) {
+            return ScheduleResource::collection($this->scheduleRepository->traineeSchedule());
+        }
+        
         return ScheduleResource::collection($this->scheduleRepository->showSchedule($user->id));
     }
 

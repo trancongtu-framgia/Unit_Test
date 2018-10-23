@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Role;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class User extends JsonResource
@@ -22,7 +23,7 @@ class User extends JsonResource
             'password' => $this->password,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'role_id' => $this->role_id
+            'role' => Role::findOrFail($this->role_id)->name
         ];
     }
 }

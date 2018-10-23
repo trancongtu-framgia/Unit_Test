@@ -214,46 +214,14 @@
                                             <div class="m-dropdown__body">
                                                 <div class="m-dropdown__content">
                                                     <ul class="m-nav m-nav--skin-light">
-                                                        <li class="m-nav__section m--hide">
-                                                            <span class="m-nav__section-text">Section</span>
-                                                        </li>
                                                         <li class="m-nav__item">
                                                             <a href="../../header/profile.html" class="m-nav__link">
                                                                 <i class="m-nav__link-icon flaticon-profile-1"></i>
                                                                 <span class="m-nav__link-title">
                                                                     <span class="m-nav__link-wrap">
                                                                         <span class="m-nav__link-text">{{ $t('My Profile') }}</span>
-                                                                        <span class="m-nav__link-badge">
-                                                                            <span class="m-badge m-badge--success">2</span>
-                                                                        </span>
                                                                     </span>
                                                                 </span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="../../header/profile.html" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-share"></i>
-                                                                <span class="m-nav__link-text">{{ $t('Activity') }}</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="../../header/profile.html" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                                <span class="m-nav__link-text">{{ $t('Messages') }}</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__separator m-nav__separator--fit">
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="../../header/profile.html" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-info"></i>
-                                                                <span class="m-nav__link-text">{{ $t('FAQ') }}</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="m-nav__item">
-                                                            <a href="../../header/profile.html" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                                                <span class="m-nav__link-text">{{ $t('Support') }}</span>
                                                             </a>
                                                         </li>
                                                         <li class="m-nav__separator m-nav__separator--fit">
@@ -280,23 +248,23 @@
 
 <script>
 export default {
+    props: ['loggedUser'],
     data() {
         return {
-            user: '',
+            user: this.loggedUser,
             language: this.$i18n.locale
         };
     },
     created() {
         this.getUser();
-        this.getLanguage();
     },
     methods: {
         getUser() {
             axios.get('current-user').then(res => {
-                this.user = res.data;
+                this.user = res.data.data;
+                this.$emit('getUser', this.user);
             });
         },
-        getLanguage() {},
         changeLanguage() {
             localStorage.setItem('language', this.language);
             this.$i18n.locale = this.language;
