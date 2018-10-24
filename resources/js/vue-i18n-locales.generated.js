@@ -13,6 +13,10 @@ export default {
             "logout": "Logout",
             "login": "Login"
         },
+        "pagination": {
+            "previous": "« Previous",
+            "next": "Next »"
+        },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
             "active_url": "The {attribute} is not a valid URL.",
@@ -120,9 +124,14 @@ export default {
             },
             "attributes": []
         },
-        "pagination": {
-            "previous": "« Previous",
-            "next": "Next »"
+        "report": {
+            "Link": "Link",
+            "Lesson": "Lesson",
+            "Report": "Report",
+            "Status": "Status",
+            "Subject": "Subbject",
+            "Content": "Content",
+            "Daily": "Daily"
         }
     },
     "vi": {
@@ -134,6 +143,15 @@ export default {
         "Afternoon": "Ca trưa",
         "Morning": "Ca sáng",
         "Fulltime": "Cả ngày",
-        "Logout": "Đăng Xuất"
+        "Logout": "Đăng Xuất",
+        "report": {
+            "Link": "Link",
+            "Lesson": "Bài học",
+            "Report": "Báo cáo",
+            "Status": "Trạng thái",
+            "Subject": "Môn học",
+            "Content": "Nội dung",
+            "Daily": "Báo cáo ngày"
+        }
     }
 }

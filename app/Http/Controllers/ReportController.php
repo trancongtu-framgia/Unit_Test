@@ -29,6 +29,11 @@ class ReportController extends Controller
         return ReportResource::collection($this->reportRepository->getReports($search));
     }
 
+    public function getReportsBySubject(Request $request, $search)
+    {
+        return response()->json(['data' => $this->reportRepository->getReportsBySubject($search)]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -93,21 +98,15 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ReportRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $report = Report::findOrFail($id);
         if (Auth::user()->cannot('update', $report)) {
+
             return response()->json(['message' => config('api.denied')], 403);
         }
 
-        return $this->reportRepository->update(
-            $request->only(
-                'content',
-                'link',
-                'test_link'
-            ),
-            $id
-        );
+        return $this->reportRepository->update($request->all(), $id);
     }
 
     /**

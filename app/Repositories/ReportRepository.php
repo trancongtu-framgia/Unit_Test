@@ -17,6 +17,17 @@ class ReportRepository extends EloquentRepository
                     ->where('name', 'Like', '%' . $search . '%')
                     ->orderBy('name')
                     ->select('reports.*', 'users.name', 'users.email', 'users.school')
-                    ->paginate(config(10));
+                    ->paginate(config('paginate'));
+    }
+
+    public function getReportsBySubject($search)
+    {
+        $this->makeModel();
+
+        return $this->model->join('subjects', 'reports.subject_id', 'subjects.id')
+                    ->where('reports.subject_id', $search)
+                    ->orderBy('reports.id')
+                    ->select('reports.*', 'subjects.name')
+                    ->get();
     }
 }
