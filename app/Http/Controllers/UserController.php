@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Repositories\Users\UserRepositoryInterface;
-use App\Policies\UserPolicy;
 use Auth;
 use Gate;
+use App\Policies\UserPolicy;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Repositories\Users\UserRepositoryInterface;
+use App\Http\Resources\ProfileResource;
 
 class UserController extends Controller
 {
     protected $user;
 
-    public function __construct (UserRepositoryInterface $user)
+    public function __construct(UserRepositoryInterface $user)
     {
         $this->user = $user;
     }
@@ -29,7 +32,53 @@ class UserController extends Controller
         ]);
 
         return response()->json([
-            'message' => config('api.updated')
+            'message' => config('api.update')
         ], 200);
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'school' => 'string|max:255|nullable'
+        ]);
+        $user = Auth::user();
+        $this->authorize('update', $user);
+        $user->update(
+            $request->only(
+                'name',
+                'school'
+            )
+        );
+
+        return response()->json([
+            'message' => config('api.update')
+        ], 200);
+    }
+
+    public function password(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|min:6|confirmed'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()]);
+        }
+        $user = Auth::user();
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        return response()->json([
+            'success' => config('api.update')
+        ], 200);
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+
+        return new ProfileResource($user);
     }
 }

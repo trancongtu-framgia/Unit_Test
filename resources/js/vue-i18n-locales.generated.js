@@ -152,6 +152,19 @@ export default {
             "Subject": "Môn học",
             "Content": "Nội dung",
             "Daily": "Báo cáo ngày"
-        }
+        },
+        "Welcome": "Xin Chào",
+        "Profile": "Thông Tin Tài Khoản",
+        "Update Profile": "Cập Nhật Thông Tin",
+        "Change Password": "Đổi Mật Khẩu",
+        "Save": "Lưu",
+        "Old Password": "Mật Khẩu Cũ",
+        "New Password": "Mật Khẩu Mới",
+        "Confirm New Password": "Xác Nhận Mật Khẩu Mới",
+        "Full Name": "Họ Tên",
+        "University": "Trường",
+        "Workspace": "Văn Phòng",
+        "Team": "Đội",
+        "My Profile": "Tài khoản của tôi"
     }
 }
