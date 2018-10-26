@@ -1,10 +1,11 @@
 import VueRouter from 'vue-router'
 import Login from './components/LoginComponent.vue'
 import Logout from './components/LogoutComponent.vue'
-import Master from './components/Welcome.vue';
+import Welcome from './components/Welcome.vue'
 import RegisterAccount from './components/RegisterAccountComponent'
 import Home from './components/HomeComponent'
 import Report from './components/layouts/reports/ReportComponent'
+import Profile from './components/Profile.vue'
 
 let routes = [
     {
@@ -31,7 +32,7 @@ let routes = [
     {
         path: '/',
         name: 'index',
-        component: Master,
+        component: Welcome,
         meta: {
             requiresAuth: true
         }
@@ -41,6 +42,14 @@ let routes = [
         path: '/manager-report',
         name: 'manager_report',
         component: Report,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile,
         meta: {
             requiresAuth: true
         }

@@ -25,6 +25,15 @@ if (localStorage.getItem('access_token')) {
     window.axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('access_token');
 }
+
+Vue.mixin({
+    methods: {
+        isTrainee(user) {
+            return user.role === 'trainee';
+        }
+    }
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -53,7 +62,7 @@ router.beforeEach((to, from, next) => {
 });
 
 if (localStorage.getItem('access_token')) {
-    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' +  localStorage.getItem('access_token')
+    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token')
 }
 
 Vue.component('master', require('./components/Welcome.vue'));
@@ -61,6 +70,7 @@ Vue.component('vue-app', require('./components/App.vue'));
 Vue.component('vue-footer', require('./components/layouts/Footer.vue'));
 Vue.component('vue-header', require('./components/layouts/Header.vue'));
 Vue.component('left-aside', require('./components/layouts/LeftAside.vue'));
+Vue.component('vue-master', require('./components/layouts/Master.vue'));
 
 const i18n = new VueInternationalization({
     locale: localStorage.getItem('language'),

@@ -12,13 +12,13 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="recipient-name" class="form-control-label">Name</label>
-                            <input type="text" class="form-control" id="recipient-name" v-model="name">
+                            <input type="text" class="form-control" v-model="name">
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="recipient-name" class="form-control-label">Shorthand</label>
-                            <input type="text" class="form-control" id="recipient-name" v-model="shorthand">
+                            <input type="text" class="form-control" v-model="shorthand">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -32,30 +32,28 @@
 </template>
 
 <script type="text/javascript">
-    export default {
-        name: 'modal-team',
-        data () {
-            return {
-                name: '',
-                shorthand: ''
-            }
-        },
+export default {
+    name: 'modal-team',
+    data() {
+        return {
+            name: '',
+            shorthand: ''
+        };
+    },
 
-        methods: {
-            addTeam () {
-                this.$store.dispatch('type/addType', {
+    methods: {
+        addTeam() {
+            this.$store
+                .dispatch('type/addType', {
                     name: this.name,
                     shorthand: this.shorthand
                 })
-                .then(res => {
-                    this.hideModel = 'modal'
-                    confirm('Add success!!')
-
+                .then((res) => {
+                    this.hideModel = 'modal';
+                    confirm('Add success!!');
                 })
-                .catch(error => {
-                    
-                })
-            },
-        },
+                .catch((error) => {});
+        }
     }
+};
 </script>

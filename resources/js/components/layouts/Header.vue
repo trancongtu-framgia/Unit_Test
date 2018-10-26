@@ -215,19 +215,18 @@
                                                 <div class="m-dropdown__content">
                                                     <ul class="m-nav m-nav--skin-light">
                                                         <li class="m-nav__item">
-                                                            <a href="../../header/profile.html" class="m-nav__link">
-                                                                <i class="m-nav__link-icon flaticon-profile-1"></i>
+                                                            <router-link :to="{ name: 'profile'}" class="m-nav__link">
                                                                 <span class="m-nav__link-title">
                                                                     <span class="m-nav__link-wrap">
                                                                         <span class="m-nav__link-text">{{ $t('My Profile') }}</span>
                                                                     </span>
                                                                 </span>
-                                                            </a>
+                                                            </router-link>
                                                         </li>
                                                         <li class="m-nav__separator m-nav__separator--fit">
                                                         </li>
                                                         <li class="m-nav__item">
-                                                            <a href="/logout" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">{{ $t('Logout') }}</a>
+                                                            <router-link :to="{ name: 'logout'}" class="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">{{ $t('Logout') }}</router-link>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -248,10 +247,9 @@
 
 <script>
 export default {
-    props: ['loggedUser'],
     data() {
         return {
-            user: this.loggedUser,
+            user: '',
             language: this.$i18n.locale
         };
     },
@@ -260,7 +258,7 @@ export default {
     },
     methods: {
         getUser() {
-            axios.get('current-user').then(res => {
+            axios.get('current-user').then((res) => {
                 this.user = res.data.data;
                 this.$emit('getUser', this.user);
             });

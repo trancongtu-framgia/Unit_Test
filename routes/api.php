@@ -25,6 +25,9 @@ Route::group(['middleware' => [
     Route::get('logout', 'AuthController@logout');
     Route::get('current-user', 'AuthController@currentUser');
     Route::patch('update-role-user/{id}', 'UserController@updateRole');
+    Route::get('/profile', 'UserController@profile');
+    Route::patch('/profile', 'UserController@update');
+    Route::patch('/password', 'UserController@password');
     Route::resource('/workspaces', 'WorkspaceController');
     Route::resource('/teams', 'TeamController');
     Route::resource('/types', 'TypeController');

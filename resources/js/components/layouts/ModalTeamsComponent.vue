@@ -12,7 +12,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="recipient-name" class="form-control-label">Name</label>
-                            <input type="text" class="form-control" id="recipient-name" v-model="name">
+                            <input type="text" class="form-control" v-model="name">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -26,28 +26,26 @@
 </template>
 
 <script type="text/javascript">
-    export default {
-        name: 'modal-team',
-        data () {
-            return {
-                name: '',
-            }
-        },
+export default {
+    name: 'modal-team',
+    data() {
+        return {
+            name: ''
+        };
+    },
 
-        methods: {
-            addTeam () {
-                this.$store.dispatch('team/addTeam', {
+    methods: {
+        addTeam() {
+            this.$store
+                .dispatch('team/addTeam', {
                     name: this.name
                 })
-                .then(res => {
-                    this.hideModel = 'modal'
-                    confirm('Add success!!')
-
+                .then((res) => {
+                    this.hideModel = 'modal';
+                    confirm('Add success!!');
                 })
-                .catch(error => {
-                    
-                })
-            },
-        },
+                .catch((error) => {});
+        }
     }
+};
 </script>

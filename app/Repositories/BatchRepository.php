@@ -60,7 +60,9 @@ class BatchRepository extends EloquentRepository
     {
         DB::beginTransaction();
         try {
-            $batch = $this->model->count();
+            $batch = $this->model
+                        ->where('workspace_id', $data['workspace_id'])
+                        ->count();
             $data = array_merge(
                 ['batch' => ++$batch],
                 $data
