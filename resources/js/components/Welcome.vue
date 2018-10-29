@@ -79,10 +79,7 @@ export default {
 
     methods: {
         fetchSchedule() {
-            fetch('/api/schedules', {
-                headers: this.$store.state.headers
-            })
-                .then((res) => res.json())
+            axios('/schedules')
                 .then((res) => {
                     let self = this;
                     res.data.forEach(function(event) {

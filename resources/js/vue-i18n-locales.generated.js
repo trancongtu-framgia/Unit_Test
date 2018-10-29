@@ -123,15 +123,6 @@ export default {
                 }
             },
             "attributes": []
-        },
-        "report": {
-            "Link": "Link",
-            "Lesson": "Lesson",
-            "Report": "Report",
-            "Status": "Status",
-            "Subject": "Subbject",
-            "Content": "Content",
-            "Daily": "Daily"
         }
     },
     "vi": {
@@ -144,27 +135,13 @@ export default {
         "Morning": "Ca sáng",
         "Fulltime": "Cả ngày",
         "Logout": "Đăng Xuất",
-        "report": {
-            "Link": "Link",
-            "Lesson": "Bài học",
-            "Report": "Báo cáo",
-            "Status": "Trạng thái",
-            "Subject": "Môn học",
-            "Content": "Nội dung",
-            "Daily": "Báo cáo ngày"
-        },
-        "Welcome": "Xin Chào",
-        "Profile": "Thông Tin Tài Khoản",
-        "Update Profile": "Cập Nhật Thông Tin",
-        "Change Password": "Đổi Mật Khẩu",
-        "Save": "Lưu",
-        "Old Password": "Mật Khẩu Cũ",
-        "New Password": "Mật Khẩu Mới",
-        "Confirm New Password": "Xác Nhận Mật Khẩu Mới",
-        "Full Name": "Họ Tên",
-        "University": "Trường",
-        "Workspace": "Văn Phòng",
-        "Team": "Đội",
-        "My Profile": "Tài khoản của tôi"
+        "Report title": "Báo cáo",
+        "Content": "Content",
+        "Link": "Link",
+        "Leson": "Leson",
+        "Status": "Status",
+        "Subject": "Subject",
+        "Close": "Đóng",
+        "Save": "Lưu thay đổi"
     }
 }
