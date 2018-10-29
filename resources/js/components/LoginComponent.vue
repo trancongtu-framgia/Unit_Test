@@ -65,10 +65,10 @@ export default {
                     password: this.password,
                     remember_me: this.remember_me
                 })
-                .then(response => {
-                    this.$router.push({ name: 'index' });
+                .then((response) => {
+                    location.href = '/';
                 });
-            }
         }
+    }
 };
 </script>

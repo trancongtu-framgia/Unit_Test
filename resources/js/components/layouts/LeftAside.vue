@@ -51,6 +51,12 @@
                         </ul>
                     </div>
                 </li>
+                <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                    <router-link :to="{ name: 'reports' }" class="m-menu__link m-menu__toggle">
+                        <i class="m-menu__link-icon flaticon-calendar"></i>
+                        <span class="m-menu__link-text">{{ $t('Reports') }}</span>
+                    </router-link>
+                 </li>
 
                 <li v-if="!isTrainee(user)" class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
                     <a href="javascript:;" class="m-menu__link m-menu__toggle">

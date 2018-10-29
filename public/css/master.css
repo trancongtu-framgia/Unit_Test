@@ -23,3 +23,45 @@
 .error {
     margin-left: 20%;
 }
+
+.table-with-border tr,
+th,
+td {
+    border: 1px solid black;
+}
+
+.table-with-border {
+    min-width: 1500px;
+}
+
+.report-section {
+    display: flex;
+    overflow-x: scroll;
+}
+
+.th-trainee {
+    text-align: center;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.th-report {
+    text-align: center;
+    min-width: 400px;
+}
+
+.border-bottom {
+    border-bottom: 1px solid black;
+}
+
+.td-report {
+    padding: 0 !important;
+}
+
+.tb-report {
+    width: 100%;
+}
+
+.td-day {
+    width: 100px;
+}

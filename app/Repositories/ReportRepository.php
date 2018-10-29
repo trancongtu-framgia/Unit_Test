@@ -2,6 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Subject;
+use Illuminate\Support\Facades\DB;
+
 class ReportRepository extends EloquentRepository
 {
     public function model()
@@ -20,6 +23,16 @@ class ReportRepository extends EloquentRepository
                     ->paginate(config('paginate'));
     }
 
+    public function getReportsBySubjectID($subject_id, $user_id)
+    {
+        $this->makeModel();
+
+        return $this->model
+            ->where('user_id', $user_id)
+            ->where('subject_id', $subject_id)
+            ->get()->toArray();
+    }
+
     public function getReportsBySubject($search)
     {
         $this->makeModel();
@@ -29,5 +42,18 @@ class ReportRepository extends EloquentRepository
                     ->orderBy('reports.id')
                     ->select('reports.*', 'subjects.name')
                     ->get();
+    }
+
+    public function getReportsGroupBySubject($user_id)
+    {
+        $subjects = Subject::orderBy('name')->pluck('id');
+        $result = [];
+        foreach ($subjects as $id) {
+            $this->makeModel();
+            $data = $this->getReportsBySubjectID($id, $user_id);
+            $result = array_merge($result, [$data]);
+        }
+
+        return $result;
     }
 }
