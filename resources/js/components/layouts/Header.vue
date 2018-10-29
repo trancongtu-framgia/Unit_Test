@@ -194,7 +194,6 @@
                                         <span class="m-topbar__userpic">
                                             <img v-bind:src="this.$store.state.urlImage + 'users/user4.jpg'" class="m--img-rounded m--marginless" alt="" />
                                         </span>
-                                        <span class="m-topbar__username m--hide">Nick</span>
                                     </a>
                                     <div class="m-dropdown__wrapper">
                                         <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>

@@ -12,6 +12,7 @@ return [
     'notfound' => 'Not found',
     'deleted' => 'Successfully deleted',
     'paginate' => 10,
+    'report_paginate' => 5,
     'trainer' => 'trainer',
     'admin' => 'admin',
     'denied' => 'You don\'t have permission to do this action',

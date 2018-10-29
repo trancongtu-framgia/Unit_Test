@@ -35,6 +35,7 @@ Route::group(['middleware' => [
     Route::resource('/subjects', 'SubjectController');
     Route::resource('/reviews', 'ReviewController');
     Route::resource('/reports', 'ReportController');
+    Route::get('/reports/batch/{id}', 'ReportController@getReportsGroupBySubject');
     Route::get('/reports/by/{subject_id}/', 'ReportController@getReportsBySubject');
     Route::resource('/trainees', 'TraineeController');
     Route::resource('/schedules', 'ScheduleController');

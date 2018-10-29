@@ -6,6 +6,7 @@ use App\Batch;
 use Illuminate\Http\Request;
 use App\Http\Requests\BatchRequest;
 use App\Repositories\BatchRepository;
+use App\Http\Resources\BatchResoure;
 
 class BatchController extends Controller
 {
@@ -23,7 +24,7 @@ class BatchController extends Controller
      */
     public function index()
     {
-        return response()->json(Batch::all());
+        return BatchResoure::collection(Batch::all());
     }
 
     /**

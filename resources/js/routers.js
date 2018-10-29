@@ -6,6 +6,7 @@ import RegisterAccount from './components/RegisterAccountComponent'
 import Home from './components/HomeComponent'
 import Report from './components/layouts/reports/ReportComponent'
 import Profile from './components/Profile.vue'
+import Reports from './components/Reports.vue'
 
 let routes = [
     {
@@ -50,6 +51,14 @@ let routes = [
         path: '/profile',
         name: 'profile',
         component: Profile,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/reports',
+        name: 'reports',
+        component: Reports,
         meta: {
             requiresAuth: true
         }

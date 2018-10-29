@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Report;
 use App\Subject;
 use Illuminate\Http\Request;
@@ -32,6 +33,16 @@ class ReportController extends Controller
     public function getReportsBySubject(Request $request, $search)
     {
         return response()->json(['data' => $this->reportRepository->getReportsBySubject($search)]);
+    }
+
+    public function getReportsGroupBySubject(Request $request, $id)
+    {
+        $users = User::where('batch_id', $id)->paginate(config('api.report_paginate'));
+        foreach ($users as $user) {
+            $user->report = $this->reportRepository->getReportsGroupBySubject($user->id);
+        }
+        
+        return response()->json($users);
     }
 
     /**
@@ -102,7 +113,6 @@ class ReportController extends Controller
     {
         $report = Report::findOrFail($id);
         if (Auth::user()->cannot('update', $report)) {
-
             return response()->json(['message' => config('api.denied')], 403);
         }
 
