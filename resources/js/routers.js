@@ -7,6 +7,9 @@ import Home from './components/HomeComponent'
 import Report from './components/layouts/reports/ReportComponent'
 import Profile from './components/Profile.vue'
 import Reports from './components/Reports.vue'
+import ListWorkspace from './components/workspace/ListWorkspaceComponent'
+import ListTeam from './components/team/ListTeam.vue'
+import ListType from './components/type/ListType.vue'
 
 let routes = [
     {
@@ -59,6 +62,30 @@ let routes = [
         path: '/reports',
         name: 'reports',
         component: Reports,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/workspace',
+        name: 'list_workspace',
+        component: ListWorkspace,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/teams',
+        name: 'list_team',
+        component: ListTeam,
+        meta: {
+            requiresAuth: true
+        }
+    },
+     {
+        path: '/types',
+        name: 'list_type',
+        component: ListType,
         meta: {
             requiresAuth: true
         }
