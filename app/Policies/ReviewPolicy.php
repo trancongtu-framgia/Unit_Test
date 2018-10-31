@@ -30,9 +30,8 @@ class ReviewPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->notTrainee();
     }
-
     /**
      * Determine whether the user can update the review.
      *

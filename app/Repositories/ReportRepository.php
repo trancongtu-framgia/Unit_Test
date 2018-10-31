@@ -28,7 +28,9 @@ class ReportRepository extends EloquentRepository
         $this->makeModel();
 
         return $this->model
-            ->where('user_id', $user_id)
+            ->select('reports.*', 'reviews.id as review_id', 'reviews.content as review')
+            ->leftJoin('reviews', 'reports.id', 'reviews.report_id')
+            ->where('reports.user_id', $user_id)
             ->where('subject_id', $subject_id)
             ->get()->toArray();
     }

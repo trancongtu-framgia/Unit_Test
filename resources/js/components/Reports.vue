@@ -1,10 +1,10 @@
 <template>
     <vue-master @getUser="user = $event">
         <template slot="title">{{ $t('Reports') }}</template>
-        <template slot="head-title">{{ $t('Reports') }}</template>
+        <!-- <template slot="head-title">{{ $t('Reports') }}</template> -->
         <template slot="content">
             <div>
-                <select name="batch" class="form-select" v-model="batch_selected">
+                <select name="batch" class="form-select mb-3" v-model="batch_selected">
                     <template v-for="batch in batches">
                         <option :value="batch.id">{{ batch.name }}</option>
                     </template>
@@ -14,15 +14,21 @@
                         <thead>
                             <th class="th-trainee">{{ $t('Trainee') }}</th>
                             <th class="th-report" v-for="subject in subjects">{{ subject.name }}</th>
-                            <th class="th-report">{{ $t('Review') }}</th>
                         </thead>
                         <tbody>
                             <tr v-for="trainee in reports">
                                 <td>{{ trainee.name }}</td>
-                                <td v-for="report in trainee.report" class="td-report">
+                                <td v-for="reports in trainee.reports" class="td-report">
                                     <table class="tb-report">
+                                        <thead v-if="reports.length > 0">
+                                            <tr>
+                                                <th>{{ $t('Date') }}</th>
+                                                <th class="daily-report">{{ $t('Report') }}</th>
+                                                <th>{{ $t('Review') }}</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
-                                            <tr v-for="daily_report in report">
+                                            <tr v-for="daily_report in reports">
                                                 <td class="td-day">{{ frontEndDateFormat(daily_report.created_at) }}</td>
                                                 <td>
                                                     <p>{{ daily_report.content }}</p>
@@ -35,11 +41,17 @@
                                                         <a v-if="daily_report.test_link" v-bind:href="daily_report.link">{{ daily_report.link }}</a>
                                                     </div>
                                                 </td>
+                                                <td @dblclick="show(daily_report, $event)" nochilddrag>
+                                                    <span v-html="daily_report.review"></span>
+                                                    <div class="d-none">
+                                                        <ckeditor type="classic" v-bind:value="daily_report.review" v-model="review.content"></ckeditor>
+                                                        <button class="btn btn-success" @click="submitReview(daily_report.review, $event)">{{ $t('Save') }}</button>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </td>
-                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -48,6 +60,7 @@
         </template>
     </vue-master>
 </template>
+
 
 <script>
 export default {
@@ -59,7 +72,14 @@ export default {
             reports: [''],
             batches: [''],
             batch_selected: '',
-            subjects: ['']
+            subjects: [''],
+            review: {
+                id: '',
+                report_id: '',
+                user_id: '',
+                content: ''
+            },
+            editting: false
         };
     },
     created() {
@@ -76,6 +96,36 @@ export default {
         }
     },
     methods: {
+        submitReview(value, event) {
+            let element = event.currentTarget.parentElement;
+            element.parentElement.children[0].innerHTML = this.review.content;
+            axios.put('/reviews', {
+                id: this.review.id,
+                report_id: this.review.report_id,
+                user_id: this.review.user_id,
+                content: this.review.content
+            });
+
+            element.classList.add('d-none');
+            element.parentElement.children[0].classList.remove('d-none');
+            this.editting = false;
+        },
+        show(daily_report, event) {
+            if (this.editting == true) {
+                return;
+            }
+
+            this.editting = true;
+
+            this.review.id = daily_report.review_id;
+            this.review.report_id = daily_report.id;
+            this.review.user_id = this.user.id;
+
+            let element = event.currentTarget;
+            this.review.content = event.currentTarget.children[0].innerHTML;
+            element.children[0].classList.add('d-none');
+            element.children[1].classList.remove('d-none');
+        },
         getSubjects() {
             axios('/subjects').then((res) => {
                 this.subjects = res.data.data;

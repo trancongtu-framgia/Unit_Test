@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Review;
 use Illuminate\Http\Request;
-use App\Repositories\Reviews\ReviewRepositoryInterface;
 use App\Http\Policies\Review\ReviewPolicy;
 use App\Http\Resources\Review as ReviewResource;
-use Auth;
+use App\Repositories\Reviews\ReviewRepositoryInterface;
 
 class ReviewController extends Controller
 {
@@ -32,16 +33,34 @@ class ReviewController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $this->validate($request, [
             'content' => 'required|string',
         ]);
-        $review = $this->review->find($id);
-        $this->authorize('update', $review);
-        $review = $this->review->update($request->all(), $id);
 
-        return new ReviewResource($review);
+        $id = $request->id;
+
+        if ($id == null) {
+            // $this->authorize('create');
+            Review::create($request->only(
+                'content',
+                'report_id',
+                'user_id'
+            ));
+        } else {
+            $review = Review::findOrFail($id);
+            $this->authorize('update', $review);
+            $review = $this->review->update($request->only(
+                'content',
+                'report_id',
+                'user_id'
+            ), $id);
+        }
+
+        return response()->json([
+            'message' => config('api.update')
+        ]);
     }
 
     public function destroy($id)
