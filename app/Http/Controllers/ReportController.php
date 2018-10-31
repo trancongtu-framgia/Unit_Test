@@ -39,7 +39,7 @@ class ReportController extends Controller
     {
         $users = User::where('batch_id', $id)->paginate(config('api.report_paginate'));
         foreach ($users as $user) {
-            $user->report = $this->reportRepository->getReportsGroupBySubject($user->id);
+            $user->reports = $this->reportRepository->getReportsGroupBySubject($user->id);
         }
         
         return response()->json($users);
