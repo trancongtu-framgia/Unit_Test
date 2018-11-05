@@ -38,10 +38,15 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate($request, [
+        $errors = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'school' => 'string|max:255|nullable'
         ]);
+
+        if ($errors->fails()) {
+
+            return Response()->json(['errors' => $errors->errors()]);
+        }
         $user = Auth::user();
         $this->authorize('update', $user);
         $user->update(

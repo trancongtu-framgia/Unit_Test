@@ -10,7 +10,8 @@ import Reports from './components/Reports.vue'
 import ListWorkspace from './components/workspace/ListWorkspaceComponent'
 import ListTeam from './components/team/ListTeam.vue'
 import ListType from './components/type/ListType.vue'
-import Multiguard from 'vue-router-multiguard';
+import Multiguard from 'vue-router-multiguard'
+import RegisterTrainee from './components/trainee/register'
 import axios from 'axios';
 
 const getUser = () => {
@@ -46,7 +47,7 @@ let routes = [
     {
         path: '/register-account-trainee',
         name: 'register-account-trainee',
-        component: RegisterAccount,
+        component: RegisterTrainee,
         meta: {
             requiresAuth: true
         },

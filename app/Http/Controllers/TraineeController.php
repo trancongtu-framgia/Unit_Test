@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\User as ResourceUser;
 
 class TraineeController extends Controller
@@ -50,8 +51,19 @@ class TraineeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
+        $errors = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'role_id' => 'required|integer|exists:roles,id'
+        ]);
+
+        if ($errors->fails()) {
+
+            return Response()->json(['errors' => $errors->errors()]);
+        }
+
         if (!$request->has('password')) {
             $request->merge(['password' => config('api.default.password')]);
         }
@@ -68,7 +80,7 @@ class TraineeController extends Controller
                     'password',
                     'batch_id'
                 ),
-                ['role_id' => '3']
+                ['role_id' => $request->get('role_id')]
             )
         );
     }
