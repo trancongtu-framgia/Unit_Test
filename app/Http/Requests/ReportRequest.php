@@ -29,10 +29,13 @@ class ReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|string',
-            'link' => 'required|string',
+            'content' => 'string|nullable',
+            'link' => 'string|nullable',
             'test_link' => 'string|nullable',
             'subject_id' => 'required|integer|exists:subjects,id',
+            'status' => 'string|nullable',
+            'day' => 'integer|required',
+            'lesson' => 'string|nullable'
         ];
     }
 }

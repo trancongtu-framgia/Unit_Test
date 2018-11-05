@@ -9,14 +9,20 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ReportRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ReportResource;
+use App\Repositories\ReportRepository;
+use App\Repositories\Subject\SubjectRepositoryInterface;
 
 class ReportController extends Controller
 {
     private $reportRepository;
+    private $subjectRepository;
 
-    public function __construct(\App\Repositories\ReportRepository $reportRepository)
-    {
+    public function __construct(
+        ReportRepository $reportRepository,
+        SubjectRepositoryInterface $subjectRepository
+    ) {
         $this->reportRepository = $reportRepository;
+        $this->subjectRepository = $subjectRepository;
     }
     /**
      * Display a listing of the resource.
@@ -25,9 +31,15 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->has('search') ? $request->search : "";
+        $user = Auth::user();
 
-        return ReportResource::collection($this->reportRepository->getReports($search));
+        $subjects = $this->subjectRepository->getUserSubject($user);
+
+        foreach ($subjects as $subject) {
+            $subject->reports = $this->reportRepository->getReportsBySubjectID($subject->id, $user->id);
+        }
+
+        return response()->json($subjects);
     }
 
     public function getReportsBySubject(Request $request, $search)
@@ -63,21 +75,30 @@ class ReportController extends Controller
      */
     public function store(ReportRequest $request)
     {
-        if (Auth::user()->cannot('create', Subject::findOrFail($request->subject_id))) {
-            return response()->json(['message' => config('api.denied')], 403);
-        }
+        if ($request->id === null) {
+            return $this->reportRepository->create(
+                array_merge(
+                    array_filter(
+                        $request->only(
+                            'content',
+                            'link',
+                            'test_link',
+                            'lesson',
+                            'status',
+                            'subject_id',
+                            'day'
+                        )
+                    ),
+                    ['user_id' => Auth::user()->id]
+                )
+            );
+        } else {
+            $report = Report::findOrFail($request->id);
 
-        return $this->reportRepository->create(
-            array_merge(
-                $request->only(
-                    'content',
-                    'link',
-                    'test_link',
-                    'subject_id'
-                ),
-                ['user_id' => Auth::user()->id]
-            )
-        );
+            $report->fill($request->except(['id', 'subject_id', 'day', 'user_id']))->save();
+
+            return response()->json(['message' => config('api.success')]);
+        }
     }
 
     /**

@@ -32,6 +32,8 @@ class ReportRepository extends EloquentRepository
             ->leftJoin('reviews', 'reports.id', 'reviews.report_id')
             ->where('reports.user_id', $user_id)
             ->where('subject_id', $subject_id)
+            ->orderBy('subject_id', 'asc')
+            ->orderBy('day', 'asc')
             ->get()->toArray();
     }
 

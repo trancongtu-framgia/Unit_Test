@@ -46,10 +46,28 @@ td {
     max-width: 300px;
 }
 
+.report-section-mini {
+    width: 100%;
+    overflow-x: scroll;
+    /* overflow-y: scroll; */
+}
+
 @media screen and (max-width: 992px) {
     .th-report {
         text-align: center;
         min-width: 500px;
+    }
+
+    .th-report-content {
+        text-align: center;
+        min-width: 250px;
+        max-width: 250px;
+    }
+
+    .th-report-item {
+        text-align: center;
+        min-width: 125px;
+        max-width: 125px;
     }
 }
 
@@ -57,6 +75,18 @@ td {
     .th-report {
         text-align: center;
         min-width: 1000px;
+    }
+
+    .th-report-content {
+        text-align: center;
+        min-width: 500px;
+        max-width: 500px;
+    }
+
+    .th-report-item {
+        text-align: center;
+        min-width: 250px;
+        max-width: 250px;
     }
 }
 
@@ -85,4 +115,20 @@ td {
 
 .daily-report {
     width: 550px;
+}
+
+.table-editable,
+tbody,
+tr,
+td {
+    height: 100%;
+}
+
+.table-editable td {
+    padding: 0;
+}
+
+.edittor {
+    height: 100%;
+    word-break: break-all;
 }
