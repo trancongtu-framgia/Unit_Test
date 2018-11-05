@@ -3,7 +3,10 @@
 namespace App\Repositories;
 
 use App\Day;
+use App\Batch;
 use App\Month;
+use App\Report;
+use App\Subject;
 use App\DayMonth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +38,20 @@ class UserRepository extends EloquentRepository
             $month_ids = Month::where('batch_id', $user->batch_id)->get()->pluck('id');
             $ids = DayMonth::whereIn('month_id', $month_ids)->get()->pluck('id');
             $user->dayMonths()->attach($ids, ['status' => config('api.default.status')]);
+
+            $batch = Batch::findOrFail($data['batch_id']);
+
+            $subjects = $batch->subjects;
+
+            foreach ($subjects as $subject) {
+                for ($i = 1; $i <= $subject->day; $i++) {
+                    Report::create([
+                        'user_id' => $user->id,
+                        'subject_id' => $subject->id,
+                        'day' => $i
+                    ]);
+                }
+            }
 
             DB::commit();
 

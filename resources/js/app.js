@@ -16,15 +16,17 @@ import { store } from './store/store';
 import axios from 'axios';
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated.js';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import BalloonEditor from '@ckeditor/ckeditor5-build-balloon'
 import VueCkeditor from 'vue-ckeditor5'
- 
+
 const options = {
     editors: {
-        classic: ClassicEditor,
+        classic: BalloonEditor,
+        balloon: BalloonEditor,
     },
     name: 'ckeditor'
-} 
+}
 
 Vue.use(VueCkeditor.plugin, options);
 Vue.use(VueRouter);

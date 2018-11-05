@@ -17,51 +17,52 @@
                         </div>
                     </div>
                     <div class="m-portlet__body">
-                        <!--begin: Datatable -->
-                        <table class="table table-striped- table-bordered table-hover table-checkable" id="m_table_1">
-                            <thead>
-                                <tr>
-                                    <th>{{ $t('Subject') }}</th>
-                                    <th>{{ $t('Content') }}</th>
-                                    <th>{{ $t('Link') }}</th>
-                                    <th>{{ $t('Leson') }}</th>
-                                    <th>{{ $t('Status') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody v-for="subject in subjects" :key="subject.id">
-                                <tr v-for="(n,index) in subject.day" :key="n">
-                                    <td>
-                                        <h3>{{ subject.name }}</h3> ({{ subject.day }} day)
-                                        <hr>
-                                        <div>Day: {{ n }}</div>
-                                    </td>
-                                    <td>
-                                        <div v-for="report in reports">
-                                            <item v-for="item in report.data" v-if="item.subject_id == subject.id && item.day == n" :key="item.id" :content="item.content" :id="item.id" :column="'content'" @doneEdit="doneEdit">
-                                            </item>
-                                       </div>
-                                    </td>
-                                   <td>
-                                        <div v-for="report in reports">
-                                            <item v-for="item in report.data" v-if="item.subject_id == subject.id && item.day == n" :key="item.id" :content="item.link" :id="item.id" :column="'link'" @doneEdit="doneEdit">
-                                            </item>
-                                       </div>
-                                    </td>
-                                    <td>
-                                        <div v-for="report in reports">
-                                            <item v-for="item in report.data" v-if="item.subject_id == subject.id && item.day == n" :key="item.id" :content="item.lesson" :id="item.id" :column="'lesson'" @doneEdit="doneEdit">
-                                            </item>
-                                       </div>
-                                    </td>
-                                    <td>
-                                        <div v-for="report in reports">
-                                            <item v-for="item in report.data" v-if="item.subject_id == subject.id && item.day == n" :key="item.id" :content="item.status" :id="item.id" :column="'status'" @doneEdit="doneEdit">
-                                            </item>
-                                       </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="report-section-mini">
+                            <!--begin: Datatable -->
+                            <table class="table table-editable table-striped- table-bordered table-hover table-checkable" id="m_table_1">
+                                <thead>
+                                    <tr>
+                                        <th>{{ $t('Subject') }}</th>
+                                        <th class="th-report-content">{{ $t('Content') }}</th>
+                                        <th class="th-report-item">{{ $t('Link') }}</th>
+                                        <th class="th-report-item">{{ $t('Test Link') }}</th>
+                                        <th class="th-report-item">{{ $t('Lesson') }}</th>
+                                        <th class="th-report-item">{{ $t('Status') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody v-for="(subject, x) in subjects" :key="x">
+                                    <tr v-for="(n,index) in subject.day" :key="n">
+                                        <td>
+                                            <h3>{{ subject.name }}</h3> ({{ subject.day }} day)
+                                            <hr>
+                                            <div>Day: {{ n }}</div>
+                                        </td>
+                                        <template>
+                                            <td>
+                                                <ckeditor class="edittor" v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'content', subjects[x].reports[n - 1].content, n)" type="balloon" v-model="subjects[x].reports[n - 1].content" v-bind:html="report.content">
+                                                </ckeditor>
+                                            </td>
+                                            <td>
+                                                <ckeditor class="edittor" v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'link', subjects[x].reports[n - 1].link, n)" type="balloon" v-model="subjects[x].reports[n - 1].link" v-bind:html="report.link">
+                                                </ckeditor>
+                                            </td>
+                                            <td>
+                                                <ckeditor class="edittor" v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'test_link', subjects[x].reports[n - 1].test_link, n)" type="balloon" v-model="subjects[x].reports[n - 1].test_link" v-bind:html="report.test_link">
+                                                </ckeditor>
+                                            </td>
+                                            <td>
+                                                <ckeditor class="edittor" v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'lesson', subjects[x].reports[n - 1].lesson, n)" type="balloon" v-model="subjects[x].reports[n - 1].lesson" v-bind:html="report.lesson">
+                                                </ckeditor>
+                                            </td>
+                                            <td>
+                                                <ckeditor v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'status', subjects[x].reports[n - 1].status, n)" type="balloon" v-model="subjects[x].reports[n - 1].status" v-bind:html="report.status">
+                                                </ckeditor>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -70,56 +71,56 @@
 </template>
 
 <script>
-import item from './itemReport'
 export default {
-    components: {
-        item
-    },
-
-    data () {
+    data() {
         return {
             user: '',
-            subjects: [],
-            reports: [],
-            editReport: false,
-            currentStatus: ''
-        }
+            subjects: [
+                {
+                    reports: ['']
+                }
+            ],
+            report: {
+                id: null,
+                subject_id: null,
+                day: null
+            }
+        };
     },
 
     created() {
-        var _vm = this;
-        this.$store.dispatch('reports/getSubjects')
-        .then(res => {
-            this.subjects = res.data.data
-        })
-        .then(res => {
-            this.getReportsBySubject()
-        })
-
+        this.getReports();
     },
 
     methods: {
-        getReportsBySubject () {
-            for(var i = 0; i < this.subjects.length; i++) {
-                this.$store.dispatch('reports/getReportsBySubject', {
-                    subject_id: this.subjects[i].id
-                })
-                .then(res => {
-                    this.reports.push(res)
-                })
-            }
+        up(str) {
+            return str && str.replace(/./, str.toUpperCase()[0]);
         },
-
-        doneEdit (data) {
-            this.$store.dispatch('reports/edit', data)
+        getReports() {
+            axios('/reports').then((res) => {
+                this.subjects = res.data;
+            });
         },
-
-        frontEndDateFormat: function(date) {
-            return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY');
+        newReport() {
+            return {
+                id: null,
+                subject_id: null,
+                day: null
+            };
         },
-
-        backEndDateFormat: function(date) {
-            return moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD');
+        editReport(subject_id, report_id, property, value, day) {
+            this.report = this.newReport();
+            let element = event.currentTarget;
+            this.report.id = report_id;
+            this.report.subject_id = subject_id;
+            this.report[property] = value;
+            this.report.day = day;
+            axios.post('/reports', this.report);
+        },
+        inputReport(event, property) {
+            let element = event;
+            // this.report = this.newReport();
+            this.report[property] = event;
         }
     }
 };

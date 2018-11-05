@@ -13,8 +13,8 @@
         <link href="{{ asset(config('api.vendors') . 'vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
         {{-- bundle js --}}
         <link rel="stylesheet" href="{{ asset(config('api.base') . 'style.bundle.css') }}" type="text/css" />
-        <link rel="stylesheet" href="{{ asset(config('api.baseCss') . 'master.css') }}">
         <link rel="stylesheet" href="{{ asset(config('api.baseCss') . 'app.css') }}">
+        <link rel="stylesheet" href="{{ asset(config('api.baseCss') . 'master.css') }}">
 
     </head>
     <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">

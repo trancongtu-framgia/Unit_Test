@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Subject;
 
+use App\User;
+use App\Subject;
 use App\Repositories\EloquentRepository;
 use App\Repositories\Subject\SubjectRepositoryInterface;
-use App\Subject;
 
 class SubjectEloquentRepository extends EloquentRepository implements SubjectRepositoryInterface
 {
@@ -13,8 +14,17 @@ class SubjectEloquentRepository extends EloquentRepository implements SubjectRep
         return Subject::class;
     }
 
-    public function getNameSubject ()
+    public function getNameSubject()
     {
         return $this->model->select(['name', 'day', 'created_at', 'id'])->get();
+    }
+
+    public function getUserSubject(User $user)
+    {
+        return $this->model->select(['subjects.*'])
+            ->join('batch_subject', 'subjects.id', 'batch_subject.subject_id')
+            ->where('batch_subject.batch_id', $user->batch_id)
+            ->orderBy('subjects.id')
+            ->get();
     }
 }
