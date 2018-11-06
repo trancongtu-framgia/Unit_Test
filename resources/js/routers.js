@@ -10,6 +10,31 @@ import Reports from './components/Reports.vue'
 import ListWorkspace from './components/workspace/ListWorkspaceComponent'
 import ListTeam from './components/team/ListTeam.vue'
 import ListType from './components/type/ListType.vue'
+import Multiguard from 'vue-router-multiguard';
+import axios from 'axios';
+
+const getUser = () => {
+    axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('access_token');
+
+    return axios.get('current-user');
+}
+
+const isAdmin = async (to, form, next) => {
+    let user = null;
+    await getUser().then(res => {
+        user = res.data.data;
+    });
+    if (user) {
+        if (user.role !== 'trainee') {
+            next();
+        } else {
+            next({
+                name: 'index'
+            });
+        }
+    };
+}
 
 let routes = [
     {
@@ -23,7 +48,8 @@ let routes = [
         component: RegisterAccount,
         meta: {
             requiresAuth: true
-        }
+        },
+        beforeEnter: Multiguard([isAdmin])
     },
     {
         path: '/logout',
@@ -64,7 +90,8 @@ let routes = [
         component: Reports,
         meta: {
             requiresAuth: true
-        }
+        },
+        beforeEnter: Multiguard([isAdmin])
     },
     {
         path: '/workspace',
@@ -72,7 +99,8 @@ let routes = [
         component: ListWorkspace,
         meta: {
             requiresAuth: true
-        }
+        },
+        beforeEnter: Multiguard([isAdmin])
     },
     {
         path: '/teams',
@@ -80,15 +108,17 @@ let routes = [
         component: ListTeam,
         meta: {
             requiresAuth: true
-        }
+        },
+        beforeEnter: Multiguard([isAdmin])
     },
-     {
+    {
         path: '/types',
         name: 'list_type',
         component: ListType,
         meta: {
             requiresAuth: true
-        }
+        },
+        beforeEnter: Multiguard([isAdmin])
     }
 ];
 

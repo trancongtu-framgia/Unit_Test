@@ -20,7 +20,7 @@ export const store = new Vuex.Store({
     state: {
         token: localStorage.getItem('access_token') || null,
         user: {},
-        baseUrlLogo: '/assets/app/media/img//logos/',
+        baseUrlLogo: 'logo.png',
         urlImage: '/assets/app/media/img/',
         headers: {
             'content-type': 'application/json',
@@ -47,7 +47,7 @@ export const store = new Vuex.Store({
 
     getters: {
         loggedIn(state) {
-            return state.token !== null;
+            return state.token !== null && state.token !== 'null';
         }
     },
 

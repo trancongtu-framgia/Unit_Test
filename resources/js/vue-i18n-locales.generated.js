@@ -142,6 +142,13 @@ export default {
         "Status": "Status",
         "Subject": "Subject",
         "Close": "Đóng",
-        "Save": "Lưu thay đổi"
+        "Save": "Lưu thay đổi",
+        "Daily Report": "Báo Cáo Hàng Ngày",
+        "Reports": "Báo Cáo",
+        "Subject": "Chủ Đề",
+        "Content": "Nội Dung",
+        "Lesson": "Bài Học",
+        "Status": "Trạng Thái"
+
     }
 }

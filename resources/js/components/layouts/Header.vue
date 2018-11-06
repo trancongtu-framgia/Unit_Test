@@ -7,9 +7,9 @@
                 <div class="m-stack__item m-brand  m-brand--skin-dark ">
                     <div class="m-stack m-stack--ver m-stack--general">
                         <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                            <a href="../../index.html" class="m-brand__logo-wrapper">
-                                <img v-bind:src="this.$store.state.baseUrlLogo + 'logo.png'"/>
-                            </a>
+                            <router-link :to="{ name: 'index' }" class="m-brand__logo-wrapper">
+                                <img v-bind:src="$store.state.baseUrlLogo" />
+                            </router-link>
                         </div>
                         <div class="m-stack__item m-stack__item--middle m-brand__tools">
 
@@ -141,8 +141,7 @@
                     <div id="m_header_topbar" class="m-topbar m-topbar-left  m-stack m-stack--ver m-stack--general m-stack--fluid">
                         <div class="m-stack__item m-topbar__nav-wrapper">
                             <ul class="m-topbar__nav m-nav m-nav--inline">
-                                <li class="m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light" m-dropdown-toggle="click" id="m_quicksearch" m-quicksearch-mode="dropdown"
-                                    m-dropdown-persistent="1">
+                                <li class="m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light" m-dropdown-toggle="click" id="m_quicksearch" m-quicksearch-mode="dropdown" m-dropdown-persistent="1">
                                     <a href="#" class="m-nav__link m-dropdown__toggle">
                                         <span class="m-nav__link-icon">
                                             <i class="flaticon-search-1"></i>
@@ -260,6 +259,7 @@ export default {
             axios.get('current-user').then((res) => {
                 this.user = res.data.data;
                 this.$emit('getUser', this.user);
+                this.$store.state.user = this.user;
             });
         },
         changeLanguage() {
