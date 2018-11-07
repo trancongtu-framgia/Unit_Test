@@ -42,7 +42,7 @@ class ReviewController extends Controller
         $id = $request->id;
 
         if ($id == null) {
-            $this->authorize('create');
+            $this->authorize('create', Review::class);
             Review::create($request->only(
                 'content',
                 'report_id',
