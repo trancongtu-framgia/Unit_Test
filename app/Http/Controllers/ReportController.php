@@ -33,7 +33,7 @@ class ReportController extends Controller
     {
         $user = Auth::user();
 
-        $subjects = $this->subjectRepository->getUserSubject($user);
+        $subjects = $this->subjectRepository->getUserSubject($user->id);
 
         foreach ($subjects as $subject) {
             $subject->reports = $this->reportRepository->getReportsBySubjectID($subject->id, $user->id);
@@ -55,6 +55,17 @@ class ReportController extends Controller
         }
         
         return response()->json($users);
+    }
+
+    public function getReportsByTrainee(Request $request, $id)
+    {
+        $subjects = $this->subjectRepository->getUserSubject($id);
+
+        foreach ($subjects as $subject) {
+            $subject->reports = $this->reportRepository->getReportsBySubjectID($subject->id, $id);
+        }
+
+        return response()->json($subjects);
     }
 
     /**

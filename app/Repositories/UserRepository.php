@@ -18,16 +18,20 @@ class UserRepository extends EloquentRepository
         return \App\User::class;
     }
 
-    public function getAllTrainee()
+    public function getAllTrainee($id)
     {
-        return $this->model
+        $result = $this->model
                     ->whereIn(
                         'role_id',
                         DB::table('roles')
                         ->select('id')
                         ->where('name', '=', config('api.trainee'))
-                    )
-                    ->paginate(config('api.paginate'));
+                    );
+        if (func_num_args() > 0) {
+            $result = $result->where('batch_id', $id);
+        }
+
+        return $result->get();
     }
 
     public function createTrainee(array $data)

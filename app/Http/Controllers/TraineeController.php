@@ -29,6 +29,11 @@ class TraineeController extends Controller
         return ResourceUser::collection($this->traineeRepository->getAllTrainee());
     }
 
+    public function getTraineeByBatch(Request $request, $id)
+    {
+        return ResourceUser::collection($this->traineeRepository->getAllTrainee($id));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
