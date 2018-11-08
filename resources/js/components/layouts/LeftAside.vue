@@ -122,6 +122,10 @@ export default {
         modalType
     },
     props: ['user'],
-    methods: {}
+    methods: {
+        isTrainee(user) {
+            return user.role === 'trainee';
+        }
+    }
 };
 </script>

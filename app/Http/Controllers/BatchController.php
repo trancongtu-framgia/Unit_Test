@@ -24,7 +24,7 @@ class BatchController extends Controller
      */
     public function index()
     {
-        return BatchResoure::collection(Batch::all());
+        return BatchResoure::collection(Batch::orderBy('created_at', 'desc')->get());
     }
 
     /**

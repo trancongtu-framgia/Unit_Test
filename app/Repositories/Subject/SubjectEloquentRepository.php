@@ -19,8 +19,10 @@ class SubjectEloquentRepository extends EloquentRepository implements SubjectRep
         return $this->model->select(['name', 'day', 'created_at', 'id'])->get();
     }
 
-    public function getUserSubject(User $user)
+    public function getUserSubject($id)
     {
+        $user = User::findOrFail($id);
+
         return $this->model->select(['subjects.*'])
             ->join('batch_subject', 'subjects.id', 'batch_subject.subject_id')
             ->where('batch_subject.batch_id', $user->batch_id)

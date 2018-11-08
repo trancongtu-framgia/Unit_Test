@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\User;
+use App\Batch;
 use App\Subject;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +30,7 @@ class ReportRepository extends EloquentRepository
         $this->makeModel();
 
         return $this->model
-            ->select('reports.*', 'reviews.id as review_id', 'reviews.content as review')
+            ->select('reports.*', 'reviews.id as review_id', DB::raw('COALESCE(reviews.content, \'\') as review'))
             ->leftJoin('reviews', 'reports.id', 'reviews.report_id')
             ->where('reports.user_id', $user_id)
             ->where('subject_id', $subject_id)
@@ -50,11 +52,13 @@ class ReportRepository extends EloquentRepository
 
     public function getReportsGroupBySubject($user_id)
     {
-        $subjects = Subject::orderBy('name')->pluck('id');
+        $user = User::findOrFail($user_id);
+        $batch = Batch::findOrFail($user->batch_id);
+        $subjects = $batch->subjects;
         $result = [];
-        foreach ($subjects as $id) {
+        foreach ($subjects as $subject) {
             $this->makeModel();
-            $data = $this->getReportsBySubjectID($id, $user_id);
+            $data = $this->getReportsBySubjectID($subject->id, $user_id);
             $result = array_merge($result, [$data]);
         }
 

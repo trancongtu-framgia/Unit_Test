@@ -35,9 +35,7 @@ td {
 }
 
 .report-section {
-    height: 600px;
     overflow-x: scroll;
-    overflow-y: scroll;
 }
 
 .th-trainee {
@@ -55,38 +53,38 @@ td {
 @media screen and (max-width: 992px) {
     .th-report {
         text-align: center;
-        min-width: 500px;
+        min-width: 500px !important;
     }
 
     .th-report-content {
         text-align: center;
-        min-width: 250px;
-        max-width: 250px;
+        min-width: 250px !important;
+        max-width: 250px !important;
     }
 
     .th-report-item {
         text-align: center;
-        min-width: 125px;
-        max-width: 125px;
+        min-width: 125px !important;
+        max-width: 125px !important;
     }
 }
 
 @media screen and (min-width: 992px) {
     .th-report {
         text-align: center;
-        min-width: 1000px;
+        min-width: 1000px !important;
     }
 
     .th-report-content {
         text-align: center;
-        min-width: 500px;
-        max-width: 500px;
+        min-width: 500px !important;
+        max-width: 500px !important;
     }
 
     .th-report-item {
         text-align: center;
-        min-width: 250px;
-        max-width: 250px;
+        min-width: 250px !important;
+        max-width: 250px !important;
     }
 }
 
@@ -125,13 +123,19 @@ tbody,
 tr,
 td {
     height: 100%;
-}
-
-.table-editable td {
-    padding: 0;
+    background: #fff;
 }
 
 .edittor {
     height: 100%;
     word-break: break-all;
+}
+
+td > span {
+    word-break: break-word;
+}
+
+td > .edittor {
+    height: 100%;
+    padding: 0;
 }

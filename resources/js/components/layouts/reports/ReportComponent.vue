@@ -37,25 +37,25 @@
                                             <hr>
                                             <div>Day: {{ n }}</div>
                                         </td>
-                                        <template>
+                                        <template class="edittor" v-if="subjects[x].reports[n - 1].day == n">
                                             <td>
-                                                <ckeditor class="edittor" v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'content', subjects[x].reports[n - 1].content, n)" type="balloon" v-model="subjects[x].reports[n - 1].content" v-bind:html="report.content">
+                                                <ckeditor @blur="editReport(x, n, 'content')" type="balloon" v-model="subjects[x].reports[n - 1].content" v-bind:html="report.content">
                                                 </ckeditor>
                                             </td>
                                             <td>
-                                                <ckeditor class="edittor" v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'link', subjects[x].reports[n - 1].link, n)" type="balloon" v-model="subjects[x].reports[n - 1].link" v-bind:html="report.link">
+                                                <ckeditor class="edittor" @blur="editReport(x, n, 'link')" type="balloon" v-model="subjects[x].reports[n - 1].link" v-bind:html="report.link">
                                                 </ckeditor>
                                             </td>
                                             <td>
-                                                <ckeditor class="edittor" v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'test_link', subjects[x].reports[n - 1].test_link, n)" type="balloon" v-model="subjects[x].reports[n - 1].test_link" v-bind:html="report.test_link">
+                                                <ckeditor class="edittor" @blur="editReport(x, n, 'test_link')" type="balloon" v-model="subjects[x].reports[n - 1].test_link" v-bind:html="report.test_link">
                                                 </ckeditor>
                                             </td>
                                             <td>
-                                                <ckeditor class="edittor" v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'lesson', subjects[x].reports[n - 1].lesson, n)" type="balloon" v-model="subjects[x].reports[n - 1].lesson" v-bind:html="report.lesson">
+                                                <ckeditor class="edittor" @blur="editReport(x, n, 'lesson')" type="balloon" v-model="subjects[x].reports[n - 1].lesson" v-bind:html="report.lesson">
                                                 </ckeditor>
                                             </td>
                                             <td>
-                                                <ckeditor v-if="subjects[x].reports[n - 1].day == n" @blur="editReport(subjects[x].id, subjects[x].reports[n -1].id, 'status', subjects[x].reports[n - 1].status, n)" type="balloon" v-model="subjects[x].reports[n - 1].status" v-bind:html="report.status">
+                                                <ckeditor class="edittor" @blur="editReport(x, n, 'status')" type="balloon" v-model="subjects[x].reports[n - 1].status" v-bind:html="report.status">
                                                 </ckeditor>
                                             </td>
                                         </template>
@@ -84,7 +84,8 @@ export default {
                 id: null,
                 subject_id: null,
                 day: null
-            }
+            },
+            changed: false
         };
     },
 
@@ -108,18 +109,17 @@ export default {
                 day: null
             };
         },
-        editReport(subject_id, report_id, property, value, day) {
+        editReport(x, n, property) {
+            let currentReport = this.subjects[x].reports[n - 1];
             this.report = this.newReport();
-            let element = event.currentTarget;
-            this.report.id = report_id;
-            this.report.subject_id = subject_id;
-            this.report[property] = value;
-            this.report.day = day;
+            this.report.id = currentReport.id;
+            this.report.subject_id = currentReport.subject_id;
+            this.report[property] = currentReport[property];
+            this.report.day = n;
             axios.post('/reports', this.report);
         },
         inputReport(event, property) {
             let element = event;
-            // this.report = this.newReport();
             this.report[property] = event;
         }
     }

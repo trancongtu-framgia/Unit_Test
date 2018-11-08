@@ -20,9 +20,10 @@ const getUser = () => {
     return axios.get('current-user');
 }
 
+let user = null;
+
 const isAdmin = async (to, form, next) => {
-    let user = null;
-    await getUser().then(res => {
+    if (user === null) await getUser().then(res => {
         user = res.data.data;
     });
     if (user) {

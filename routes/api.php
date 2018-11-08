@@ -37,8 +37,10 @@ Route::group(['middleware' => [
     Route::put('/reviews', 'ReviewController@update');
     Route::resource('/reports', 'ReportController');
     Route::get('/reports/batch/{id}', 'ReportController@getReportsGroupBySubject');
+    Route::get('/reports/trainee/{id}', 'ReportController@getReportsByTrainee');
     Route::get('/reports/by/{subject_id}/', 'ReportController@getReportsBySubject');
     Route::resource('/trainees', 'TraineeController');
+    Route::get('/trainees/batch/{id}', 'TraineeController@getTraineeByBatch');
     Route::resource('/schedules', 'ScheduleController');
     Route::put('/schedules', 'ScheduleController@update');
     Route::resource('/roles', 'RoleController');
