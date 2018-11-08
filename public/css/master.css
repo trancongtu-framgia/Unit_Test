@@ -36,6 +36,7 @@ td {
 
 .report-section {
     overflow-x: scroll;
+    background: #fff;
 }
 
 .th-trainee {
@@ -123,7 +124,6 @@ tbody,
 tr,
 td {
     height: 100%;
-    background: #fff;
 }
 
 .edittor {

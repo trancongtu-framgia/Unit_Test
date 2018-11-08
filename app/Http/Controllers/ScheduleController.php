@@ -33,6 +33,11 @@ class ScheduleController extends Controller
         return ScheduleResource::collection($this->scheduleRepository->showSchedule($user->id));
     }
 
+    public function getUserByDate(Request $request, $date)
+    {
+        return response()->json($this->scheduleRepository->getUserByDate($date));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
