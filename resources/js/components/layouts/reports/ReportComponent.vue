@@ -37,9 +37,9 @@
                                             <hr>
                                             <div>Day: {{ n }}</div>
                                         </td>
-                                        <template class="edittor" v-if="subjects[x].reports[n - 1].day == n">
+                                        <template v-if="subjects[x].reports[n - 1].day == n">
                                             <td>
-                                                <ckeditor @blur="editReport(x, n, 'content')" type="balloon" v-model="subjects[x].reports[n - 1].content" v-bind:html="report.content">
+                                                <ckeditor class="edittor" @blur="editReport(x, n, 'content')" type="balloon" v-model="subjects[x].reports[n - 1].content" v-bind:html="report.content">
                                                 </ckeditor>
                                             </td>
                                             <td>

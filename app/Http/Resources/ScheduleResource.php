@@ -43,15 +43,28 @@ class ScheduleResource extends JsonResource
             }
         }
 
-        $data = [
-            'id' => $this->id,
-            'title' => $status,
-            'start' => $date->toDateString(),
-            'className' => $className,
-            'month' => $this->month,
-            'year' => $this->year,
-            'user_id' => $this->user_id,
-        ];
+        if (!$this->user_id) {
+            $scheduleRepo = new \App\Repositories\ScheduleRepository();
+            $users = $scheduleRepo->getUserByDate($this->day_month_id, $this->status);
+            $data = [
+                'id' => $this->id,
+                'title' => $status,
+                'start' => $date->toDateString(),
+                'className' => $className,
+                'month' => $this->month,
+                'year' => $this->year,
+                'users' => $users,
+            ];
+        } else {
+            $data = [
+                'id' => $this->id,
+                'title' => $status,
+                'start' => $date->toDateString(),
+                'className' => $className,
+                'month' => $this->month,
+                'year' => $this->year,
+            ];
+        }
 
         if ($this->count) {
             $data = array_merge($data, ['count' => $this->count]);

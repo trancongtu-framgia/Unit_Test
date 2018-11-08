@@ -58,7 +58,24 @@ export default {
             },
             events: [''],
             config: {
-                defaultView: 'month'
+                defaultView: 'month',
+                eventRender: function(event, jsEvent, view) {
+                    let users = event.users;
+                    $(jsEvent).tooltip({
+                        title: function() {
+                            let title = '';
+                            users.forEach(function(user) {
+                                title += `<p>${user.name}</p>`;
+                            });
+
+                            return title;
+                        },
+                        placement: 'auto',
+                        html: true,
+                        trigger: 'hover',
+                        container: 'body'
+                    });
+                }
             },
             header: {
                 left: 'prev,next',

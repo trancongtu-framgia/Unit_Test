@@ -12,8 +12,22 @@ class ScheduleRepository extends EloquentRepository
         return \App\Schedule::class;
     }
 
+    public function getUserByDate($day_month_id, $status)
+    {
+        $this->makeModel();
+
+        return $this->model->select(['users.*', 'schedules.id as schedules'])
+                ->from(DB::raw('users, schedules'))
+                ->where('schedules.day_month_id', $day_month_id)
+                ->where('users.id', DB::raw('schedules.user_id'))
+                ->where('schedules.status', '=', $status)
+                ->get();
+    }
+
     public function showSchedule($id)
     {
+        $this->makeModel();
+
         return $this->model
             ->join(
                 DB::raw('(select day_month.id, month, day, year
@@ -29,6 +43,8 @@ class ScheduleRepository extends EloquentRepository
 
     public function traineeSchedule()
     {
+        $this->makeModel();
+
         return $this->model
             ->select(DB::raw('schedules.id, day_month_id, day, month, year, status, count(*) as count'))
             ->join(
@@ -50,6 +66,7 @@ class ScheduleRepository extends EloquentRepository
 
     public function findByDate($date, $id)
     {
+        $this->makeModel();
         $day = date('j', strtotime($date));
         $month = date('n', strtotime($date));
         $year = date('Y', strtotime($date));
