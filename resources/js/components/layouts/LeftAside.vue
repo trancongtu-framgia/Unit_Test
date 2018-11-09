@@ -90,17 +90,17 @@
                                             <span class="m-menu__link-text">{{ $t('Types') }}</span>
                                         </router-link>
                                     </li>
+
+                                    <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                        <router-link :to="{name: 'register-account-trainee'}" class="m-menu__link m-menu__toggle">
+                                            <i class="m-menu__link-icon flaticon-menu-button"></i>
+                                            <span class="m-menu__link-text">{{ $t('Register trainee') }}</span>
+                                        </router-link>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
                     </template>
-
-                    <li v-else class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                        <router-link :to="{ name: 'manager_report' }" class="m-menu__link m-menu__toggle">
-                            <i class="m-menu__link-icon flaticon-calendar"></i>
-                            <span class="m-menu__link-text">{{ $t('Reports') }}</span>
-                        </router-link>
-                    </li>
                 </ul>
             </div>
         </div>

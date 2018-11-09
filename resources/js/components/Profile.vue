@@ -67,7 +67,10 @@
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">{{ $t('Full Name') }}</label>
                                                 <div class="col-7">
-                                                    <input name="name" class="form-control m-input" type="text" v-model="name">
+                                                    <input name="name" class="form-control m-input" type="text" v-model="name" @input="editing($event)">
+                                                    <span class="text-danger" v-if="errors.name[0] != ''">
+                                                        {{ errors.name[0] }}
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -178,6 +181,9 @@ export default {
             },
             response: {
                 password: ['']
+            },
+            errors: {
+                name: ['']
             }
         };
     },
@@ -191,11 +197,16 @@ export default {
         }
     },
     methods: {
+        editing ($event) {
+            this.errors.name = ''
+        },
+
         getProfile() {
             axios('/profile').then((res) => {
                 this.user = res.data.data;
             });
         },
+
         submit() {
             axios
                 .patch('profile', {
@@ -203,7 +214,14 @@ export default {
                     school: this.school
                 })
                 .then((res) => {
-                    alert(res.data.message);
+                   if (res.data.errors) {
+                        let keys = Object.keys(res.data.errors);
+                        for (let i = 0; i < keys.length; i++) {
+                            this.errors[keys[i]] = res.data.errors[keys[i]];
+                        }
+                    } else {
+                        alert(res.data.message)
+                    }
                 })
                 .catch((error) => {
                     if (error) {
@@ -211,6 +229,7 @@ export default {
                     }
                 });
         },
+
         password() {
             axios.patch('password', this.data).then((res) => {
                 if (res.data.success) {
@@ -223,5 +242,5 @@ export default {
             });
         }
     }
-};
+}
 </script>
