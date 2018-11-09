@@ -17,13 +17,13 @@
         <link rel="stylesheet" href="{{ asset(config('api.baseCss') . 'master.css') }}">
 
     </head>
-    <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+    <body id="body" class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
         <div id="app">
             <div class="m-grid m-grid--hor m-grid--root m-page">
                 <vue-app></vue-app>
             </div>
         </div>
         <script src="{{ asset(config('api.vendors') . 'vendors.bundle.js') }}" type="text/javascript"></script>
-        <script src="{{ asset(config('api.base') . 'scripts.bundle.js') }}" type="text/javascript"></script>
         <script src="{{ asset(config('api.baseJs') . 'app.js') }}"></script>        
+    </body>
 </html>

@@ -35,7 +35,7 @@
                             </template>
                             <template v-else>
                                 <div class="m-portlet__body">
-                                    <full-calendar ref="calendar" :events="events" :config="config" :header="header"></full-calendar>
+                                    <full-calendar ref="calendar" @event-render="eventRender" :events="events" :config="config" :header="header"></full-calendar>
                                 </div>
                             </template>
                         </div>
@@ -58,24 +58,7 @@ export default {
             },
             events: [''],
             config: {
-                defaultView: 'month',
-                eventRender: function(event, jsEvent, view) {
-                    let users = event.users;
-                    $(jsEvent).tooltip({
-                        title: function() {
-                            let title = '';
-                            users.forEach(function(user) {
-                                title += `<p>${user.name}</p>`;
-                            });
-
-                            return title;
-                        },
-                        placement: 'auto',
-                        html: true,
-                        trigger: 'hover',
-                        container: 'body'
-                    });
-                }
+                defaultView: 'month'
             },
             header: {
                 left: 'prev,next',
@@ -94,6 +77,23 @@ export default {
     },
 
     methods: {
+        eventRender: function(event, jsEvent, view) {
+            let users = event.users;
+            $(jsEvent).tooltip({
+                title: function() {
+                    let title = '';
+                    users.forEach(function(user) {
+                        title += `<p>${user.name}</p>`;
+                    });
+
+                    return title;
+                },
+                placement: 'auto',
+                html: true,
+                trigger: 'hover',
+                container: 'body'
+            });
+        },
         fetchSchedule() {
             axios('/schedules').then((res) => {
                 let self = this;

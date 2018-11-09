@@ -14,9 +14,6 @@
                             <span class="m-menu__link-title">
                                 <span class="m-menu__link-wrap">
                                     <span class="m-menu__link-text">{{ $t('Dashboard') }}</span>
-                                    <span class="m-menu__link-badge">
-                                        <span class="m-badge m-badge--danger">2</span>
-                                    </span>
                                 </span>
                             </span>
                         </router-link>
@@ -26,7 +23,7 @@
                         <i class="m-menu__section-icon flaticon-more-v3"></i>
                     </li>
 
-                    <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                    <li @click="toggleItem($event)" class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
                         <a href="javascript:;" class="m-menu__link m-menu__toggle">
                             <i class="m-menu__link-icon flaticon-calendar"></i>
                             <span class="m-menu__link-text">{{ $t('Calendar') }}</span>
@@ -59,7 +56,7 @@
                             </router-link>
                         </li>
 
-                        <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                        <li @click="toggleItem($event)" class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
                             <a href="javascript:;" class="m-menu__link m-menu__toggle">
                                 <i class="m-menu__link-icon flaticon-menu-button"></i>
                                 <span class="m-menu__link-text">{{ $t('Manager') }}</span>
@@ -68,7 +65,7 @@
                             <div class="m-menu__submenu">
                                 <span class="m-menu__arrow"></span>
                                 <ul class="m-menu__subnav">
-                                    <li class="m-menu__item " aria-haspopup="true">
+                                    <li class="m-menu__item" aria-haspopup="true">
                                         <router-link :to="{name: 'list_workspace'}" class="m-menu__link m-menu__toggle">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span></span>
@@ -76,7 +73,7 @@
                                             <span class="m-menu__link-text">{{ $t('Workspaces') }}</span>
                                         </router-link>
                                     </li>
-                                    <li class="m-menu__item " aria-haspopup="true">
+                                    <li class="m-menu__item" aria-haspopup="true">
                                         <router-link :to="{name: 'list_team'}" class="m-menu__link m-menu__toggle">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span></span>
@@ -85,7 +82,7 @@
                                         </router-link>
                                     </li>
 
-                                    <li class="m-menu__item " aria-haspopup="true">
+                                    <li class="m-menu__item" aria-haspopup="true">
                                         <router-link :to="{name: 'list_type'}" class="m-menu__link m-menu__toggle">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span></span>
@@ -123,6 +120,11 @@ export default {
     },
     props: ['user'],
     methods: {
+        toggleItem(event) {
+            let element = event.currentTarget;
+            element.classList.toggle('m-menu__item--open');
+            element.children[1].classList.toggle('d-none');
+        },
         isTrainee(user) {
             return user.role === 'trainee';
         }

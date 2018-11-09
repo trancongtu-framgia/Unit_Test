@@ -5,7 +5,7 @@
                 <div class="m-login__container">
                     <div class="m-login__logo">
                         <a href="#">
-                            <img v-bind:src="this.$store.state.baseUrlLogo + 'logo-1.png'">
+                            <img v-bind:src="this.$store.state.baseUrlLogo">
                         </a>
                     </div>
                     <div class="m-login__signin">
