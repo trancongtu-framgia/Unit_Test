@@ -14,7 +14,7 @@
                         <div class="m-stack__item m-stack__item--middle m-brand__tools">
 
                             <!-- BEGIN: Left Aside Minimize Toggle -->
-                            <a href="javascript:;" id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block  ">
+                            <a href="javascript:;" @click="toggleAside"  id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block  ">
                                 <span></span>
                             </a>
 
@@ -51,129 +51,6 @@
                     <button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-dark " id="m_aside_header_menu_mobile_close_btn">
                         <i class="la la-close"></i>
                     </button>
-                    <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark ">
-                        <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
-                            <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
-                                <a href="javascript:;" class="m-menu__link m-menu__toggle">
-                                    <i class="m-menu__link-icon flaticon-add"></i>
-                                    <span class="m-menu__link-text">{{ $t('Actions') }}</span>
-                                    <i class="m-menu__hor-arrow la la-angle-down"></i>
-                                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                </a>
-                                <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-                                    <span class="m-menu__arrow m-menu__arrow--adjust"></span>
-                                    <ul class="m-menu__subnav">
-                                        <li class="m-menu__item " aria-haspopup="true">
-                                            <a href="../../header/actions.html" class="m-menu__link ">
-                                                <i class="m-menu__link-icon flaticon-file"></i>
-                                                <span class="m-menu__link-text">{{ $t('Create New Post') }}</span>
-                                            </a>
-                                        </li>
-                                        <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                            <a href="../../header/actions.html" class="m-menu__link ">
-                                                <i class="m-menu__link-icon flaticon-diagram"></i>
-                                                <span class="m-menu__link-title">
-                                                    <span class="m-menu__link-wrap">
-                                                        <span class="m-menu__link-text">{{ $t('Generate Reports') }}</span>
-                                                        <span class="m-menu__link-badge">
-                                                            <span class="m-badge m-badge--success">2</span>
-                                                        </span>
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li class="m-menu__item  m-menu__item--submenu" m-menu-submenu-toggle="hover" m-menu-link-redirect="1" aria-haspopup="true">
-                                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
-                                                <i class="m-menu__link-icon flaticon-business"></i>
-                                                <span class="m-menu__link-text">{{ $t('Manage Orders') }}</span>
-                                                <i class="m-menu__hor-arrow la la-angle-right"></i>
-                                                <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                            </a>
-                                            <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
-                                                <span class="m-menu__arrow "></span>
-                                                <ul class="m-menu__subnav">
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">{{ $t('Latest Orders') }}</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">{{ $t('Pending Orders') }}</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">{{ $t('Processed Orders') }}</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">{{ $t('Delivery Reports') }}</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">{{ $t('Payments') }}</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                                        <a href="../../header/actions.html" class="m-menu__link ">
-                                                            <span class="m-menu__link-text">{{ $t('Customers') }}</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                                            <a href="../../header/actions.html" class="m-menu__link ">
-                                                <i class="m-menu__link-icon flaticon-users"></i>
-                                                <span class="m-menu__link-text">{{ $t('Register Member') }}</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- END: Horizontal Menu -->
-                    <div id="m_header_topbar" class="m-topbar m-topbar-left  m-stack m-stack--ver m-stack--general m-stack--fluid">
-                        <div class="m-stack__item m-topbar__nav-wrapper">
-                            <ul class="m-topbar__nav m-nav m-nav--inline">
-                                <li class="m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light" m-dropdown-toggle="click" id="m_quicksearch" m-quicksearch-mode="dropdown" m-dropdown-persistent="1">
-                                    <a href="#" class="m-nav__link m-dropdown__toggle">
-                                        <span class="m-nav__link-icon">
-                                            <i class="flaticon-search-1"></i>
-                                        </span>
-                                    </a>
-                                    <div class="m-dropdown__wrapper">
-                                        <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
-                                        <div class="m-dropdown__inner ">
-                                            <div class="m-dropdown__header">
-                                                <form class="m-list-search__form">
-                                                    <div class="m-list-search__form-wrapper">
-                                                        <span class="m-list-search__form-input-wrapper">
-                                                            <input id="m_quicksearch_input" autocomplete="off" type="text" name="q" class="m-list-search__form-input" value="" placeholder="Search...">
-                                                        </span>
-                                                        <span class="m-list-search__form-icon-close" id="m_quicksearch_close">
-                                                            <i class="la la-remove"></i>
-                                                        </span>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="m-dropdown__body">
-                                                <div class="m-dropdown__scrollable m-scrollable" data-scrollable="true" data-height="300" data-mobile-height="200">
-                                                    <div class="m-dropdown__content">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <!-- BEGIN: Topbar -->
                     <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
                         <div class="m-stack__item m-topbar__nav-wrapper">
@@ -188,8 +65,10 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
-                                    <a href="#" class="m-nav__link m-dropdown__toggle">
+                                <li ref="dropdown" class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img 
+                                m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill 
+                                m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
+                                    <a href="#" class="m-nav__link m-dropdown__toggle" @click="dropDown">
                                         <span class="m-topbar__userpic">
                                             <img v-bind:src="this.$store.state.urlImage + 'users/user4.jpg'" class="m--img-rounded m--marginless" alt="" />
                                         </span>
@@ -255,6 +134,13 @@ export default {
         this.getUser();
     },
     methods: {
+        dropDown() {
+            this.$refs.dropdown.classList.toggle('m-dropdown--open');
+        },
+        toggleAside() {
+            document.getElementById('body').classList.toggle('m-brand--minimize');
+            document.getElementById('body').classList.toggle('m-aside-left--minimize');
+        },
         getUser() {
             axios.get('current-user').then((res) => {
                 this.user = res.data.data;

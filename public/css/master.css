@@ -139,3 +139,11 @@ td > .edittor {
     height: 100%;
     padding: 0;
 }
+
+#app {
+    height: 100%;
+}
+
+.m-page {
+    height: 100%;
+}

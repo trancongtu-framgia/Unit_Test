@@ -19,7 +19,6 @@ import Locale from './vue-i18n-locales.generated.js';
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import BalloonEditor from '@ckeditor/ckeditor5-build-balloon'
 import VueCkeditor from 'vue-ckeditor5';
-
 const options = {
     editors: {
         classic: BalloonEditor,
