@@ -37,10 +37,6 @@ class SubjectController extends Controller
 
     public function update (Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required|string',
-            'day' => 'required'
-        ]);
         $this->subjectRepository->update($request->all(), $id);
 
         return response()->json([
