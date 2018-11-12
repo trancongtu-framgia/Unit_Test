@@ -91,6 +91,15 @@
                                         </router-link>
                                     </li>
 
+                                    <li class="m-menu__item" aria-haspopup="true">
+                                        <router-link :to="{name: 'list_subjects'}" class="m-menu__link m-menu__toggle">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="m-menu__link-text">{{ $t('Subjects') }}</span>
+                                        </router-link>
+                                    </li>
+
                                     <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
                                         <router-link :to="{name: 'register-account-trainee'}" class="m-menu__link m-menu__toggle">
                                             <i class="m-menu__link-icon flaticon-menu-button"></i>

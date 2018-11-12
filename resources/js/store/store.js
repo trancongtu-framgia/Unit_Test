@@ -4,6 +4,7 @@ import axios from 'axios';
 import workspace from './modules/workspace/index';
 import team from './modules/teams/index';
 import type from './modules/types/index';
+import subject from './modules/subject/index';
 import reports from './modules/reports/index';
 import trainee from './modules/trainees/index';
 
@@ -16,7 +17,8 @@ export const store = new Vuex.Store({
         team: team,
         type: type,
         reports: reports,
-        trainee: trainee
+        trainee: trainee,
+        subject: subject
     },
 
     state: {

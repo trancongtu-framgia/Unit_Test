@@ -10,6 +10,7 @@ import Reports from './components/Reports.vue'
 import ListWorkspace from './components/workspace/ListWorkspaceComponent'
 import ListTeam from './components/team/ListTeam.vue'
 import ListType from './components/type/ListType.vue'
+import ListSubject from './components/subject/ListSubject.vue'
 import Multiguard from 'vue-router-multiguard'
 import RegisterTrainee from './components/trainee/register'
 import axios from 'axios';
@@ -117,6 +118,15 @@ let routes = [
         path: '/types',
         name: 'list_type',
         component: ListType,
+        meta: {
+            requiresAuth: true
+        },
+        beforeEnter: Multiguard([isAdmin])
+    },
+    {
+        path: '/subjects',
+        name: 'list_subjects',
+        component: ListSubject,
         meta: {
             requiresAuth: true
         },
