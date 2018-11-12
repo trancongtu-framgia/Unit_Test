@@ -78,7 +78,8 @@ class TraineeController extends Controller
                     'name',
                     'email',
                     'password',
-                    'batch_id'
+                    'batch_id',
+                    'school'
                 ),
                 ['role_id' => $request->get('role_id')]
             )

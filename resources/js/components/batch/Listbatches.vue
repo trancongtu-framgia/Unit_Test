@@ -38,7 +38,7 @@
                                     <th>{{ $t('Team') }}</th>
                                     <th>{{ $t('Type') }}</th>
                                     <th>{{ $t('Subjects') }}</th>
-                                    <th>{{ $t('Edit') }}</th>
+                                    <th>{{ $t('Delete') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,7 +57,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <router-link :to="{name: 'edit_batches', params: {id: batch.id}}">{{ $t('Edit') }}</router-link>
+                                        <a href="javascript:void(0)" @click="deletebatch(batch.id)">{{ $t('Delete') }}</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -88,6 +88,15 @@ export default {
             this.$store.dispatch('batch/getbatches')
             .then(res => {
                 this.batches = res.data
+            })
+        },
+
+        deletebatch (id) {
+            this.$store.dispatch('batch/deletebatch', {
+                id: id
+            })
+            .then(res => {
+                this.getbatches()
             })
         }
     }
