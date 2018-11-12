@@ -17,21 +17,23 @@ class BatchResoure extends JsonResource
      */
     public function toArray($request)
     {
-        $workspace = Workspace::findOrFail($this->workspace_id);
-        $team = Team::findOrFail($this->team_id);
-        $type = Type::findOrFail($this->type_id);
-
         return [
             'id' => $this->id,
             'start_day' => $this->start_day,
             'stop_day' => $this->stop_day,
             'batch' => $this->batch,
-            'workspace_id' => $this->workspace_id,
-            'team_id' => $this->team_id,
-            'type_id' => $this->type_id,
-            'name' => $workspace->name . '-' . $team->name . '-' . $type->shorthand . '-' . $this->batch,
+            'workspace' => $this->workspace->name,
+            'team' => $this->team->name,
+            'type' => $this->type->name,
+            'name' => $this->nameBatch(),
+            'subjects' => $this->subjects,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+    }
+
+    public function nameBatch ()
+    {
+        return $this->workspace->name . '-' . $this->team->name . '-' . $this->type->shorthand . '-' . $this->batch;
     }
 }

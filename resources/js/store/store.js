@@ -7,6 +7,7 @@ import type from './modules/types/index';
 import subject from './modules/subject/index';
 import reports from './modules/reports/index';
 import trainee from './modules/trainees/index';
+import batch from './modules/batch/index';
 
 Vue.use(Vuex);
 axios.defaults.baseURL = '/api';
@@ -18,7 +19,8 @@ export const store = new Vuex.Store({
         type: type,
         reports: reports,
         trainee: trainee,
-        subject: subject
+        subject: subject,
+        batch: batch
     },
 
     state: {

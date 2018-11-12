@@ -13,6 +13,9 @@ import ListType from './components/type/ListType.vue'
 import ListSubject from './components/subject/ListSubject.vue'
 import Multiguard from 'vue-router-multiguard'
 import RegisterTrainee from './components/trainee/register'
+import Batch from './components/batch/Listbatches'
+import AddBatch  from './components/batch/Addbatch'
+import EditBatch from './components/batch/Editbatch'
 import axios from 'axios';
 
 const getUser = () => {
@@ -131,7 +134,34 @@ let routes = [
             requiresAuth: true
         },
         beforeEnter: Multiguard([isAdmin])
-    }
+    },
+    {
+        path: '/batches',
+        name: 'list_batches',
+        component: Batch,
+        meta: {
+            requiresAuth: true
+        },
+        beforeEnter: Multiguard([isAdmin])
+    },
+    {
+        path: '/batches/add',
+        name: 'add_batches',
+        component: AddBatch,
+        meta: {
+            requiresAuth: true
+        },
+        beforeEnter: Multiguard([isAdmin])
+    },
+    {
+        path: '/batches/edit/:id',
+        name: 'edit_batches',
+        component: EditBatch,
+        meta: {
+            requiresAuth: true
+        },
+        beforeEnter: Multiguard([isAdmin])
+    },
 ];
 
 export default new VueRouter({
