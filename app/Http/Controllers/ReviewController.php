@@ -22,7 +22,6 @@ class ReviewController extends Controller
     {
         $this->validate($request, [
             'content' => 'required|string',
-            'user_id' => 'required',
             'report_id' => 'required'
         ]);
 
@@ -45,16 +44,14 @@ class ReviewController extends Controller
             $this->authorize('create', Review::class);
             Review::create($request->only(
                 'content',
-                'report_id',
-                'user_id'
+                'report_id'
             ));
         } else {
             $review = Review::findOrFail($id);
             $this->authorize('update', $review);
             $review = $this->review->update($request->only(
                 'content',
-                'report_id',
-                'user_id'
+                'report_id'
             ), $id);
         }
 

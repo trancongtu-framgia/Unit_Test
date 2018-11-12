@@ -41,7 +41,7 @@ class ScheduleRepository extends EloquentRepository
             ->where('user_id', $id)->get();
     }
 
-    public function traineeSchedule()
+    public function traineeSchedule($id)
     {
         $this->makeModel();
 
@@ -52,7 +52,8 @@ class ScheduleRepository extends EloquentRepository
                         from day_month
                         inner join days on day_id = days.id
                         inner join months on month_id = months.id
-                ) as dayMonth'),
+                        where batch_id =' . $id .
+                ') as dayMonth'),
                 'day_month_id',
                 'dayMonth.id'
             )

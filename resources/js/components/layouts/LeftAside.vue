@@ -23,32 +23,15 @@
                         <i class="m-menu__section-icon flaticon-more-v3"></i>
                     </li>
 
-                    <li @click="toggleItem($event)" class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                    <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
                         <a href="javascript:;" class="m-menu__link m-menu__toggle">
                             <i class="m-menu__link-icon flaticon-calendar"></i>
-                            <span class="m-menu__link-text">{{ $t('Calendar') }}</span>
-                            <i class="m-menu__ver-arrow la la-angle-right"></i>
+                            <router-link :to="{ name: 'index'}" class="m-menu__link">
+                                <span class="m-menu__link-text">{{ $t('Calendar') }}</span>
+                            </router-link>
                         </a>
-                        <div class="m-menu__submenu">
-                            <span class="m-menu__arrow"></span>
-                            <ul class="m-menu__subnav">
-                                <li class="m-menu__item m-menu__item--parent" aria-haspopup="true">
-                                    <span class="m-menu__link">
-                                        <span class="m-menu__link-text">{{ $t('Calendar') }}</span>
-                                    </span>
-                                </li>
-                                <li class="m-menu__item  m-menu__item--active" aria-haspopup="true">
-                                    <router-link :to="{ name: 'index'}" class="m-menu__link">
-                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="m-menu__link-text">{{ $t('Calendar') }}</span>
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
-                    <template v-if="!isTrainee(user)">
+                    <template v-if="user.role && user.role !== 'trainee'">
                         <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
                             <router-link :to="{ name: 'reports' }" class="m-menu__link m-menu__toggle">
                                 <i class="m-menu__link-icon flaticon-calendar"></i>
@@ -99,15 +82,22 @@
                                             <span class="m-menu__link-text">{{ $t('Subjects') }}</span>
                                         </router-link>
                                     </li>
-
-                                    <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                                        <router-link :to="{name: 'register-account-trainee'}" class="m-menu__link m-menu__toggle">
-                                            <i class="m-menu__link-icon flaticon-menu-button"></i>
-                                            <span class="m-menu__link-text">{{ $t('Register trainee') }}</span>
-                                        </router-link>
-                                    </li>
                                 </ul>
                             </div>
+                        </li>
+                        <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                            <router-link :to="{name: 'register-account-trainee'}" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-icon flaticon-menu-button"></i>
+                                <span class="m-menu__link-text">{{ $t('Register trainee') }}</span>
+                            </router-link>
+                        </li>
+                    </template>
+                    <template v-else>
+                        <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                            <router-link :to="{ name: 'manager_report' }" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-icon flaticon-calendar"></i>
+                                <span class="m-menu__link-text">{{ $t('Reports') }}</span>
+                            </router-link>
                         </li>
                     </template>
                 </ul>
@@ -133,9 +123,6 @@ export default {
             let element = event.currentTarget;
             element.classList.toggle('m-menu__item--open');
             element.children[1].classList.toggle('d-none');
-        },
-        isTrainee(user) {
-            return user.role === 'trainee';
         }
     }
 };

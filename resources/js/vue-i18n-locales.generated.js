@@ -148,7 +148,8 @@ export default {
         "Subject": "Chủ Đề",
         "Content": "Nội Dung",
         "Lesson": "Bài Học",
-        "Status": "Trạng Thái"
+        "Status": "Trạng Thái",
+        "Loading": "Xin Chờ"
 
     }
 }
