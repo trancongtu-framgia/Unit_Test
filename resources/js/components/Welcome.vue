@@ -34,6 +34,11 @@
                                 </select>
                             </template>
                             <template v-else>
+                                <div class="col-md-5">
+                                    <select v-model="selected_batch" class="form-control">
+                                        <option v-for="batch in batches" :value="batch.id">{{ batch.name }}</option>
+                                    </select>
+                                </div>
                                 <div class="m-portlet__body">
                                     <full-calendar ref="calendar" @event-render="eventRender" :events="events" :config="config" :header="header"></full-calendar>
                                 </div>
@@ -53,9 +58,7 @@
 export default {
     data() {
         return {
-            user: {
-                role: ''
-            },
+            user: '',
             events: [''],
             config: {
                 defaultView: 'month'
@@ -65,18 +68,30 @@ export default {
                 center: 'title',
                 right: ''
             },
+            selected_batch: '',
+            batches: [''],
             editting: false,
             status: '',
             oldstatus: '',
             date: ''
         };
     },
-
+    watch: {
+        selected_batch: function() {
+            this.fetchSchedule();
+        }
+    },
     created() {
-        this.fetchSchedule();
+        this.fetchBatches();
     },
 
     methods: {
+        fetchBatches() {
+            axios('/batches').then((res) => {
+                this.batches = res.data.data;
+                this.selected_batch = this.batches[0].id;
+            });
+        },
         eventRender: function(event, jsEvent, view) {
             let users = event.users;
             $(jsEvent).tooltip({
@@ -95,7 +110,12 @@ export default {
             });
         },
         fetchSchedule() {
-            axios('/schedules').then((res) => {
+            let url = 'schedules/';
+            url += this.isTrainee(this.user)
+                ? `user/${this.user.id}`
+                : `batch/${this.selected_batch}`;
+
+            axios(url).then((res) => {
                 let self = this;
                 res.data.data.forEach(function(event) {
                     event.title = self.$t(event.title);

@@ -41,7 +41,7 @@ class ReviewPolicy
      */
     public function update(User $user, Review $review)
     {
-        return $user->notTrainee() && $user->id === $review->user_id;
+        return $user->notTrainee();
     }
 
     /**

@@ -6,7 +6,7 @@
             </template>
             <span slot="head-title">{{ $t('Calendar') }}</span>
             <template slot="content">
-                <div class="m-portlet m-portlet--mobile">
+                <div class="m-portlet m-portlet--mobile position-relative">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
@@ -28,6 +28,7 @@
                                         <th class="th-report-item">{{ $t('Test Link') }}</th>
                                         <th class="th-report-item">{{ $t('Lesson') }}</th>
                                         <th class="th-report-item">{{ $t('Status') }}</th>
+                                        <th class="th-report-item">{{ $t('Review') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody v-for="(subject, x) in subjects" :key="x">
@@ -58,11 +59,18 @@
                                                 <ckeditor class="edittor" @blur="editReport(x, n, 'status')" type="balloon" v-model="subjects[x].reports[n - 1].status" v-bind:html="report.status">
                                                 </ckeditor>
                                             </td>
+                                            <td>
+                                                <div v-html="subjects[x].reports[n - 1].review"></div>
+                                            </td>
                                         </template>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="loading" v-show="loading === true">
+                        <br>
+                        <span>{{ $t('Loading') }}...</span>
                     </div>
                 </div>
             </template>
@@ -85,7 +93,8 @@ export default {
                 subject_id: null,
                 day: null
             },
-            changed: false
+            changed: false,
+            loading: true
         };
     },
 
@@ -100,6 +109,7 @@ export default {
         getReports() {
             axios('/reports').then((res) => {
                 this.subjects = res.data;
+                this.loading = false;
             });
         },
         newReport() {

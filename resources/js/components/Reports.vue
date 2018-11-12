@@ -86,7 +86,6 @@ export default {
             review: {
                 id: '',
                 report_id: '',
-                user_id: '',
                 content: ''
             },
             editting: false
@@ -118,7 +117,6 @@ export default {
             this.review.content = report.review;
             this.review.id = report.review_id;
             this.review.report_id = report.id;
-            this.review.user_id = report.user_id;
         },
         getTrainees(id) {
             axios(`/trainees/batch/${id}`).then((res) => {

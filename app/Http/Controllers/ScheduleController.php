@@ -18,19 +18,15 @@ class ScheduleController extends Controller
     {
         $this->scheduleRepository = $scheduleRepository;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+
+    public function getBatchSchedule(Request $request, $id)
     {
-        $user = Auth::user();
-        if ($user->notTrainee()) {
-            return ScheduleResource::collection($this->scheduleRepository->traineeSchedule());
-        }
-        
-        return ScheduleResource::collection($this->scheduleRepository->showSchedule($user->id));
+        return ScheduleResource::collection($this->scheduleRepository->traineeSchedule($request->id));
+    }
+
+    public function getUserSchedule(Request $request, $id)
+    {
+        return ScheduleResource::collection($this->scheduleRepository->showSchedule($request->id));
     }
 
     public function getUserByDate(Request $request, $date)
