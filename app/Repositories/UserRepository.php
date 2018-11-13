@@ -58,7 +58,6 @@ class UserRepository extends EloquentRepository
                 }
             }
 
-
             DB::commit();
 
             return response()->json(['message' => config('api.create')]);

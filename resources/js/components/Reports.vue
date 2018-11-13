@@ -10,7 +10,11 @@
                     </template>
                 </select>
                 <select name="trainees" class="form-select mb-3" v-model="trainee_selected">
-                    <option v-for="trainee in trainees" :value="trainee.id">{{ trainee.name }}</option>
+                    <option v-for="trainee in trainees" :value="trainee.id">{{ trainee.name }}
+                        <template v-if="schedules.length > 0" v-for="schedule in schedules">
+                            | {{ getWeekDay(schedule.start) }} - {{ schedule.title }}
+                        </template>
+                    </option>
                 </select>
                 <div class="report-section">
                     <table class="table table-editable table-striped- table-bordered table-hover table-checkable" id="m_table_1">
@@ -92,6 +96,7 @@ export default {
                 report_id: '',
                 content: ''
             },
+            schedules: [],
             editting: false,
             loading: true
         };
@@ -106,6 +111,7 @@ export default {
         trainee_selected: function() {
             this.loading = true;
             this.getTraineesReport();
+            this.getSchedule();
         }
     },
     methods: {
@@ -150,6 +156,18 @@ export default {
 
         backEndDateFormat: function(date) {
             return moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD');
+        },
+        getSchedule() {
+            axios(`schedules/user/${this.trainee_selected}/byweek`).then(
+                (res) => {
+                    this.schedules = res.data.data;
+                }
+            );
+        },
+        getWeekDay(date) {
+            return new Date(date).toLocaleDateString('en', {
+                weekday: 'short'
+            });
         }
     }
 };
