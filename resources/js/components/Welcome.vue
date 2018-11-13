@@ -37,7 +37,7 @@
                                 <template v-if="user.role">
                                     <div class="col-md-5">
                                         <select v-model="selected_batch" class="form-control">
-                                            <option v-for="batch in batches" :value="batch.id">{{ batch.name }}</option>
+                                            <option v-for="batch in batches" :value="batch.id">{{ batch.name }} ({{ batch.start_day }} - {{ batch.stop_day }})</option>
                                         </select>
                                     </div>
                                 </template>

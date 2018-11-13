@@ -85,7 +85,7 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div class="form-group m-form__group row">
+                                            <div class="form-group m-form__group row" v-if="! notbatch">
                                                 <label for="example-text-input" class="col-2 col-form-label">{{ $t('Batch') }}</label>
                                                 <div class="col-7 d-flex align-items-center">
                                                     <select class="form-control" v-model="batch_id">
@@ -133,6 +133,7 @@ export default {
             batch_id: '',
             batches: {},
             role_id: '',
+            notbatch: false,
             roles: {},
             errors: {
                 name: [''],
@@ -164,13 +165,21 @@ export default {
             })
         },
 
-        editing ($event) {
-            if ($event.target.name == 'role_id') {
+        editing (event) {
+            if (event.target.tagName == 'SELECT') {
+                const nameOption = event.target.options[event.target.options.selectedIndex].text
+                if (nameOption === 'Admin' || nameOption === 'Trainer') {
+                    this.notbatch = true
+                } else {
+                    this.notbatch = false
+                }
+            }
+            if (event.target.name == 'role_id') {
                 this.errors.role_id = ''
             }
 
             for (var i in this.errors) {
-                if (i == $event.target.name) {
+                if (i == event.target.name) {
                     this.errors[i] = ''
                 }
             }
@@ -197,9 +206,7 @@ export default {
                     this.user = '',
                     this.name = '',
                     this.email = '',
-                    this.school = '',
-                    this.batch_id = '',
-                    this.role_id = ''
+                    this.school = ''
                 }
             })
         }

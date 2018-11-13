@@ -43,19 +43,21 @@ class UserRepository extends EloquentRepository
             $ids = DayMonth::whereIn('month_id', $month_ids)->get()->pluck('id');
             $user->dayMonths()->attach($ids, ['status' => config('api.default.status')]);
 
-            $batch = Batch::findOrFail($data['batch_id']);
+            if ($data['batch_id'] != '') {
+                $batch = Batch::findOrFail($data['batch_id']);
+                $subjects = $batch->subjects;
 
-            $subjects = $batch->subjects;
-
-            foreach ($subjects as $subject) {
-                for ($i = 1; $i <= $subject->day; $i++) {
-                    Report::create([
-                        'user_id' => $user->id,
-                        'subject_id' => $subject->id,
-                        'day' => $i
-                    ]);
+                foreach ($subjects as $subject) {
+                    for ($i = 1; $i <= $subject->day; $i++) {
+                        Report::create([
+                            'user_id' => $user->id,
+                            'subject_id' => $subject->id,
+                            'day' => $i
+                        ]);
+                    }
                 }
             }
+
 
             DB::commit();
 

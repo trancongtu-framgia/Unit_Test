@@ -37,7 +37,7 @@ export default {
         return batch
     },
 
-    async deletebatches (context, data) {
+    async deletebatch (context, data) {
         await axios.delete('/batches/' + data.id)
     }
 }
