@@ -41,6 +41,29 @@ class ScheduleRepository extends EloquentRepository
             ->where('user_id', $id)->get();
     }
 
+    public function showScheduleByWeek($id)
+    {
+        $this->makeModel();
+        
+        $day = date('w');
+        $month = date('m');
+        $week_start = date('m-d-Y', strtotime('-'.$day.' days'));
+        $week_end = date('m-d-Y', strtotime('+'.(6-$day).' days'));
+
+        return $this->model
+            ->join(
+                DB::raw('(select day_month.id, month, day, year
+                                from day_month
+                                inner join days on day_id = days.id
+                                inner join months on month_id = months.id
+                        ) as dayMonth'),
+                'day_month_id',
+                'dayMonth.id'
+            )
+            ->where()
+            ->where('user_id', $id)->get();
+    }
+
     public function traineeSchedule($id)
     {
         $this->makeModel();

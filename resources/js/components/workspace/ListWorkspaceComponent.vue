@@ -11,7 +11,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    {{ $t('report.Daily') }}
+                                    {{ $t('Workspace') }}
                                 </h3>
                             </div>
                         </div>
@@ -51,26 +51,26 @@
             </template>
         </vue-master>
         <div class="modal fade" id="m_modal_workdpace" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form @submit.prevent="create">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ $t('Add workspace') }}</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="recipient-name" class="form-control-label">{{ $t('Name') }}</label>
-                            <input type="text" class="form-control" v-model="name">
+            <div class="modal-dialog modal-lg" role="document">
+                <form @submit.prevent="create">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ $t('Add workspace') }}</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="recipient-name" class="form-control-label">{{ $t('Name') }}</label>
+                                <input type="text" class="form-control" v-model="name">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ $t('Close') }}</button>
+                            <button type="submit" class="btn btn-primary" @click="create" data-dismiss="modal">{{ $t('Add workspace') }}</button>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ $t('Close') }}</button>
-                        <button type="submit" class="btn btn-primary" @click="create" data-dismiss="modal">{{ $t('Add workspace') }}</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
     </div>
 </template>
 
@@ -81,60 +81,61 @@ export default {
     components: {
         ItemWorkspace
     },
-    
-    data () {
+
+    data() {
         return {
             name: '',
             edit: false,
             workspaces: []
-        }
+        };
     },
 
-    mounted () {
+    mounted() {
         this.getWorkspace();
     },
 
     methods: {
-        create () {
-            this.$store.dispatch('workspace/add', {
-                name: this.name
-            })
-            .then(res => {
-                this.getWorkspace()
-                this.name = ''
-            })
+        create() {
+            this.$store
+                .dispatch('workspace/add', {
+                    name: this.name
+                })
+                .then((res) => {
+                    this.getWorkspace();
+                    this.name = '';
+                });
         },
 
-        editing () {
+        editing() {
             this.edit = true;
         },
 
-        doneEdit ($event) {
-            this.name = $event
+        doneEdit($event) {
+            this.name = $event;
         },
 
-        getWorkspace () {
-            this.$store.dispatch('workspace/getWorkspace')
-            .then(res => {
+        getWorkspace() {
+            this.$store.dispatch('workspace/getWorkspace').then((res) => {
                 this.workspaces = res;
-            })
+            });
         },
 
-        finishedEdit (data) {
+        finishedEdit(data) {
             this.$store.dispatch('workspace/editWorkspace', {
                 name: data.workspace,
                 id: data.id
             });
         },
 
-        deleteWorkspace (id) {
-            this.$store.dispatch('workspace/deleteWorkspace', {
-                id: id
-            })
-            .then(res => {
-                this.getWorkspace()
-            })
+        deleteWorkspace(id) {
+            this.$store
+                .dispatch('workspace/deleteWorkspace', {
+                    id: id
+                })
+                .then((res) => {
+                    this.getWorkspace();
+                });
         }
     }
-}
+};
 </script>
