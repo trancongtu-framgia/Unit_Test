@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\BatchRequest;
 use App\Repositories\BatchRepository;
 use App\Http\Resources\BatchResoure;
+use Illuminate\Support\Facades\Validator;
 
 class BatchController extends Controller
 {
@@ -24,7 +25,7 @@ class BatchController extends Controller
      */
     public function index()
     {
-        return BatchResoure::collection(Batch::orderBy('created_at', 'desc')->get());
+        return BatchResoure::collection($this->batchRepository->getAll());
     }
 
     /**
@@ -43,8 +44,22 @@ class BatchController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BatchRequest $request)
+    public function store(Request $request)
     {
+        $errors = Validator::make($request->all(), [
+            'start_day' => 'required|date',
+            'stop_day' => 'required|date',
+            'workspace_id' => 'required|integer|exists:workspaces,id',
+            'team_id' => 'required|integer|exists:teams,id',
+            'type_id' => 'required|integer|exists:types,id',
+            'subject_ids' => 'required|array|min:1|exists:subjects,id'
+        ]);
+
+        if ($errors->fails()) {
+
+            return response()->json(['errors' => $errors->errors()]);
+        }
+
         return $this->batchRepository->create(
             $request->only(
                 'start_day',
@@ -86,8 +101,22 @@ class BatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BatchRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $errors = Validator::make($request->all(), [
+            'start_day' => 'required|date',
+            'stop_day' => 'required|date',
+            'workspace_id' => 'required|integer|exists:workspaces,id',
+            'team_id' => 'required|integer|exists:teams,id',
+            'type_id' => 'required|integer|exists:types,id',
+            'subject_ids' => 'required|array|min:1|exists:subjects,id'
+        ]);
+
+        if ($errors->fails()) {
+
+            return response()->json(['errors' => $errors->errors()]);
+        }
+
         return $this->batchRepository->update(
             $request->only(
                 'start_day',

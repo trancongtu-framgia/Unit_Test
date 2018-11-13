@@ -14,11 +14,7 @@ class BatchRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::user()->notTrainee()) {
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     /**

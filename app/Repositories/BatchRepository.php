@@ -19,6 +19,20 @@ class BatchRepository extends EloquentRepository
         return \App\Batch::class;
     }
 
+    public function getAll ()
+    {
+        $batches = $this->model->with(['team', 'type', 'workspace', 'subjects'])->orderBy('id', 'DESC')->get();
+
+        return $batches;
+    }
+
+    public function find ($id)
+    {
+        $batch = $this->model->with('subjects')->findOrFail($id);
+
+        return $batch;
+    }
+
     public function addDayMonth($batch)
     {
         $start = Carbon::parse($batch->start_day);
