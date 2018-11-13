@@ -34,11 +34,13 @@
                                 </select>
                             </template>
                             <template v-else>
-                                <div class="col-md-5">
-                                    <select v-model="selected_batch" class="form-control">
-                                        <option v-for="batch in batches" :value="batch.id">{{ batch.name }}</option>
-                                    </select>
-                                </div>
+                                <template v-if="user.role">
+                                    <div class="col-md-5">
+                                        <select v-model="selected_batch" class="form-control">
+                                            <option v-for="batch in batches" :value="batch.id">{{ batch.name }}</option>
+                                        </select>
+                                    </div>
+                                </template>
                                 <div class="m-portlet__body">
                                     <full-calendar ref="calendar" @event-render="eventRender" :events="events" :config="config" :header="header"></full-calendar>
                                 </div>
@@ -68,8 +70,8 @@ export default {
                 center: 'title',
                 right: ''
             },
-            selected_batch: '',
-            batches: [''],
+            selected_batch: 0,
+            batches: '',
             editting: false,
             status: '',
             oldstatus: '',

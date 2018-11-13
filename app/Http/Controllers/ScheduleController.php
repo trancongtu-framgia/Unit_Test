@@ -21,12 +21,17 @@ class ScheduleController extends Controller
 
     public function getBatchSchedule(Request $request, $id)
     {
-        return ScheduleResource::collection($this->scheduleRepository->traineeSchedule($request->id));
+        return ScheduleResource::collection($this->scheduleRepository->traineeSchedule($id));
     }
 
     public function getUserSchedule(Request $request, $id)
     {
-        return ScheduleResource::collection($this->scheduleRepository->showSchedule($request->id));
+        return ScheduleResource::collection($this->scheduleRepository->showSchedule($id));
+    }
+
+    public function getUserScheduleByWeek(Request $request, $id)
+    {
+        return ScheduleResource::collection($this->scheduleRepository->showScheduleByWeek($id));
     }
 
     public function getUserByDate(Request $request, $date)

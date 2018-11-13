@@ -19,14 +19,14 @@ class BatchRepository extends EloquentRepository
         return \App\Batch::class;
     }
 
-    public function getAll ()
+    public function getAll()
     {
         $batches = $this->model->with(['team', 'type', 'workspace', 'subjects'])->orderBy('id', 'DESC')->get();
 
         return $batches;
     }
 
-    public function find ($id)
+    public function find($id)
     {
         $batch = $this->model->with('subjects')->findOrFail($id);
 
@@ -47,7 +47,7 @@ class BatchRepository extends EloquentRepository
         $stop_year = $stop->year;
 
         for ($i = 0; $i <= $diff_month; $i++) {
-            if ($month >= 12) {
+            if ($month > 12) {
                 $month = 1;
                 $year++;
             }

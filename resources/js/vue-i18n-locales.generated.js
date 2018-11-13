@@ -149,7 +149,10 @@ export default {
         "Content": "Nội Dung",
         "Lesson": "Bài Học",
         "Status": "Trạng Thái",
-        "Loading": "Xin Chờ"
-
+        "Loading": "Xin Chờ",
+        "Workspaces": "Văn Phòng",
+        "Manager": "Quản Lý",
+        "Types": "Loại",
+        "Subjects": "Chủ Đề"
     }
 }

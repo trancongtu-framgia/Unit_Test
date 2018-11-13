@@ -3,7 +3,7 @@
         <template slot="title">{{ $t('Reports') }}</template>
         <!-- <template slot="head-title">{{ $t('Reports') }}</template> -->
         <template slot="content">
-            <div>
+            <div class="position-relative">
                 <select name="batch" class="form-select mb-3" v-model="batch_selected">
                     <template v-for="batch in batches">
                         <option :value="batch.id">{{ batch.name }}</option>
@@ -43,11 +43,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>{{ $t('Link') }}</label>
-                                            <a v-if="subjects[x].reports[n - 1].day == n" v-bind:href="subjects[x].reports[n - 1].link">{{ subjects[x].reports[n - 1].link }}</a>
+                                            <a target="_blank" v-if="subjects[x].reports[n - 1].day == n" v-bind:href="subjects[x].reports[n - 1].link">{{ subjects[x].reports[n - 1].link }}</a>
                                         </div>
                                         <div class="form-group">
                                             <label>{{ $t('Test') }}</label>
-                                            <a v-if="subjects[x].reports[n - 1].day == n" v-bind:href="subjects[x].reports[n - 1].test_link">{{ subjects[x].reports[n - 1].test_link }}</a>
+                                            <a target="_blank" v-if="subjects[x].reports[n - 1].day == n" v-bind:href="subjects[x].reports[n - 1].test_link">{{ subjects[x].reports[n - 1].test_link }}</a>
                                         </div>
                                     </td>
                                     <td>
@@ -63,6 +63,10 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="loading" v-show="loading === true">
+                    <br>
+                    <span>{{ $t('Loading') }}...</span>
                 </div>
             </div>
         </template>
@@ -88,7 +92,8 @@ export default {
                 report_id: '',
                 content: ''
             },
-            editting: false
+            editting: false,
+            loading: true
         };
     },
     created() {
@@ -99,6 +104,7 @@ export default {
             this.getTrainees(this.batch_selected);
         },
         trainee_selected: function() {
+            this.loading = true;
             this.getTraineesReport();
         }
     },
@@ -121,12 +127,15 @@ export default {
         getTrainees(id) {
             axios(`/trainees/batch/${id}`).then((res) => {
                 this.trainees = res.data.data;
-                this.trainee_selected = this.trainees[0].id;
+                if (this.trainees[0])
+                    this.trainee_selected = this.trainees[0].id;
+                else this.loading = false;
             });
         },
         getTraineesReport() {
             axios(`/reports/trainee/${this.trainee_selected}`).then((res) => {
                 this.subjects = res.data;
+                this.loading = false;
             });
         },
         getBatches() {
