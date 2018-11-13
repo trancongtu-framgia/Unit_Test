@@ -8,7 +8,7 @@ class Role extends Model
 {
     protected $guarded = ['id'];
 
-    public function users ()
+    public function users()
     {
         return $this->hasMany('App\User');
     }

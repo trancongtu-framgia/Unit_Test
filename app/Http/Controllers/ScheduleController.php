@@ -95,7 +95,7 @@ class ScheduleController extends Controller
     {
         $this->validate($request, [
             'status' => 'required|integer',
-            'date' => 'required|date'
+            'date' => 'required|date',
         ]);
 
         $user = Auth::user();

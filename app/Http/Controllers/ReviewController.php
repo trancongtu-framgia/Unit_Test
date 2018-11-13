@@ -22,13 +22,13 @@ class ReviewController extends Controller
     {
         $this->validate($request, [
             'content' => 'required|string',
-            'report_id' => 'required'
+            'report_id' => 'required',
         ]);
 
         $this->review->create($request->all());
 
         return response()->json([
-            'message' => config('api.create')
+            'message' => config('api.create'),
         ]);
     }
 
@@ -56,7 +56,7 @@ class ReviewController extends Controller
         }
 
         return response()->json([
-            'message' => config('api.update')
+            'message' => config('api.update'),
         ]);
     }
 
@@ -67,7 +67,7 @@ class ReviewController extends Controller
         $this->review->delete($id);
 
         return response()->json([
-            'message' => config('api.deleted')
+            'message' => config('api.deleted'),
         ]);
     }
 }

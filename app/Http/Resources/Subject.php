@@ -18,7 +18,7 @@ class Subject extends JsonResource
             'name' => $this->name,
             'day' => $this->day,
             'created_at' => $this->created_at,
-            'id' => $this->id
+            'id' => $this->id,
         ];
     }
 }

@@ -22,7 +22,7 @@ class User extends JsonResource
             'email' => $this->email,
             'school' => $this->school,
             'role' => Role::findOrFail($this->role_id)->name,
-            'batch_id' => $this->batch_id
+            'batch_id' => $this->batch_id,
         ];
     }
 }

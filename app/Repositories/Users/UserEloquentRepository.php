@@ -6,7 +6,7 @@ use App\Repositories\EloquentRepository;
 
 class UserEloquentRepository extends EloquentRepository implements UserRepositoryInterface
 {
-    public function model ()
+    public function model()
     {
         return \App\User::class;
     }

@@ -52,11 +52,10 @@ class BatchController extends Controller
             'workspace_id' => 'required|integer|exists:workspaces,id',
             'team_id' => 'required|integer|exists:teams,id',
             'type_id' => 'required|integer|exists:types,id',
-            'subject_ids' => 'required|array|min:1|exists:subjects,id'
+            'subject_ids' => 'required|array|min:1|exists:subjects,id',
         ]);
 
         if ($errors->fails()) {
-
             return response()->json(['errors' => $errors->errors()]);
         }
 
@@ -109,11 +108,10 @@ class BatchController extends Controller
             'workspace_id' => 'required|integer|exists:workspaces,id',
             'team_id' => 'required|integer|exists:teams,id',
             'type_id' => 'required|integer|exists:types,id',
-            'subject_ids' => 'required|array|min:1|exists:subjects,id'
+            'subject_ids' => 'required|array|min:1|exists:subjects,id',
         ]);
 
         if ($errors->fails()) {
-
             return response()->json(['errors' => $errors->errors()]);
         }
 

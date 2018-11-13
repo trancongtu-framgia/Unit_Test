@@ -18,7 +18,7 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed',
             'school' => 'required|string|max:191',
             'batch_id' => 'required',
-            'role_id' => 'required'
+            'role_id' => 'required',
         ]);
         $newUser = User::createUser($request);
 
@@ -35,13 +35,13 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string|email|min:3',
             'password' => 'required|string|min:3',
-            'remember_me' => 'boolean'
+            'remember_me' => 'boolean',
         ]);
 
         $credentials = request(['email', 'password']);
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'message' => config('api.unauthorized')
+                'message' => config('api.unauthorized'),
             ]);
         }
         $user = $request->user();
@@ -57,7 +57,7 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
-            )->toDateTimeString()
+            )->toDateTimeString(),
         ]);
     }
 
@@ -66,7 +66,7 @@ class AuthController extends Controller
         $request->user()->token()->revoke();
 
         return response()->json([
-            'message' => config('api.logout.success')
+            'message' => config('api.logout.success'),
         ]);
     }
 

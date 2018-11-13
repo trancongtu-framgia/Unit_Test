@@ -56,11 +56,10 @@ class TraineeController extends Controller
         $errors = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'role_id' => 'required|integer|exists:roles,id'
+            'role_id' => 'required|integer|exists:roles,id',
         ]);
 
         if ($errors->fails()) {
-
             return Response()->json(['errors' => $errors->errors()]);
         }
 
@@ -69,7 +68,7 @@ class TraineeController extends Controller
         }
 
         $request->merge([
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
         return $this->traineeRepository->createTrainee(

@@ -39,8 +39,8 @@ class UserRepository extends EloquentRepository
         DB::beginTransaction();
         try {
             $user = $this->model->create($data);
-            $month_ids = Month::where('batch_id', $user->batch_id)->get()->pluck('id');
-            $ids = DayMonth::whereIn('month_id', $month_ids)->get()->pluck('id');
+            $monthIds = Month::where('batch_id', $user->batch_id)->get()->pluck('id');
+            $ids = DayMonth::whereIn('month_id', $monthIds)->get()->pluck('id');
             $user->dayMonths()->attach($ids, ['status' => config('api.default.status')]);
 
             if ($data['batch_id'] != '') {
@@ -52,7 +52,7 @@ class UserRepository extends EloquentRepository
                         Report::create([
                             'user_id' => $user->id,
                             'subject_id' => $subject->id,
-                            'day' => $i
+                            'day' => $i,
                         ]);
                     }
                 }

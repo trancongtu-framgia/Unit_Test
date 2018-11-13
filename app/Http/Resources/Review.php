@@ -18,7 +18,7 @@ class Review extends JsonResource
             'content' => $this->content,
             'report_id' => $this->report_id,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
         ];
     }
 }

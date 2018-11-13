@@ -22,25 +22,21 @@ class ScheduleResource extends JsonResource
         $className = null;
 
         switch ($this->status) {
-            case 1: {
+            case 1:
                 $status = config('api.status.' . $this->status);
                 $className = 'm-fc-event--solid-success';
                 break;
-            }
-            case 2: {
+            case 2:
                 $status = config('api.status.' . $this->status);
                 $className = 'm-fc-event--solid-primary';
                 break;
-            }
-            case 3: {
+            case 3:
                 $status = config('api.status.' . $this->status);
                 $className = 'm-fc-event--solid-warning';
                 break;
-            }
-            default: {
+            default:
                 $status = config('api.status.' . $this->status);
                 break;
-            }
         }
 
         if (!$this->user_id) {

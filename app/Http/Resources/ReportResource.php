@@ -23,7 +23,7 @@ class ReportResource extends JsonResource
             'user_id' => $this->user_id,
             'name' => $this->name,
             'email' => $this->email,
-            'school' => $this->school
+            'school' => $this->school,
         ];
     }
 }

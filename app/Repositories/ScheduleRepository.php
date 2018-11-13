@@ -12,13 +12,13 @@ class ScheduleRepository extends EloquentRepository
         return \App\Schedule::class;
     }
 
-    public function getUserByDate($day_month_id, $status)
+    public function getUserByDate($dayMonthId, $status)
     {
         $this->makeModel();
 
         return $this->model->select(['users.*', 'schedules.id as schedules'])
                 ->from(DB::raw('users, schedules'))
-                ->where('schedules.day_month_id', $day_month_id)
+                ->where('schedules.day_month_id', $dayMonthId)
                 ->where('users.id', DB::raw('schedules.user_id'))
                 ->where('schedules.status', '=', $status)
                 ->get();
@@ -47,8 +47,8 @@ class ScheduleRepository extends EloquentRepository
         
         $day = date('w');
         $month = date('m');
-        $week_start = date('m-d-Y', strtotime('-'.$day.' days'));
-        $week_end = date('m-d-Y', strtotime('+'.(6-$day).' days'));
+        $weekStart = date('m-d-Y', strtotime('-'.$day.' days'));
+        $weekEnd = date('m-d-Y', strtotime('+'.(6-$day).' days'));
 
         return $this->model
             ->join(
@@ -96,17 +96,18 @@ class ScheduleRepository extends EloquentRepository
         $year = date('Y', strtotime($date));
 
         return $this->model->where('user_id', $id)
-                ->whereIn(
-                    'day_month_id',
-                    DB::table('day_month')
-                            ->join('days', 'day_id', 'days.id')
-                            ->join('months', 'month_id', 'months.id')
-                            ->select('day_month.id')
-                            ->where([
-                                'days.day' => $day,
-                                'months.month' => $month,
-                                'months.year' => $year
-                            ])
-                        )->first();
+            ->whereIn(
+                'day_month_id',
+                DB::table('day_month')
+                        ->join('days', 'day_id', 'days.id')
+                        ->join('months', 'month_id', 'months.id')
+                        ->select('day_month.id')
+                        ->where([
+                            'days.day' => $day,
+                            'months.month' => $month,
+                            'months.year' => $year,
+                        ])
+            )
+            ->first();
     }
 }

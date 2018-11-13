@@ -23,7 +23,7 @@ class User extends Authenticatable
         'password',
         'role_id',
         'batch_id',
-        'school'
+        'school',
     ];
 
     /**
@@ -32,7 +32,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     public function scopeCreateUser($query, $user)

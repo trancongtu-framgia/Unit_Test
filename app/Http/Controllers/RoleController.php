@@ -10,12 +10,12 @@ use Auth;
 class RoleController extends Controller
 {
     protected $role;
-    public function __construct (RoleRepositoryInterface $role)
+    public function __construct(RoleRepositoryInterface $role)
     {
         $this->role = $role;
     }
 
-    public function index ()
+    public function index()
     {
         $roles = $this->role->getAll();
 

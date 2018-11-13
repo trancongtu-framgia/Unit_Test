@@ -37,35 +37,35 @@ class BatchRepository extends EloquentRepository
     {
         $start = Carbon::parse($batch->start_day);
         $stop = Carbon::parse($batch->stop_day);
-        $diff_month = $start->diffInMonths($stop);
+        $diffMonth = $start->diffInMonths($stop);
 
-        $start_day = $start->day;
+        $startDay = $start->day;
         $month = $start->month;
         $year = $start->year;
-        $stop_day = $stop->day;
-        $stop_month = $stop->month;
-        $stop_year = $stop->year;
+        $stopDay = $stop->day;
+        $stopMonth = $stop->month;
+        $stopYear = $stop->year;
 
-        for ($i = 0; $i <= $diff_month; $i++) {
+        for ($i = 0; $i <= $diffMonth; $i++) {
             if ($month > 12) {
                 $month = 1;
                 $year++;
             }
 
-            $created_month = Month::create([
+            $createdMonth = Month::create([
                 'batch_id' => $batch->id,
                 'month' => $month,
-                'year' => $year
+                'year' => $year,
             ]);
 
-            $num_of_days = $month !== $stop_month
-                            || $year !== $stop_year ? cal_days_in_month(CAL_GREGORIAN, $month, $year) : $stop_day;
+            $numOfDays = $month !== $stopMonth
+                            || $year !== $stopYear ? cal_days_in_month(CAL_GREGORIAN, $month, $year) : $stopDay;
 
-            $day_ids = Day::whereBetween('day', [$start_day, $num_of_days])->pluck('id');
+            $dayIds = Day::whereBetween('day', [$startDay, $numOfDays])->pluck('id');
 
-            $created_month->days()->sync($day_ids);
+            $createdMonth->days()->sync($dayIds);
 
-            $start_day = 1;
+            $startDay = 1;
             $month++;
         }
     }
