@@ -47,8 +47,6 @@ class ScheduleRepository extends EloquentRepository
         
         $day = date('w');
         $month = date('m');
-        $weekStart = date('m-d-Y', strtotime('-'.$day.' days'));
-        $weekEnd = date('m-d-Y', strtotime('+'.(6-$day).' days'));
 
         return $this->model
             ->join(
@@ -60,7 +58,18 @@ class ScheduleRepository extends EloquentRepository
                 'day_month_id',
                 'dayMonth.id'
             )
-            ->where()
+            ->whereBetween('day', [
+                date('d', strtotime('-' . $day . ' days')),
+                date('d', strtotime('+' . (6-$day) . ' days')),
+            ])
+            ->whereBetween('month', [
+                date('m', strtotime('-' . $day . ' days')),
+                date('m', strtotime('+' . (6-$day) . ' days')),
+            ])
+            ->whereBetween('year', [
+                date('Y', strtotime('-' . $day . ' days')),
+                date('Y', strtotime('+' . (6-$day) . ' days')),
+            ])
             ->where('user_id', $id)->get();
     }
 

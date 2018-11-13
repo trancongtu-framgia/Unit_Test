@@ -6,9 +6,10 @@ use App\Day;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use \App\Repositories\ScheduleRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ScheduleResource;
+use \App\Repositories\ScheduleRepository;
+use App\Http\Resources\WeekScheduleResource;
 
 class ScheduleController extends Controller
 {
@@ -31,7 +32,7 @@ class ScheduleController extends Controller
 
     public function getUserScheduleByWeek(Request $request, $id)
     {
-        return ScheduleResource::collection($this->scheduleRepository->showScheduleByWeek($id));
+        return WeekScheduleResource::collection($this->scheduleRepository->showScheduleByWeek($id));
     }
 
     public function getUserByDate(Request $request, $date)

@@ -26,7 +26,13 @@ return [
         0 => 'Skip',
         1 => 'Morning',
         2 => 'Afternoon',
-        3 => 'Fulltime'
+        3 => 'Fulltime',
+        'short' => [
+            0 => 'X',
+            1 => 'M',
+            2 => 'A',
+            3 => 'W',
+        ]
     ],
     'vendors' => '/assets/vendors/base/',
     'base' => '/assets/demo/default/base/',
