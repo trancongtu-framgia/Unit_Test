@@ -32,7 +32,7 @@ class BatchResoure extends JsonResource
         ];
     }
 
-    public function nameBatch ()
+    public function nameBatch()
     {
         return $this->workspace->name . '-' . $this->team->name . '-' . $this->type->shorthand . '-' . $this->batch;
     }

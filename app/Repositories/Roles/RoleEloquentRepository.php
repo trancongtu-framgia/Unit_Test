@@ -6,7 +6,7 @@ use App\Repositories\EloquentRepository;
 
 class RoleEloquentRepository extends EloquentRepository implements RoleRepositoryInterface
 {
-    public function model ()
+    public function model()
     {
         return \App\Role::class;
     }

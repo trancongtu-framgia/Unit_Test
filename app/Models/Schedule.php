@@ -9,7 +9,7 @@ class Schedule extends Model
     protected $fillable = [
         'day_month_id',
         'user_id',
-        'status'
+        'status',
     ];
 
     public function user()

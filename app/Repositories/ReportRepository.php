@@ -25,15 +25,15 @@ class ReportRepository extends EloquentRepository
                     ->paginate(config('paginate'));
     }
 
-    public function getReportsBySubjectID($subject_id, $user_id)
+    public function getReportsBySubjectID($subjectID, $userID)
     {
         $this->makeModel();
 
         return $this->model
             ->select('reports.*', 'reviews.id as review_id', DB::raw('COALESCE(reviews.content, \'\') as review'))
             ->leftJoin('reviews', 'reports.id', 'reviews.report_id')
-            ->where('reports.user_id', $user_id)
-            ->where('subject_id', $subject_id)
+            ->where('reports.user_id', $userID)
+            ->where('subject_id', $subjectID)
             ->orderBy('subject_id', 'asc')
             ->orderBy('day', 'asc')
             ->get()->toArray();
@@ -50,15 +50,15 @@ class ReportRepository extends EloquentRepository
                     ->get();
     }
 
-    public function getReportsGroupBySubject($user_id)
+    public function getReportsGroupBySubject($userID)
     {
-        $user = User::findOrFail($user_id);
+        $user = User::findOrFail($userID);
         $batch = Batch::findOrFail($user->batch_id);
         $subjects = $batch->subjects;
         $result = [];
         foreach ($subjects as $subject) {
             $this->makeModel();
-            $data = $this->getReportsBySubjectID($subject->id, $user_id);
+            $data = $this->getReportsBySubjectID($subject->id, $userID);
             $result = array_merge($result, [$data]);
         }
 

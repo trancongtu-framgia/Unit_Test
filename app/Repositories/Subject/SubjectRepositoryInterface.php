@@ -8,5 +8,5 @@ interface SubjectRepositoryInterface
 {
     public function getNameSubject();
 
-    public function getUserSubject(User $user);
+    public function getUserSubject($userId);
 }

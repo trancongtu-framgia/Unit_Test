@@ -35,7 +35,7 @@ class ReportRequest extends FormRequest
             'subject_id' => 'required|integer|exists:subjects,id',
             'status' => 'string|nullable',
             'day' => 'integer|required',
-            'lesson' => 'string|nullable'
+            'lesson' => 'string|nullable',
         ];
     }
 }

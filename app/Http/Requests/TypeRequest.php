@@ -25,7 +25,7 @@ class TypeRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:types|string',
-            'shorthand' => 'required|unique:types|string'
+            'shorthand' => 'required|unique:types|string',
         ];
     }
 }

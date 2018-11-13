@@ -24,7 +24,7 @@ class WorkspaceRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|required|unique:workspaces'
+            'name' => 'string|required|unique:workspaces',
         ];
     }
 }

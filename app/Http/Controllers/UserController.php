@@ -23,16 +23,16 @@ class UserController extends Controller
     public function updateRole(Request $request, $id)
     {
         $this->validate($request, [
-            'role_id' => 'required'
+            'role_id' => 'required',
         ]);
         $user = $this->user->find($id);
         $this->authorize('updateRole', Auth::user());
         $user->update([
-            'role_id' => $request->role_id
+            'role_id' => $request->role_id,
         ]);
 
         return response()->json([
-            'message' => config('api.update')
+            'message' => config('api.update'),
         ], 200);
     }
 
@@ -40,11 +40,10 @@ class UserController extends Controller
     {
         $errors = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'school' => 'string|max:255|nullable'
+            'school' => 'string|max:255|nullable',
         ]);
 
         if ($errors->fails()) {
-
             return Response()->json(['errors' => $errors->errors()]);
         }
         $user = Auth::user();
@@ -57,14 +56,14 @@ class UserController extends Controller
         );
 
         return response()->json([
-            'message' => config('api.update')
+            'message' => config('api.update'),
         ], 200);
     }
 
     public function password(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password' => 'required|string|min:6|confirmed'
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
         if ($validator->fails()) {
@@ -72,11 +71,11 @@ class UserController extends Controller
         }
         $user = Auth::user();
         $user->update([
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
         return response()->json([
-            'success' => config('api.update')
+            'success' => config('api.update'),
         ], 200);
     }
 
