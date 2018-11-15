@@ -19,7 +19,8 @@ return [
     'default' => [
         'password' => '12345678',
         'status' => 0,
-        'language' => 'en'
+        'language' => 'en',
+        'avatar' => 'images/default-avatar.png'
     ],
     'isAdmin' => 'Admin',
     'status' => [

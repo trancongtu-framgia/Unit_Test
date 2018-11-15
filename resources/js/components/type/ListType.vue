@@ -143,6 +143,9 @@ export default {
         },
 
         deleteType(id) {
+            if (!confirm(this.$t('Are you sure?'))) {
+                return;
+            }
             this.$store
                 .dispatch('type/deleteType', {
                     id: id

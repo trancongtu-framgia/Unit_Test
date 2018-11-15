@@ -11,7 +11,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                    {{ $t('report.Daily') }}
+                                    {{ $t('Batches') }}
                                 </h3>
                             </div>
                         </div>
@@ -71,34 +71,36 @@
 </template>
 
 <script>
-
 export default {
-    mounted () {
+    mounted() {
         this.getbatches();
     },
 
-    data () {
+    data() {
         return {
-            batches: [],
-        }
+            batches: []
+        };
     },
 
     methods: {
-        getbatches () {
-            this.$store.dispatch('batch/getbatches')
-            .then(res => {
-                this.batches = res.data
-            })
+        getbatches() {
+            this.$store.dispatch('batch/getbatches').then((res) => {
+                this.batches = res.data;
+            });
         },
 
-        deletebatch (id) {
-            this.$store.dispatch('batch/deletebatch', {
-                id: id
-            })
-            .then(res => {
-                this.getbatches()
-            })
+        deletebatch(id) {
+            if (!confirm(this.$t('Are you sure?'))) {
+                return;
+            }
+            this.$store
+                .dispatch('batch/deletebatch', {
+                    id: id
+                })
+                .then((res) => {
+                    this.getbatches();
+                });
         }
     }
-}
+};
 </script>

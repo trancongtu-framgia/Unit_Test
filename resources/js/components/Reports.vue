@@ -35,7 +35,7 @@
                                         <hr>
                                         <div>Day: {{ n }}</div>
                                         <div class="form-group">
-                                            <span>{{ frontEndDateFormat(subjects[x].reports[n - 1].created_at) }}</span>
+                                            <span>{{ frontEndDateFormat(subjects[x].reports[n - 1].updated_at) }}</span>
                                         </div>
                                     </td>
                                     <td>

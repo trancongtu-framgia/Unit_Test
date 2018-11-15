@@ -159,3 +159,24 @@ td > .edittor {
     margin: -40px 0 0 -50px;
     z-index: 2000;
 }
+
+.btn-secondary {
+    background: #888787 !important;
+    border-color: #b9bfcc;
+}
+
+.m-datatable {
+    display: table;
+}
+
+select.m-bootstrap-select {
+    opacity: 100;
+}
+
+.avatar {
+    width: 100px;
+}
+
+.img-avatar {
+    width: 100%;
+}

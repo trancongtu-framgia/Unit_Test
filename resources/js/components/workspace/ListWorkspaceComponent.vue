@@ -128,6 +128,9 @@ export default {
         },
 
         deleteWorkspace(id) {
+            if (!confirm(this.$t('Are you sure?'))) {
+                return;
+            }
             this.$store
                 .dispatch('workspace/deleteWorkspace', {
                     id: id

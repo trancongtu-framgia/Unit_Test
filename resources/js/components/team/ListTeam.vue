@@ -128,6 +128,9 @@ export default {
         },
 
         deleteTeam(id) {
+            if (!confirm(this.$t('Are you sure?'))) {
+                return;
+            }
             this.$store
                 .dispatch('team/deleteTeam', {
                     id: id
