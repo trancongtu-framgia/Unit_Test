@@ -94,33 +94,11 @@
                                 </ul>
                             </div>
                         </li>
-                        <li @click="toggleItem($event)" class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                        <li class="m-menu__item m-menu__item--submenu m-menu__item--open m-menu__item--expanded" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                            <router-link :to="{name: 'manager-users'}" class="m-menu__link m-menu__toggle">
                                 <i class="m-menu__link-icon flaticon-menu-button"></i>
                                 <span class="m-menu__link-text">{{ $t('Manager Users') }}</span>
-                                <i class="m-menu__ver-arrow la la-angle-right"></i>
-                            </a>
-                            <div class="m-menu__submenu">
-                                <span class="m-menu__arrow"></span>
-                                <ul class="m-menu__subnav">
-                                    <li class="m-menu__item" aria-haspopup="true">
-                                        <router-link :to="{name: 'manager-users'}" class="m-menu__link m-menu__toggle">
-                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                <span></span>
-                                            </i>
-                                            <span class="m-menu__link-text">{{ $t('List Users') }}</span>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-menu__item" aria-haspopup="true">
-                                        <router-link :to="{name: 'register-account-trainee'}" class="m-menu__link m-menu__toggle">
-                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                <span></span>
-                                            </i>
-                                            <span class="m-menu__link-text">{{ $t('Register Users') }}</span>
-                                        </router-link>
-                                    </li>
-                                </ul>
-                            </div>
+                            </router-link>
                         </li>
                     </template>
                     <template v-else>

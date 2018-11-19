@@ -24,6 +24,7 @@
             </div>
         </div>
         <script src="{{ asset(config('api.vendors') . 'vendors.bundle.js') }}" type="text/javascript"></script>
+        <script src="{{ asset(config('api.base') . 'scripts.bundle.js') }}" type="text/javascript"></script>
         <script src="{{ asset(config('api.baseJs') . 'app.js') }}"></script>        
     </body>
 </html>

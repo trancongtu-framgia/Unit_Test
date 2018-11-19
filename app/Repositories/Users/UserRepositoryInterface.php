@@ -2,7 +2,9 @@
 
 namespace App\Repositories\Users;
 
-interface UserRepositoryInterface
-{
+use App\Repositories\RepositoryInterface;
 
+interface UserRepositoryInterface extends RepositoryInterface
+{
+    public function getUser($search, $role);
 }

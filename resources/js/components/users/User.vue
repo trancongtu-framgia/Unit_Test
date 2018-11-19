@@ -7,7 +7,7 @@
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
                             <h3 class="m-portlet__head-text">
-                                Datatable initilized from HTML table
+                                {{ $t('Users Manager') }}
                             </h3>
                         </div>
                     </div>
@@ -22,30 +22,12 @@
                                     <div class="col-md-4">
                                         <div class="m-form__group m-form__group--inline">
                                             <div class="m-form__label">
-                                                <label>Status:</label>
+                                                <label>{{ $t('Role') }}</label>
                                             </div>
                                             <div class="m-form__control">
-                                                <select class="form-control m-bootstrap-select" id="m_form_status">
-                                                    <option value="">All</option>
-                                                    <option value="1">Pending</option>
-                                                    <option value="2">Delivered</option>
-                                                    <option value="3">Canceled</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="d-md-none m--margin-bottom-10"></div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="m-form__group m-form__group--inline">
-                                            <div class="m-form__label">
-                                                <label class="m-label m-label--single">Type:</label>
-                                            </div>
-                                            <div class="m-form__control">
-                                                <select class="form-control m-bootstrap-select" id="m_form_type">
-                                                    <option value="">All</option>
-                                                    <option value="1">Online</option>
-                                                    <option value="2">Retail</option>
-                                                    <option value="3">Direct</option>
+                                                <select class="form-control m-bootstrap-select" v-model="selected_role">
+                                                    <option value="">{{ $t('All') }}</option>
+                                                    <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -53,7 +35,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="m-input-icon m-input-icon--left">
-                                            <input type="text" class="form-control m-input" placeholder="Search..." id="generalSearch">
+                                            <input type="text" v-model="search" @keyup.enter="getUsers" class="form-control m-input" placeholder="Search...">
                                             <span class="m-input-icon__icon m-input-icon__icon--left">
                                                 <span>
                                                     <i class="la la-search"></i>
@@ -64,12 +46,12 @@
                                 </div>
                             </div>
                             <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-                                <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                <router-link :to="{ name: 'register-account-trainee' }" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
                                     <span>
                                         <i class="la la-plus"></i>
                                         <span>{{ $t('New User') }}</span>
                                     </span>
-                                </a>
+                                </router-link>
                                 <div class="m-separator m-separator--dashed d-xl-none"></div>
                             </div>
                         </div>
@@ -79,7 +61,7 @@
 
                     <!--begin: Datatable -->
                     <div class="m-datatable m-datatable--default m-datatable--brand m-datatable--loaded">
-                        <table class="table" id="html_table" width="100%">
+                        <table class="text-center" width="100%">
                             <thead>
                                 <tr>
                                     <th>{{ $t('Num.') }}</th>
@@ -106,6 +88,9 @@
                     </div>
 
                     <!--end: Datatable -->
+                    <div class="mt-4 text-center">
+                        <pagination ref="child" :fetchList="getUsers" :pagination="pagination" @makePagination="pagination = $event"></pagination>
+                    </div>
                 </div>
             </div>
         </template>
@@ -116,16 +101,38 @@
 export default {
     data() {
         return {
-            users: ''
+            users: '',
+            pagination: {},
+            search: '',
+            roles: [''],
+            selected_role: ''
         };
     },
     created() {
         this.getUsers();
+        this.getRoles();
+    },
+    watch: {
+        selected_role: function() {
+            this.getUsers();
+        }
     },
     methods: {
-        getUsers() {
-            axios('/users').then((res) => {
+        getUsers(url) {
+            url = url && typeof url === 'string' ? url : '/users';
+            axios(url, {
+                params: {
+                    search: this.search,
+                    role_id: this.selected_role
+                }
+            }).then((res) => {
                 this.users = res.data.data;
+                this.$refs.child.makePagination(res.data.meta, res.data.links);
+            });
+        },
+        getRoles() {
+            axios('/roles').then((res) => {
+                this.roles = res.data.data;
             });
         }
     }

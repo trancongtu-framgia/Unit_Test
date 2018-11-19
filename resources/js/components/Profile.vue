@@ -11,8 +11,13 @@
                             <div class="m-portlet__body">
                                 <div class="m-card-profile">
                                     <div class="m-card-profile__pic">
-                                        <div class="m-card-profile__pic-wrapper">
-                                            <img v-bind:src="this.$store.state.urlImage + 'users/user4.jpg'" alt="" />
+                                        <div class="m-card-profile__pic-wrapper profile-avatar-container">
+                                            <img ref="avatar" class="profile-avatar" v-bind:src="user.avatar" @click="triggerInput" />
+                                            <input ref="file" type="file" class="d-none" v-on:change="handleFileUpload()">
+                                        </div>
+                                        <div v-if="change">
+                                            <button class="btn btn-primary" @click="submitAvatar">{{ $t('Save') }}</button>
+                                            <button class="btn btn-secondary" @click="cancel">{{ $t('Cancel') }}</button>
                                         </div>
                                     </div>
                                     <div class="m-card-profile__details">
@@ -184,21 +189,26 @@ export default {
             },
             errors: {
                 name: ['']
-            }
+            },
+            file: '',
+            change: false
         };
     },
+
     mounted() {
         this.getProfile();
     },
+
     watch: {
         user: function() {
             this.name = this.user.name;
             this.school = this.user.school;
         }
     },
+
     methods: {
-        editing ($event) {
-            this.errors.name = ''
+        editing($event) {
+            this.errors.name = '';
         },
 
         getProfile() {
@@ -214,13 +224,13 @@ export default {
                     school: this.school
                 })
                 .then((res) => {
-                   if (res.data.errors) {
+                    if (res.data.errors) {
                         let keys = Object.keys(res.data.errors);
                         for (let i = 0; i < keys.length; i++) {
                             this.errors[keys[i]] = res.data.errors[keys[i]];
                         }
                     } else {
-                        alert(res.data.message)
+                        alert(res.data.message);
                     }
                 })
                 .catch((error) => {
@@ -240,7 +250,37 @@ export default {
                     this.response[keys[i]] = res.data.message[keys[i]];
                 }
             });
+        },
+
+        triggerInput() {
+            this.$refs.file.click();
+        },
+
+        handleFileUpload() {
+            let input = this.$refs.file;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                let self = this;
+                reader.onload = function(e) {
+                    self.$refs.avatar.setAttribute('src', e.target.result);
+                };
+
+                this.file = input.files[0];
+
+                reader.readAsDataURL(input.files[0]);
+                this.change = true;
+            }
+        },
+        submitAvatar() {
+            let formData = new FormData();
+            formData.append('avatar', this.file);
+            axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+            axios.post('/profile/avatar', formData);
+        },
+        cancel() {
+            this.$refs.avatar.setAttribute('src', this.user.avatar);
+            this.change = false;
         }
     }
-}
+};
 </script>

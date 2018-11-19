@@ -3,8 +3,9 @@
 namespace App\Http\Resources;
 
 use App\Role;
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Batch;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class User extends JsonResource
 {
@@ -16,9 +17,20 @@ class User extends JsonResource
      */
     public function toArray($request)
     {
+        $url;
+        if ($this->avatar != null) {
+            if (Storage::exists($this->avatar)) {
+                $url = Storage::url($this->avatar);
+            } else {
+                $url = config('api.default.avatar');
+            }
+        } else {
+            $url = config('api.default.avatar');
+        }
+        
         $data = [
             'id' => $this->id,
-            'avatar' => $this->avatar != null ? $this->avatar : config('api.default.avatar'),
+            'avatar' => $url,
             'name' => $this->name,
             'email' => $this->email,
             'school' => $this->school,

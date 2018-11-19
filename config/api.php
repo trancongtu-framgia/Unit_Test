@@ -38,5 +38,6 @@ return [
     'vendors' => '/assets/vendors/base/',
     'base' => '/assets/demo/default/base/',
     'baseCss' => '/css/',
-    'baseJs' => '/js/'
+    'baseJs' => '/js/',
+    'avatar_folder' => 'public/avatars'
 ];
