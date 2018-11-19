@@ -21,21 +21,14 @@
                             <!-- END -->
 
                             <!-- BEGIN: Responsive Aside Left Menu Toggler -->
-                            <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
-                                <span></span>
-                            </a>
-
-                            <!-- END -->
-
-                            <!-- BEGIN: Responsive Header Menu Toggler -->
-                            <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
+                            <a href="javascript:;" @click="toggleAsideMini" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
                                 <span></span>
                             </a>
 
                             <!-- END -->
 
                             <!-- BEGIN: Topbar Toggler -->
-                            <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+                            <a id="m_aside_header_topbar_mobile_toggle" @click="toggleTopbar" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
                                 <i class="flaticon-more"></i>
                             </a>
 
@@ -144,6 +137,14 @@ export default {
             document
                 .getElementById('body')
                 .classList.toggle('m-aside-left--minimize');
+        },
+        toggleAsideMini() {
+            document
+                .getElementById('m_aside_left')
+                .classList.toggle('m-aside-left--on');
+        },
+        toggleTopbar() {
+            document.getElementById('body').classList.toggle('m-topbar--on');
         },
         getUser() {
             axios.get('current-user').then((res) => {
