@@ -153,6 +153,11 @@ export default {
         "Workspaces": "Văn Phòng",
         "Manager": "Quản Lý",
         "Types": "Loại",
-        "Subjects": "Chủ Đề"
+        "Subjects": "Chủ Đề",
+        "Are you sure?": "Bạn có chắc không?",
+        "Workspace": "Văn phòng",
+        "Name": "Tên",
+        "Start day": "Ngày Bắt Đầu",
+        "Stop day": "Ngày kết thúc"
     }
 }

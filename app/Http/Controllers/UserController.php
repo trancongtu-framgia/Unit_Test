@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Gate;
+use App\Http\Resources\User as UserResource;
 use App\Policies\UserPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\ProfileResource;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Users\UserRepositoryInterface;
-use App\Http\Resources\ProfileResource;
 
 class UserController extends Controller
 {
@@ -18,6 +19,11 @@ class UserController extends Controller
     public function __construct(UserRepositoryInterface $user)
     {
         $this->user = $user;
+    }
+
+    public function index()
+    {
+        return UserResource::collection($this->user->getAll());
     }
 
     public function updateRole(Request $request, $id)

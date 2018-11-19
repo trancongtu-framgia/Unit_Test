@@ -143,6 +143,9 @@ export default {
         },
 
         deleteSubject(id) {
+            if (!confirm(this.$t('Are you sure?'))) {
+                return;
+            }
             this.$store
                 .dispatch('subject/deleteSubject', {
                     id: id

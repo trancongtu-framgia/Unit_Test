@@ -33,6 +33,12 @@ export const store = new Vuex.Store({
             'X-Requested-With': 'XMLHttpRequest',
             Authorization:
                 'Bearer ' + localStorage.getItem('access_token') || null
+        },
+        status: {
+            0: 'X',
+            1: 'M',
+            2: 'A',
+            3: 'W'
         }
     },
 

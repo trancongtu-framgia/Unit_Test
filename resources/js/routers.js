@@ -14,9 +14,10 @@ import ListSubject from './components/subject/ListSubject.vue'
 import Multiguard from 'vue-router-multiguard'
 import RegisterTrainee from './components/trainee/register'
 import Batch from './components/batch/Listbatches'
-import AddBatch  from './components/batch/Addbatch'
+import AddBatch from './components/batch/Addbatch'
 import EditBatch from './components/batch/Editbatch'
 import axios from 'axios';
+import User from './components/users/User.vue'
 
 const getUser = () => {
     axios.defaults.headers.common['Authorization'] =
@@ -162,6 +163,15 @@ let routes = [
         },
         beforeEnter: Multiguard([isAdmin])
     },
+    {
+        path: '/manager-users',
+        name: 'manager-users',
+        component: User,
+        meta: {
+            requiresAuth: true
+        },
+        beforeEnter: Multiguard([isAdmin])
+    }
 ];
 
 export default new VueRouter({

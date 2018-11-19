@@ -46,6 +46,5 @@ Route::group(['middleware' => [
     Route::get('/schedules/batch/{id}', 'ScheduleController@getBatchSchedule');
     Route::put('/schedules', 'ScheduleController@update');
     Route::resource('/roles', 'RoleController');
-    Route::get('/language', 'LangController@getLanguage');
-    Route::get('/language/{language}', 'LangController@setLanguage');
+    Route::resource('users', 'UserController');
 });

@@ -16,13 +16,27 @@ class User extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data = [
             'id' => $this->id,
+            'avatar' => $this->avatar != null ? $this->avatar : config('api.default.avatar'),
             'name' => $this->name,
             'email' => $this->email,
             'school' => $this->school,
             'role' => Role::findOrFail($this->role_id)->name,
-            'batch_id' => $this->batch_id,
         ];
+        if ($this->batch_id) {
+            $batch = Batch::findOrFail($this->batch_id);
+            $data = array_merge($data, [
+                'batch_id' => $this->batch_id,
+                'batch' => $this->nameBatch($batch),
+            ]);
+        }
+
+        return $data;
+    }
+
+    public function nameBatch($batch)
+    {
+        return $batch->workspace->name . '-' . $batch->team->name . '-' . $batch->type->shorthand . '-' . $batch->batch;
     }
 }
