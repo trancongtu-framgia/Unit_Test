@@ -82,6 +82,7 @@ Vue.component('vue-footer', require('./components/layouts/Footer.vue'));
 Vue.component('vue-header', require('./components/layouts/Header.vue'));
 Vue.component('left-aside', require('./components/layouts/LeftAside.vue'));
 Vue.component('vue-master', require('./components/layouts/Master.vue'));
+Vue.component('pagination', require('./components/Pagination.vue'));
 
 const i18n = new VueInternationalization({
     locale: localStorage.getItem('language'),

@@ -6,26 +6,7 @@
             </template>
             <template slot="content">
                 <div class="row">
-                    <div class="col-xl-3 col-lg-4">
-                        <div class="m-portlet m-portlet--full-height  ">
-                            <div class="m-portlet__body">
-                                <div class="m-card-profile">
-                                    <div class="m-card-profile__pic">
-                                        <div class="m-card-profile__pic-wrapper">
-                                            <img v-bind:src="this.$store.state.urlImage + 'users/user4.jpg'" alt="" />
-                                        </div>
-                                    </div>
-                                    <div class="m-card-profile__details">
-                                        <span class="m-card-profile__name">{{ user.name }}</span>
-                                        <a href="" class="m-card-profile__email m-link">{{ user.email }}</a>
-                                    </div>
-                                </div>
-                                <div class="m-portlet__body-separator"></div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-9 col-lg-8">
+                    <div class="col-xl-12">
                         <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
                             <div class="m-portlet__head">
                                 <div class="m-portlet__head-tools">
@@ -43,7 +24,6 @@
                                 <div class="tab-pane active" id="m_user_profile_tab_1">
                                     <form class="m-form m-form--fit m-form--label-align-right" method="post" @submit.prevent="register">
                                         <div class="m-portlet__body">
-                                            <!-- <div v-for="error in errors" class="alert alert-danger">{{ error[0] }}</div> -->
                                             <div class="form-group m-form__group row">
                                                 <label for="example-text-input" class="col-2 col-form-label">{{ $t('Full Name') }}</label>
                                                 <div class="col-7">
@@ -77,7 +57,7 @@
                                                     <select class="form-control" @change="editing($event)" v-model="role_id" name="role_id">
                                                         <option disabled value="">{{ $t('Select Role') }}</option>
                                                         <option v-for="item in roles" :value="item.id">
-                                                        {{ item.name }}
+                                                            {{ item.name }}
                                                         </option>
                                                     </select>
                                                     <span class="text-danger" v-if="errors.role_id != ''">
@@ -91,10 +71,10 @@
                                                     <select class="form-control" v-model="batch_id">
                                                         <option disabled value="">{{ $t('Select batches') }}</option>
                                                         <option v-for="batch in batches" :value="batch.id">
-                                                        {{ batch.name }}
+                                                            {{ batch.name }}
                                                         </option>
                                                     </select>
-                                                   <!--  <span class="text-danger">
+                                                    <!--  <span class="text-danger">
                                                         {{ errors.batch_id[0] }}
                                                     </span> -->
                                                 </div>
@@ -152,65 +132,65 @@ export default {
 
     methods: {
         getbatches() {
-            this.$store.dispatch('trainee/getbatches')
-            .then(res => {
-                this.batches = res.data
-            })
+            this.$store.dispatch('trainee/getbatches').then((res) => {
+                this.batches = res.data;
+            });
         },
 
-        getRoles () {
-            this.$store.dispatch('trainee/getRoles')
-            .then(res => {
-                this.roles = res.data
-            })
+        getRoles() {
+            this.$store.dispatch('trainee/getRoles').then((res) => {
+                this.roles = res.data;
+            });
         },
 
-        editing (event) {
+        editing(event) {
             if (event.target.tagName == 'SELECT') {
-                const nameOption = event.target.options[event.target.options.selectedIndex].text
+                const nameOption =
+                    event.target.options[event.target.options.selectedIndex]
+                        .text;
                 if (nameOption === 'Admin' || nameOption === 'Trainer') {
-                    this.notbatch = true
+                    this.notbatch = true;
                 } else {
-                    this.notbatch = false
+                    this.notbatch = false;
                 }
             }
             if (event.target.name == 'role_id') {
-                this.errors.role_id = ''
+                this.errors.role_id = '';
             }
 
             for (var i in this.errors) {
                 if (i == event.target.name) {
-                    this.errors[i] = ''
+                    this.errors[i] = '';
                 }
             }
         },
 
-        register () {
-            this.$store.dispatch('trainee/register', {
-                batch_id: this.batch_id,
-                name: this.name,
-                email: this.email,
-                role_id: this.role_id,
-                school: this.school
-            })
-            .then(res => {
-                if (res.errors) {
-                    let keys = Object.keys(res.errors);
-                    for (let i = 0; i < keys.length; i++) {
-                        this.errors[keys[i]] = res.errors[keys[i]];
+        register() {
+            this.$store
+                .dispatch('trainee/register', {
+                    batch_id: this.batch_id,
+                    name: this.name,
+                    email: this.email,
+                    role_id: this.role_id,
+                    school: this.school
+                })
+                .then((res) => {
+                    if (res.errors) {
+                        let keys = Object.keys(res.errors);
+                        for (let i = 0; i < keys.length; i++) {
+                            this.errors[keys[i]] = res.errors[keys[i]];
+                        }
+                    } else {
+                        this.message = res.message;
+                        alert(this.message);
+                        (this.message = ''),
+                            (this.user = ''),
+                            (this.name = ''),
+                            (this.email = ''),
+                            (this.school = '');
                     }
-                } else {
-                    this.message = res.message
-                    alert(this.message)
-                    this.message = '',
-                    this.user = '',
-                    this.name = '',
-                    this.email = '',
-                    this.school = ''
-                }
-            })
+                });
         }
-
     }
 };
 </script>

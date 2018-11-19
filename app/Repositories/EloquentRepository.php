@@ -83,4 +83,31 @@ abstract class EloquentRepository implements RepositoryInterface
             return response()->json($exception);
         }
     }
+
+    public function paginate($number)
+    {
+        try {
+            return $this->model->paginate($number);
+        } catch (Exception $exception) {
+            return response()->json($exception);
+        }
+    }
+
+    public function where($key, $operator, $value)
+    {
+        if (func_num_args() === 1 && gettype($key) === 'array') {
+            $this->model->where($key);
+
+            return $this;
+        }
+        if (func_num_args() === 2) {
+            $this->model->where($key, $operator);
+
+            return $this;
+        }
+
+        $this->model->where($key, $operator, $value);
+
+        return $this;
+    }
 }

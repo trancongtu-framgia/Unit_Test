@@ -9,6 +9,7 @@ use App\Policies\UserPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\ProfileResource;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Users\UserRepositoryInterface;
 
@@ -21,9 +22,11 @@ class UserController extends Controller
         $this->user = $user;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return UserResource::collection($this->user->getAll());
+        return UserResource::collection(
+            $this->user->getUser($request->search, $request->role_id)
+        );
     }
 
     public function updateRole(Request $request, $id)
@@ -90,5 +93,26 @@ class UserController extends Controller
         $user = Auth::user();
 
         return new ProfileResource($user);
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $this->validate($request, [
+            'avatar' => 'required|mimes:jpg,jpeg,png,bmp',
+        ]);
+
+        $user = Auth::user();
+
+        if ($user->avatar) {
+            Storage::delete($user->avatar);
+        }
+
+        $path = $request->file('avatar')->store(config('api.avatar_folder'));
+
+        $user->avatar = $path;
+
+        $user->save();
+
+        return $path;
     }
 }

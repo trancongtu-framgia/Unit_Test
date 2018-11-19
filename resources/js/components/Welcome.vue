@@ -34,13 +34,11 @@
                                 </select>
                             </template>
                             <template v-else>
-                                <template v-if="user.role">
-                                    <div class="col-md-5">
-                                        <select v-model="selected_batch" class="form-control">
-                                            <option v-for="batch in batches" :value="batch.id">{{ batch.name }} ({{ batch.start_day }} - {{ batch.stop_day }})</option>
-                                        </select>
-                                    </div>
-                                </template>
+                                <div class="col-md-5">
+                                    <select v-model="selected_batch" class="form-control">
+                                        <option v-for="batch in batches" :value="batch.id">{{ batch.name }}</option>
+                                    </select>
+                                </div>
                                 <div class="m-portlet__body">
                                     <full-calendar ref="calendar" @event-render="eventRender" :events="events" :config="config" :header="header"></full-calendar>
                                 </div>
@@ -70,8 +68,8 @@ export default {
                 center: 'title',
                 right: ''
             },
-            selected_batch: 0,
-            batches: '',
+            selected_batch: '',
+            batches: [''],
             editting: false,
             status: '',
             oldstatus: '',
@@ -91,7 +89,7 @@ export default {
         fetchBatches() {
             axios('/batches').then((res) => {
                 this.batches = res.data.data;
-                this.selected_batch = this.batches[0].id;
+                if (this.user.role) this.selected_batch = this.batches[0].id;
             });
         },
         eventRender: function(event, jsEvent, view) {

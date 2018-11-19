@@ -87,12 +87,32 @@ td {
         min-width: 250px !important;
         max-width: 250px !important;
     }
+
+    .profile-avatar-container {
+        height: 150px;
+        width: 150px;
+    }
+
+    .userpic {
+        height: 41px;
+        width: 41px !important;
+    }
 }
 
 @media (max-width: 1024px) {
     .m-body .m-content {
         padding: 20px 20px;
         margin-top: 30px;
+    }
+
+    .profile-avatar-container {
+        height: 100px;
+        width: 100px;
+    }
+
+    .userpic {
+        height: 30px;
+        width: 30px !important;
     }
 }
 
@@ -179,4 +199,24 @@ select.m-bootstrap-select {
 
 .img-avatar {
     width: 100%;
+}
+
+.pagination {
+    display: inline-flex;
+}
+
+.profile-avatar {
+    height: 100%;
+    width: 100%;
+}
+
+.userpic > img {
+    width: 100%;
+    height: 100%;
+}
+
+.m-card-user .m-card-user__pic {
+    display: block;
+    text-align: right;
+    padding: 0;
 }

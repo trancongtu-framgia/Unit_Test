@@ -14,7 +14,7 @@
                         <div class="m-stack__item m-stack__item--middle m-brand__tools">
 
                             <!-- BEGIN: Left Aside Minimize Toggle -->
-                            <a href="javascript:;" @click="toggleAside"  id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block  ">
+                            <a href="javascript:;" @click="toggleAside" id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block  ">
                                 <span></span>
                             </a>
 
@@ -69,8 +69,8 @@
                                 m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill 
                                 m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
                                     <a href="#" class="m-nav__link m-dropdown__toggle" @click="dropDown">
-                                        <span class="m-topbar__userpic">
-                                            <img v-bind:src="this.$store.state.urlImage + 'users/user4.jpg'" class="m--img-rounded m--marginless" alt="" />
+                                        <span class="m-topbar__userpic userpic">
+                                            <img v-bind:src="user.avatar" class="m--img-rounded m--marginless" alt="" />
                                         </span>
                                     </a>
                                     <div class="m-dropdown__wrapper">
@@ -78,8 +78,8 @@
                                         <div class="m-dropdown__inner">
                                             <div class="m-dropdown__header m--align-center" v-bind:style="'background: url(' + this.$store.state.urlImage + 'misc/user_profile_bg.jpg); background-size: cover;'">
                                                 <div class="m-card-user m-card-user--skin-dark">
-                                                    <div class="m-card-user__pic">
-                                                        <img v-bind:src="this.$store.state.urlImage + 'users/user4.jpg'" class="m--img-rounded m--marginless" alt="" />
+                                                    <div class="m-card-user__pic userpic">
+                                                        <img v-bind:src="user.avatar" class="m--img-rounded m--marginless" alt="" />
 
                                                     </div>
                                                     <div class="m-card-user__details">
@@ -138,8 +138,12 @@ export default {
             this.$refs.dropdown.classList.toggle('m-dropdown--open');
         },
         toggleAside() {
-            document.getElementById('body').classList.toggle('m-brand--minimize');
-            document.getElementById('body').classList.toggle('m-aside-left--minimize');
+            document
+                .getElementById('body')
+                .classList.toggle('m-brand--minimize');
+            document
+                .getElementById('body')
+                .classList.toggle('m-aside-left--minimize');
         },
         getUser() {
             axios.get('current-user').then((res) => {

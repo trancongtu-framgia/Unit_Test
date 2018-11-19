@@ -16,8 +16,8 @@ import RegisterTrainee from './components/trainee/register'
 import Batch from './components/batch/Listbatches'
 import AddBatch from './components/batch/Addbatch'
 import EditBatch from './components/batch/Editbatch'
-import axios from 'axios';
 import User from './components/users/User.vue'
+import axios from 'axios';
 
 const getUser = () => {
     axios.defaults.headers.common['Authorization'] =

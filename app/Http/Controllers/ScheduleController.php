@@ -6,10 +6,9 @@ use App\Day;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use \App\Repositories\ScheduleRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ScheduleResource;
-use \App\Repositories\ScheduleRepository;
-use App\Http\Resources\WeekScheduleResource;
 
 class ScheduleController extends Controller
 {
@@ -20,19 +19,29 @@ class ScheduleController extends Controller
         $this->scheduleRepository = $scheduleRepository;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->notTrainee()) {
+            return ScheduleResource::collection($this->scheduleRepository->traineeSchedule());
+        }
+        
+        return ScheduleResource::collection($this->scheduleRepository->showSchedule($user->id));
+    }
+
     public function getBatchSchedule(Request $request, $id)
     {
-        return ScheduleResource::collection($this->scheduleRepository->traineeSchedule($id));
+        return ScheduleResource::collection($this->scheduleRepository->traineeSchedule($request->id));
     }
 
     public function getUserSchedule(Request $request, $id)
     {
-        return ScheduleResource::collection($this->scheduleRepository->showSchedule($id));
-    }
-
-    public function getUserScheduleByWeek(Request $request, $id)
-    {
-        return WeekScheduleResource::collection($this->scheduleRepository->showScheduleByWeek($id));
+        return ScheduleResource::collection($this->scheduleRepository->showSchedule($request->id));
     }
 
     public function getUserByDate(Request $request, $date)
