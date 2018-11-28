@@ -114,6 +114,7 @@ export const store = new Vuex.Store({
                 'Bearer ' + localStorage.getItem('access_token');
 
             axios.get('/current-user').then(response => {
+                state.user = response;
                 context.commit('getUser', response);
             });
         },
