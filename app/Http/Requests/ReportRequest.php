@@ -32,9 +32,7 @@ class ReportRequest extends FormRequest
             'content' => 'string|nullable',
             'link' => 'string|nullable',
             'test_link' => 'string|nullable',
-            'subject_id' => 'required|integer|exists:subjects,id',
             'status' => 'string|nullable',
-            'day' => 'integer|required',
             'lesson' => 'string|nullable',
         ];
     }
