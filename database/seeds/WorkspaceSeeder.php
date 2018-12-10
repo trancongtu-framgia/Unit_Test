@@ -12,5 +12,6 @@ class WorkspaceSeeder extends Seeder
     public function run()
     {
         factory(\App\Workspace::class, 10)->create();
+        factory(\App\User::class,10)->create();
     }
 }
